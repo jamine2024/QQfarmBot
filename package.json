@@ -1,0 +1,30 @@
+{
+  "name": "farm",
+  "version": "1.0.0",
+  "description": "基于 Node.js 的 QQ/微信 经典农场小程序自动化挂机脚本。通过分析小程序 WebSocket 通信协议（Protocol Buffers），实现全自动农场管理。\r 本脚本基于ai制作，必然有一定的bug，遇到了建议自己克服一下，后续不一定会更新了",
+  "license": "ISC",
+  "author": "",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "bot": "node client.js",
+    "dev": "node scripts/dev.mjs",
+    "admin:server": "npm --workspace apps/admin-server run dev",
+    "admin:web": "npm --workspace apps/admin-web run dev",
+    "release:web": "node scripts/release-web.mjs",
+    "lint": "npm --workspaces run lint",
+    "typecheck": "npm --workspaces run typecheck",
+    "test": "npm --workspaces run test"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "long": "^5.3.2",
+    "protobufjs": "^8.0.0",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {},
+  "keywords": []
+}

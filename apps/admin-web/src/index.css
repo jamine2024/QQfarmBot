@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Unbounded:wght@400;600;800&display=swap");
+
+:root {
+  --bg-0: #07090f;
+  --bg-1: #0b1022;
+  --panel: rgba(255, 255, 255, 0.08);
+  --panel-2: rgba(255, 255, 255, 0.06);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --stroke-2: rgba(255, 255, 255, 0.08);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.64);
+  --accent: #6fffb8;
+  --accent-2: #7aa2ff;
+  --danger: #ff4d6d;
+  --warn: #ffd166;
+  --glass-rgb: 10 12 20;
+  --glass-alpha: 0.5;
+  --glass-alpha2: 0.4;
+
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 10% 10%, rgba(122, 162, 255, 0.20), transparent 60%),
+    radial-gradient(900px 900px at 80% 30%, rgba(111, 255, 184, 0.16), transparent 62%),
+    radial-gradient(1000px 900px at 45% 100%, rgba(255, 77, 109, 0.12), transparent 56%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.appRoot {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bgMesh {
+  position: absolute;
+  inset: -40vmax;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(111, 255, 184, 0.12), transparent 60%),
+    radial-gradient(closest-side, rgba(122, 162, 255, 0.14), transparent 62%),
+    radial-gradient(closest-side, rgba(255, 77, 109, 0.10), transparent 64%);
+  filter: blur(40px);
+  transform: translate3d(0, 0, 0);
+  animation: breathe 10s ease-in-out infinite;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+@keyframes breathe {
+  0% {
+    transform: translate3d(-3%, -1%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-3%, -1%, 0) scale(1);
+  }
+}
+
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--glass-rgb) / var(--glass-alpha)),
+    rgb(var(--glass-rgb) / var(--glass-alpha2))
+  );
+  border: 1px solid var(--stroke);
+  box-shadow: 0 30px 120px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 18px;
+}
+
+.range {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-2);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+}
+
+.kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--stroke-2);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: 8px;
+}

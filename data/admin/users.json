@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "805c271b-b0c8-4d84-86ee-47f3d46a0918",
+      "username": "admin",
+      "passwordHash": "scrypt$16384$8$1$64$ASHq1MHjI14ZRF4l8kkd+w==$3KYNvUGaZXHlMtyP8s+ZRToMcWcD6n0bMLcBj1Dum2KfPMXEVmDn3nm15wJwbwdFjkJx07htIUCT+bTl/DRZ5Q==",
+      "role": "admin",
+      "createdAt": "2026-02-11T17:02:36.581Z",
+      "updatedAt": "2026-02-11T17:02:36.581Z"
+    }
+  ]
+}

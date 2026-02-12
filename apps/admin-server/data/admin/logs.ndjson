@@ -1,0 +1,404 @@
+{"id":"a0b9043f-4cb4-4ddc-9901-6985d1752f3a","ts":"2026-02-11T15:23:33.984Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"3c01cf6a-9919-4fc9-b3c1-9cff2b8279f0","ts":"2026-02-11T15:23:34.078Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"66e1c87e-33b9-4aad-9d5e-896a5c51c4a7","ts":"2026-02-11T15:28:17.968Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"4edf972d-8160-4a46-822e-64f82e86de1f","ts":"2026-02-11T15:28:18.071Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"fd2fe8b3-8cab-41f7-9a4d-e5d520a7b163","ts":"2026-02-11T15:30:12.333Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"6375a32d-5a74-462a-8f4b-ca77ddc09c7f","ts":"2026-02-11T15:30:12.474Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"a273a1d6-aa3e-4a03-9b22-36a97887bba0","ts":"2026-02-11T15:31:15.665Z","level":"info","scope":"声明","message":"【声明】本项目开源免费，严禁倒卖。请从公开仓库免费获取。"}
+{"id":"0636a82d-13c6-483f-9688-f1eef909c822","ts":"2026-02-11T15:31:16.252Z","level":"info","scope":"BOT","message":"登录成功: Fiime奥奥 (gid=1002494283)"}
+{"id":"a5526ba6-d2e6-482f-9c89-1ee1fe2f99d7","ts":"2026-02-11T15:31:18.454Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"586b7cef-782a-42ee-8ed4-16ea615b8ef7","ts":"2026-02-11T15:31:18.509Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"5ec8702b-614c-48cf-ba02-ddf9cfbf5947","ts":"2026-02-11T15:31:18.559Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"86f144b8-2f75-4c29-accf-1fbbd0e50668","ts":"2026-02-11T15:31:18.558Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"df52497a-56fc-44b9-ae02-a4245f04fc0d","ts":"2026-02-11T15:31:18.950Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"82a24f1f-1907-453d-87fe-bbb5fc8bd528","ts":"2026-02-11T15:31:19.268Z","level":"info","scope":"仓库","message":"正在检查背包..."}
+{"id":"2cd4084d-30c9-4ac5-9e75-ca571acf7b69","ts":"2026-02-11T15:31:19.321Z","level":"info","scope":"仓库","message":"  [果实] 白萝卜(40002) x104"}
+{"id":"24e4ea89-25b2-416f-a516-41e5e55918a3","ts":"2026-02-11T15:31:19.321Z","level":"info","scope":"仓库","message":"  [果实] 白萝卜(40002) x5"}
+{"id":"18033397-07dc-4ab6-bc4c-02d382e0c3fb","ts":"2026-02-11T15:31:19.322Z","level":"info","scope":"仓库","message":"  [果实] 白萝卜(40002) x15"}
+{"id":"7df366d4-94c6-4ab9-8118-e9dfb29c2fc6","ts":"2026-02-11T15:31:19.319Z","level":"info","scope":"仓库","message":"背包共 22 种物品"}
+{"id":"32655285-d470-4a90-a226-ad85302c19d4","ts":"2026-02-11T15:31:19.323Z","level":"info","scope":"仓库","message":"  [果实] 胡萝卜(40003) x18"}
+{"id":"edf36634-7990-4872-b9d6-69fcfb35f71e","ts":"2026-02-11T15:31:19.325Z","level":"info","scope":"仓库","message":"  [果实] 小麦(40061) x3"}
+{"id":"97e52b6d-ef4a-4066-9165-da2a5b5b9154","ts":"2026-02-11T15:31:19.324Z","level":"info","scope":"仓库","message":"  [果实] 红玫瑰(40041) x351"}
+{"id":"17995dc8-11e6-419c-be4c-d75b7a17d2e3","ts":"2026-02-11T15:31:19.327Z","level":"info","scope":"仓库","message":"  [果实] 小雏菊(40105) x10"}
+{"id":"703a1ab7-1176-437d-83be-9520a32f4a6a","ts":"2026-02-11T15:31:19.329Z","level":"info","scope":"仓库","message":"  [果实] 小雏菊(40105) x27"}
+{"id":"8e8d1696-4bf5-4066-ae10-6895fd14ff24","ts":"2026-02-11T15:31:19.330Z","level":"info","scope":"仓库","message":"  [果实] 小雏菊(40105) x115"}
+{"id":"a5612e09-fae5-4311-a142-897737e359ad","ts":"2026-02-11T15:31:19.332Z","level":"info","scope":"仓库","message":"准备出售 10 种果实..."}
+{"id":"f309f2f3-0393-4f62-b5df-421c7d3383dc","ts":"2026-02-11T15:31:19.344Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"0eaad82c-5c0b-40ab-b18c-77fbff86061f","ts":"2026-02-11T15:31:19.332Z","level":"info","scope":"仓库","message":"  [果实] 银莲花(40259) x17"}
+{"id":"5ccef8b3-82b1-4ccf-bcd1-324858dc1e11","ts":"2026-02-11T15:31:19.343Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"43a51b15-7156-4185-a666-f4d4b5295d77","ts":"2026-02-11T15:31:19.378Z","level":"info","scope":"仓库","message":"出售完成，共获得 40978 金币"}
+{"id":"11b3bf06-016f-42df-9b0f-591dc2bc9f47","ts":"2026-02-11T15:31:21.958Z","level":"info","scope":"好友","message":"转角就路过: 草2/水1"}
+{"id":"9897bd84-7dde-44a2-9ca8-eb617f05c6e2","ts":"2026-02-11T15:31:22.711Z","level":"info","scope":"好友","message":"①ོ嗰ོ亽ོ、ོ淋ོ雨ོ: 草1"}
+{"id":"cbca9268-af71-4709-8d8c-c5765ddac5a0","ts":"2026-02-11T15:31:24.888Z","level":"info","scope":"好友","message":"‭ ‭: 偷10(小白菜)"}
+{"id":"753fe431-f217-46e9-bd20-38af919a75ea","ts":"2026-02-11T15:31:25.791Z","level":"info","scope":"好友","message":"[度之]: 草2"}
+{"id":"f8143ca2-2307-497c-9b68-5088397a8116","ts":"2026-02-11T15:31:26.340Z","level":"info","scope":"好友","message":"巡查 4 人 → 偷10/除草5/浇水1"}
+{"id":"27ef3085-2e79-4353-b5d7-aba736b092fe","ts":"2026-02-11T15:31:26.355Z","level":"info","scope":"仓库","message":"出售 小白菜x59，获得 1180 金币"}
+{"id":"ec60ada5-d1ff-4595-b9d8-2f790cc1e9a0","ts":"2026-02-11T15:31:31.185Z","level":"info","scope":"好友","message":"SuperSad: 虫1"}
+{"id":"59f4e39f-f0f4-4dad-8f17-6fc04f653f9d","ts":"2026-02-11T15:31:31.735Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"a1c66d5d-7b31-4dd6-841e-30e0e9b9c705","ts":"2026-02-11T15:31:49.577Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"eb773e05-5dcb-4209-b358-89518091a811","ts":"2026-02-11T15:31:49.617Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"8020e439-6696-4ed5-9b07-9b813cd16f74","ts":"2026-02-11T15:31:49.658Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"0b91e345-4a10-4e39-9dfc-67dadfcef4df","ts":"2026-02-11T15:31:49.656Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"c26c17f1-243b-4119-91b5-8781fb398113","ts":"2026-02-11T15:31:50.078Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"3d81cf15-1aa1-4e76-8891-9b77d82b8fde","ts":"2026-02-11T15:31:50.501Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"54a5bf44-3f9c-4ee0-b2f9-7c2b1153796d","ts":"2026-02-11T15:31:50.507Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"77c95a7b-4b05-4d4a-9fff-985b354853cc","ts":"2026-02-11T15:32:18.044Z","level":"info","scope":"好友","message":"转角就路过: 草1"}
+{"id":"3d0121e9-8486-4d3a-b45a-d7248288f2f5","ts":"2026-02-11T15:32:18.590Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"7bb2fe44-0cd2-4db1-a60c-25c43c502a09","ts":"2026-02-11T15:32:19.946Z","level":"info","scope":"好友","message":"月影西沉: 草1"}
+{"id":"a1a3a946-05c8-4036-bc41-ec7bfb81b4b7","ts":"2026-02-11T15:32:20.491Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"c986160f-50ea-4202-ab73-da80f29661ae","ts":"2026-02-11T15:32:20.725Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"739aea96-159d-4985-990b-2f5a9d2e1699","ts":"2026-02-11T15:32:20.762Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"cabb02da-7dc3-4ee9-bbc0-d0924d17da52","ts":"2026-02-11T15:32:20.799Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"393f8919-6d47-4055-acd8-1dfcfa1513a6","ts":"2026-02-11T15:32:20.799Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"d7af2186-6eff-4783-bec0-ae551675c505","ts":"2026-02-11T15:32:21.173Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"90b994eb-95d6-4bd2-9622-fbd15197ff58","ts":"2026-02-11T15:32:21.546Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"de57ea7f-5512-4530-a174-393701c84f3e","ts":"2026-02-11T15:32:21.546Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"fb2df9d5-1f7d-48f2-80c5-50fbd7d1ee67","ts":"2026-02-11T15:32:26.350Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"ece0085f-ecad-4b30-9abc-29304cbfbf5e","ts":"2026-02-11T15:32:31.022Z","level":"info","scope":"好友","message":"亖儿: 水1"}
+{"id":"0742a322-0d12-4e7b-80fe-3cf5d84f6c6b","ts":"2026-02-11T15:32:31.568Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"e9ab6635-dcd3-4169-a043-d267400acb43","ts":"2026-02-11T15:32:44.516Z","level":"info","scope":"好友","message":"[度之]: 水1"}
+{"id":"fcb595d0-def9-4235-9e75-9c177198b391","ts":"2026-02-11T15:32:45.067Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"c3fba745-066e-41fe-a738-a6f655b34ad2","ts":"2026-02-11T15:32:47.579Z","level":"info","scope":"好友","message":"①ོ嗰ོ亽ོ、ོ淋ོ雨ོ: 虫1"}
+{"id":"c3a207dd-4d5e-40d3-9016-d8fece81fa4b","ts":"2026-02-11T15:32:48.123Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"ebb022fd-9c27-4aaa-8910-14411fa33dc8","ts":"2026-02-11T15:32:50.638Z","level":"info","scope":"好友","message":"夏栀☺: 草1"}
+{"id":"859dbacc-dfaa-4565-ae02-a873e09d310a","ts":"2026-02-11T15:32:51.183Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"f8a6f625-a27a-46b6-a8e1-8308aae74ff1","ts":"2026-02-11T15:32:51.765Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"b2f0d37f-3d71-442a-932d-70daaec0f485","ts":"2026-02-11T15:32:51.806Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"d7b234b0-787d-4b01-94f6-2b97db3fc4e2","ts":"2026-02-11T15:32:51.848Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"a580426d-bd32-4a6d-a003-968961cfabaf","ts":"2026-02-11T15:32:51.850Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"a4fdb618-f640-4d81-a49a-3f988370c7eb","ts":"2026-02-11T15:32:52.225Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"e156fd70-84e3-473a-af4f-57da2c9f839b","ts":"2026-02-11T15:32:52.679Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"9b99ae8e-44a3-48bc-a9fd-5c9043efb384","ts":"2026-02-11T15:32:52.680Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"2e7bc10d-b2be-4568-ab91-da21b1eb1a0c","ts":"2026-02-11T15:32:54.840Z","level":"info","scope":"好友","message":"☆逆光背影√: 虫1"}
+{"id":"5ec331c2-b234-497f-b90f-d4a2947d5c71","ts":"2026-02-11T15:32:55.420Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"e134d39a-655e-4a24-a4e9-d83ac05cccb9","ts":"2026-02-11T15:33:14.271Z","level":"info","scope":"好友","message":"ㅤ: 虫1"}
+{"id":"15105053-d590-449d-a33f-24a0f1a06276","ts":"2026-02-11T15:33:14.820Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"5f061257-8aee-4302-91f9-60e10bcf6fac","ts":"2026-02-11T15:33:22.925Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"8896140f-e7c7-436b-886d-de7c8e4640b3","ts":"2026-02-11T15:33:22.962Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"34811345-975e-4a69-a541-a326bb5fe787","ts":"2026-02-11T15:33:22.999Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"fa039488-09a3-4ace-a111-b493723d76a0","ts":"2026-02-11T15:33:22.999Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"299737e5-5528-4bd0-aaa7-e0840e187faf","ts":"2026-02-11T15:33:23.032Z","level":"info","scope":"好友","message":"月影西沉: 草1"}
+{"id":"9822a834-f054-4c72-8177-f46474b0d738","ts":"2026-02-11T15:33:23.369Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"f9b9f088-7959-4c38-8a1f-7a5a6c34a262","ts":"2026-02-11T15:33:23.572Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"7ebecc55-0015-444d-8067-e75e08f69822","ts":"2026-02-11T15:33:23.745Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"e0ae99cb-e8af-4e19-9d4a-6e6468f71fd7","ts":"2026-02-11T15:33:23.745Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"a82fa30a-0747-4975-8a63-cefb451ddc1f","ts":"2026-02-11T15:33:26.357Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"038a98aa-05f5-44d8-9e05-9ecb16d73f0c","ts":"2026-02-11T15:33:43.946Z","level":"info","scope":"农场","message":"[水:1 长:17] → 浇水1"}
+{"id":"8a6003b6-8e4e-4c67-97c3-574bc51ea2b3","ts":"2026-02-11T15:33:46.644Z","level":"info","scope":"好友","message":"[度之]: 水1"}
+{"id":"b0c9e440-a5a2-4f43-91c4-997f8e2ef210","ts":"2026-02-11T15:33:47.190Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"ab4f4b7c-1e5c-48ce-83ad-b0392fa858ed","ts":"2026-02-11T15:33:54.145Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"f0319a34-bcc4-44ff-9c26-37150b8b12cc","ts":"2026-02-11T15:33:54.183Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"fade4fae-14ad-42b8-858d-a6fd03feb410","ts":"2026-02-11T15:33:54.223Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"1eef88fc-325b-476c-a424-d739c91823e4","ts":"2026-02-11T15:33:54.224Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"0373a55e-1e32-411d-b65c-16fad5278172","ts":"2026-02-11T15:33:54.601Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"74ef3829-a371-42d5-9ffc-3f8db6e98255","ts":"2026-02-11T15:33:54.977Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"b0b84f21-7b59-4218-8945-2e72b3776189","ts":"2026-02-11T15:33:54.977Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"3cc07770-8c6e-460a-ab9c-2d742dc16d80","ts":"2026-02-11T15:34:03.392Z","level":"info","scope":"好友","message":"平常心: 虫1"}
+{"id":"f8803e4b-1924-4276-a9f1-644bb3141b2a","ts":"2026-02-11T15:34:03.941Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"e4a887b3-3544-4c65-bc29-9be82efbde47","ts":"2026-02-11T15:34:25.247Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"24c78fd1-ce29-4d18-b26f-53116abc177d","ts":"2026-02-11T15:34:25.284Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"b57ca399-9558-4657-bff9-20048a73f809","ts":"2026-02-11T15:34:25.322Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"29bd9604-845a-4c1e-ab4a-bf796df47c23","ts":"2026-02-11T15:34:25.322Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"0648bad5-aa62-493c-8332-c39855cf73b5","ts":"2026-02-11T15:34:25.762Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"c76fc215-268b-4762-ae85-dd066b21adc0","ts":"2026-02-11T15:34:26.139Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"6d9b7ec0-6f6d-4112-b6ca-208363be91ab","ts":"2026-02-11T15:34:26.139Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"fdce1d3d-abc1-4ab9-aa82-13234801fe84","ts":"2026-02-11T15:34:26.368Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"1eeb9148-bff7-4abc-aac8-08b5eac124ae","ts":"2026-02-11T15:34:27.061Z","level":"info","scope":"好友","message":"小小农夫: 虫1"}
+{"id":"f9437926-7475-4e94-af19-75f2212ddae3","ts":"2026-02-11T15:34:27.611Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"f7da5341-a986-4b91-a2c9-4a729f59f936","ts":"2026-02-11T15:34:38.200Z","level":"info","scope":"好友","message":"亖儿: 水1"}
+{"id":"dfeb33f2-d8cb-4941-9b0f-2abd921a2ee2","ts":"2026-02-11T15:34:38.748Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"f430c375-3b2d-4bf1-883d-f35256386c0c","ts":"2026-02-11T15:34:56.340Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"ce8662c7-85d8-4312-ab05-8526e67a86ea","ts":"2026-02-11T15:34:56.377Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"66ca2984-1a56-4d3e-aabf-18edf0102b9d","ts":"2026-02-11T15:34:56.413Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"7573b50b-a516-47c0-adda-8f31735c0b88","ts":"2026-02-11T15:34:56.413Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"dbb089c0-e69d-463a-8ffb-ce781f7fff91","ts":"2026-02-11T15:34:56.787Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"772a4b5f-c677-4703-87cc-d24b783e6c60","ts":"2026-02-11T15:34:57.218Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"f09b31bb-6c97-4356-8eb2-db395be6a2df","ts":"2026-02-11T15:34:57.218Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"ac80b272-a202-46a4-bb67-03ce74bb72f3","ts":"2026-02-11T15:34:58.407Z","level":"info","scope":"好友","message":"Ryxkaii: 水1"}
+{"id":"65905989-647e-40e6-9b83-66bcc2fde990","ts":"2026-02-11T15:34:58.951Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"0d119113-851b-4e17-b25b-bc441d5a36ae","ts":"2026-02-11T15:35:21.036Z","level":"info","scope":"好友","message":"☆逆光背影√: 水1"}
+{"id":"7f9be2f0-1934-4bae-adda-fcd6a5845420","ts":"2026-02-11T15:35:21.573Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"8827f4b3-63bf-42ad-9f4d-a41b25600bf9","ts":"2026-02-11T15:35:26.373Z","level":"info","scope":"仓库","message":"出售 白萝卜x20，获得 40 金币"}
+{"id":"5fb5c2aa-d5f0-4ad8-8ec1-5619e6989e71","ts":"2026-02-11T15:35:27.516Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"ffa6698b-2f8f-4a0d-a2fa-7c0a673c3b67","ts":"2026-02-11T15:35:27.552Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"35019ea8-03b3-4b14-91f2-cc61caead10d","ts":"2026-02-11T15:35:27.589Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"366ff3ef-7483-4983-9e7f-b16495afa650","ts":"2026-02-11T15:35:27.589Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"3bd82e2e-0edf-4d21-aedf-44761b620dfc","ts":"2026-02-11T15:35:27.968Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"2596d9b6-1505-44d0-8a6a-ee7db03d8d73","ts":"2026-02-11T15:35:28.344Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"33beb7a9-3348-4550-a1ef-fd98fbcbcd5f","ts":"2026-02-11T15:35:28.344Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"567168b8-23cf-472d-b421-1c6f11cae321","ts":"2026-02-11T15:35:56.135Z","level":"info","scope":"好友","message":"转角就路过: 草1"}
+{"id":"9bfa4670-3b2f-4632-b096-9bb093ca002a","ts":"2026-02-11T15:35:56.684Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"978cbc5f-4f8c-47b3-909c-3cd95725baae","ts":"2026-02-11T15:35:58.542Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"0c0e1b68-47d3-4514-ab34-015770df5e96","ts":"2026-02-11T15:35:58.579Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"e132b0f3-0c9a-4464-a9ab-805773df298b","ts":"2026-02-11T15:35:58.615Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"ace8c594-730a-4649-9d4e-33618efcabb7","ts":"2026-02-11T15:35:58.616Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"e47594ce-f22d-4d90-9d66-8ccb9f1066df","ts":"2026-02-11T15:35:59.039Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"6cb56db9-aa35-4867-b71b-ccd15d82eb89","ts":"2026-02-11T15:35:59.414Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"7a2e859a-58c9-4340-abbe-19dbd2a9157b","ts":"2026-02-11T15:35:59.414Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"a993bc5d-faab-4f87-93e7-4a14a788b54e","ts":"2026-02-11T15:36:23.219Z","level":"info","scope":"好友","message":"繁星: 草1"}
+{"id":"4309acfa-b230-4ca8-b81e-26ad297c0779","ts":"2026-02-11T15:36:23.769Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"2d33f7fc-c57b-4569-b2ea-d61e28e11a46","ts":"2026-02-11T15:36:26.391Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"67f5e800-537d-4213-b525-183b3cdeeea7","ts":"2026-02-11T15:36:29.716Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"85872160-4667-406b-a538-175cb177eabc","ts":"2026-02-11T15:36:29.756Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"59b6c867-e3ec-4d9f-8034-bfc0ac1bc804","ts":"2026-02-11T15:36:29.796Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"273348d2-d22c-44ad-aa71-ecd891b34bfc","ts":"2026-02-11T15:36:29.797Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"f7221a6a-f8c8-4cf6-8f82-bb97a43989a8","ts":"2026-02-11T15:36:30.178Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"f757df0a-6619-4590-91a2-82f12fb9d317","ts":"2026-02-11T15:36:30.554Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"bd420e92-91d3-446f-9387-db469deb62e5","ts":"2026-02-11T15:36:30.553Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"33fb84ec-b752-4bdd-b33a-7f2a4de2a00e","ts":"2026-02-11T15:37:00.750Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"2920b8fc-3093-422a-b81f-a5cccf391235","ts":"2026-02-11T15:37:00.787Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"fca72af9-fa5b-4257-bb7c-15ab4010141f","ts":"2026-02-11T15:37:00.824Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"c5889d85-3e4f-43df-ac12-cec7e158e72d","ts":"2026-02-11T15:37:00.824Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"cfa1948d-fe1d-43cb-84f7-27ddfa372263","ts":"2026-02-11T15:37:01.204Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"1c94dbff-3147-4ff8-816e-af27e9f1feba","ts":"2026-02-11T15:37:01.575Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"0ad26502-440c-47bc-bf26-75db162c1a57","ts":"2026-02-11T15:37:01.575Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"c8ded527-4467-4e5b-b001-ef835608bd9c","ts":"2026-02-11T15:37:11.660Z","level":"info","scope":"农场","message":"[草:1 长:17] → 除草1"}
+{"id":"fce696bb-fd18-49b2-9b09-eaefa37efd55","ts":"2026-02-11T15:37:26.400Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"0ceb33ac-c421-4cce-8903-2ec705534658","ts":"2026-02-11T15:37:31.830Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"61260773-af98-427d-96cb-64906fc3bb0b","ts":"2026-02-11T15:37:31.867Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"25451379-2e15-412d-9ed8-94ab40d33079","ts":"2026-02-11T15:37:31.904Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"ec941bc4-ed02-46b7-be74-0f8ad0774b47","ts":"2026-02-11T15:37:31.904Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"525e57f1-6100-48e2-8717-20049a46e3bf","ts":"2026-02-11T15:37:32.284Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"b4f66d0f-3c19-4d33-9e72-e9e919dc955b","ts":"2026-02-11T15:37:32.691Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"7192d5f7-ac99-4ec2-809f-d9a6650ff557","ts":"2026-02-11T15:37:32.692Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"dc2ea47f-bc40-4ea3-931d-a529f42c417c","ts":"2026-02-11T15:37:42.790Z","level":"info","scope":"农场","message":"[虫:1 长:17] → 除虫1"}
+{"id":"6ceb1aea-933a-4840-ab12-582d0649cc78","ts":"2026-02-11T15:38:00.124Z","level":"info","scope":"好友","message":"月影西沉: 草1"}
+{"id":"8018e38b-7abc-4129-a250-edeaefd1e41f","ts":"2026-02-11T15:38:00.672Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"18681485-ae51-4cdb-8c39-a90b1524ad20","ts":"2026-02-11T15:38:03.049Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"0065cb0a-c9cd-41fb-ba16-f8e43f639b0d","ts":"2026-02-11T15:38:03.093Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"a9881c45-b8b8-4410-b109-d74c9e923933","ts":"2026-02-11T15:38:03.136Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"3ab0212e-2ea5-40f8-a222-d7d37a935484","ts":"2026-02-11T15:38:03.133Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"d4832842-5b48-4c0e-ad0f-0d677933cd76","ts":"2026-02-11T15:38:03.508Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"00018872-c1f7-4a03-9a13-04f7ab1ac319","ts":"2026-02-11T15:38:03.889Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"6a6dbe18-4fee-4dbc-acfd-eb400c6b9660","ts":"2026-02-11T15:38:03.888Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"3d64ae29-a2ab-4a67-ae25-b54fc43c7cce","ts":"2026-02-11T15:38:06.563Z","level":"info","scope":"好友","message":"转角就路过: 虫1"}
+{"id":"5c8353bd-688c-48cf-a2f6-b82050c832b7","ts":"2026-02-11T15:38:07.115Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"e8bfd597-8116-4be5-a4b1-5926c600aad0","ts":"2026-02-11T15:38:23.452Z","level":"info","scope":"好友","message":"平常心: 虫1"}
+{"id":"50001168-55a7-4249-a613-41ba52b45a30","ts":"2026-02-11T15:38:24.001Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"1c05fa09-a021-4bf3-b679-f52629765bb0","ts":"2026-02-11T15:38:24.110Z","level":"info","scope":"农场","message":"[水:1 长:17] → 浇水1"}
+{"id":"bb8fcba7-73d1-48b6-9756-83c27ca01383","ts":"2026-02-11T15:38:26.418Z","level":"info","scope":"仓库","message":"出售 白萝卜x40，获得 80 金币"}
+{"id":"71b005c1-e240-4010-ac66-146a7580f510","ts":"2026-02-11T15:38:34.228Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"f041d8d1-7705-4885-91ce-48d44ff59593","ts":"2026-02-11T15:38:34.334Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"34545293-1fa0-45af-9753-5bcb239adab1","ts":"2026-02-11T15:38:34.371Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"7651fce7-162a-491e-b8ec-a2a17863595b","ts":"2026-02-11T15:38:34.371Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"c302ce36-7a2b-4c8c-bdf7-4a6134f77231","ts":"2026-02-11T15:38:34.746Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"81c05c3d-5c9d-4354-911f-aa0d11c88f93","ts":"2026-02-11T15:38:35.120Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"69aaa286-eda0-4181-a570-9a9f91471569","ts":"2026-02-11T15:38:35.120Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"d4c0b18a-614e-410a-aade-9278451b258e","ts":"2026-02-11T15:38:55.258Z","level":"info","scope":"农场","message":"[水:1 长:17] → 浇水1"}
+{"id":"ed544d71-afbc-4549-9cb5-831cd10426da","ts":"2026-02-11T15:39:05.477Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"1ff1734a-bdf2-4f13-ae04-e6bd3c485f9f","ts":"2026-02-11T15:39:05.515Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"7fc96ead-deab-41ba-8c2b-bd68558e4a40","ts":"2026-02-11T15:39:05.551Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"f0ea0492-92a0-48ee-9395-7520c41de2cb","ts":"2026-02-11T15:39:05.551Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"5fc9598d-ce85-4da1-b547-f7722ee28c61","ts":"2026-02-11T15:39:05.928Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"b87f090e-694b-4b36-84e5-745a32d53987","ts":"2026-02-11T15:39:06.303Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"0a4d9bf3-3112-4f8c-9324-1bf645a278ee","ts":"2026-02-11T15:39:06.303Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"7d65802f-7330-4d5c-bfbb-4dd7037b13d3","ts":"2026-02-11T15:39:14.854Z","level":"info","scope":"好友","message":"小小农夫: 水1"}
+{"id":"4eb65ef7-f137-4ecc-bdce-20045f8dbbc9","ts":"2026-02-11T15:39:15.594Z","level":"info","scope":"好友","message":"月影西沉: 水1"}
+{"id":"69a40a59-6749-47df-a350-046b1083670b","ts":"2026-02-11T15:39:16.146Z","level":"info","scope":"好友","message":"巡查 2 人 → 浇水2"}
+{"id":"450d552a-e161-4df7-92b7-dfb1ee9c72df","ts":"2026-02-11T15:39:26.495Z","level":"info","scope":"仓库","message":"出售 白萝卜x35, 白萝卜x5，获得 100 金币"}
+{"id":"34919ab1-345f-4b3e-a9e5-795fbcc0f32b","ts":"2026-02-11T15:39:36.576Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"097e5cf7-8c27-44c8-bfe2-eef9659180e4","ts":"2026-02-11T15:39:36.613Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"c836861e-213e-43a7-b8eb-68921a3ca62f","ts":"2026-02-11T15:39:36.753Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"9b2c481a-4b7f-4719-8445-8447d84dc827","ts":"2026-02-11T15:39:36.753Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"c380aa52-66be-4506-aea3-4da8d8851e63","ts":"2026-02-11T15:39:37.124Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"4a349161-b90e-45e6-ab6b-61c38fd113a5","ts":"2026-02-11T15:39:37.495Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"025de6ae-ff28-4f06-87a9-6a9e40d4caec","ts":"2026-02-11T15:39:37.495Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"207f7607-1f2d-4d96-975f-c7871f39b4b6","ts":"2026-02-11T15:39:57.620Z","level":"info","scope":"农场","message":"[草:1 长:17] → 除草1"}
+{"id":"eeb56d12-0297-49ff-8be1-15cb2e06a36a","ts":"2026-02-11T15:40:07.731Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"e9c9d6a2-c3af-4100-a346-dd790eff5236","ts":"2026-02-11T15:40:07.768Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"1a061ce8-9556-4514-8398-cc0b53a438c6","ts":"2026-02-11T15:40:07.805Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"09cae591-fbf5-4453-8eab-c6d62fc4af17","ts":"2026-02-11T15:40:07.805Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"f633e292-46b4-414f-b980-eabc70342c51","ts":"2026-02-11T15:40:08.184Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"4899a2c0-8585-45a4-a5f1-ef61909ae115","ts":"2026-02-11T15:40:08.557Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"93e01831-8822-4fe3-bbb4-93e83b213752","ts":"2026-02-11T15:40:08.557Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"ca5ce8a2-4f9d-43a2-8ba9-adec07133552","ts":"2026-02-11T15:40:24.845Z","level":"info","scope":"好友","message":"繁星: 水1"}
+{"id":"e095da00-033b-49ee-aeb2-dd8dd42eb9bb","ts":"2026-02-11T15:40:25.394Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"4ab2c03a-2edc-4549-a98c-b8351b45eedc","ts":"2026-02-11T15:40:26.435Z","level":"info","scope":"仓库","message":"出售 白萝卜x35, 白萝卜x15，获得 100 金币"}
+{"id":"97decdcb-e0a0-4d4a-8b05-24038634c523","ts":"2026-02-11T15:40:28.768Z","level":"info","scope":"农场","message":"[水:1 长:17] → 浇水1"}
+{"id":"c0502e62-cd7e-41a3-8ecf-704662fc943f","ts":"2026-02-11T15:40:38.886Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"6400f985-53e5-4f85-bbe6-dab9bde8ee1e","ts":"2026-02-11T15:40:38.922Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"0aac7da7-a57b-4a55-888f-474512a36045","ts":"2026-02-11T15:40:38.959Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"4364e8f4-2f02-47dd-91ae-8f40bb5c5668","ts":"2026-02-11T15:40:38.959Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"15711db2-853d-4fcb-939c-f7f4c77ed7df","ts":"2026-02-11T15:40:39.402Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"4a7930eb-dee8-478c-86da-8a78edd38241","ts":"2026-02-11T15:40:39.773Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"e45d393c-1599-429b-ad2e-89cd20cbee82","ts":"2026-02-11T15:40:39.773Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"5adc447c-ddb0-4290-b078-00d158381582","ts":"2026-02-11T15:40:41.502Z","level":"info","scope":"好友","message":"小龙猫仔: 水1"}
+{"id":"0b7ce176-f2f6-4340-90a2-1936a3a35c16","ts":"2026-02-11T15:40:42.053Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"b62040e3-af12-47d0-901c-ca04e40d2e33","ts":"2026-02-11T15:41:05.093Z","level":"info","scope":"好友","message":"☆逆光背影√: 虫1"}
+{"id":"1d9bc0ce-c769-41b0-bc01-e55d93e9bcab","ts":"2026-02-11T15:41:05.639Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"ca2e771d-be44-45bc-808f-6cdee8feb3ac","ts":"2026-02-11T15:41:09.975Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"f8eef014-db72-4f30-933a-04699ee6e81c","ts":"2026-02-11T15:41:10.012Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"6994477e-5f3e-4a48-8c75-b9c11ce40242","ts":"2026-02-11T15:41:10.048Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"29d1d6dd-8031-4cca-aaa1-251a6ecd44f3","ts":"2026-02-11T15:41:10.048Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"7b614092-6585-4b14-bb35-20d43ef103f2","ts":"2026-02-11T15:41:10.464Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"f8d5e3e1-f183-48e5-a24f-a0bda0461254","ts":"2026-02-11T15:41:10.835Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"a572a98a-3d26-43e7-b5e6-ff248b1a6e1e","ts":"2026-02-11T15:41:10.835Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"adae411f-73bf-40b2-a8b7-18f10fae116d","ts":"2026-02-11T15:41:26.447Z","level":"info","scope":"仓库","message":"出售 白萝卜x35, 白萝卜x5，获得 90 金币"}
+{"id":"e5a63ba4-b937-44ca-af83-e56abeb9fd89","ts":"2026-02-11T15:41:41.080Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"2bac1be8-5f8c-4122-a829-5a7bfe506be8","ts":"2026-02-11T15:41:41.117Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"0297d625-f5d9-4661-a8e0-3c7f7980bea3","ts":"2026-02-11T15:41:41.153Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"00601055-d807-469f-95dc-660e6cbc05b4","ts":"2026-02-11T15:41:41.153Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"45762f47-524f-462b-91cc-92ea12de7b46","ts":"2026-02-11T15:41:41.539Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"103812f1-f3d3-401b-b6e4-f276473f7045","ts":"2026-02-11T15:41:41.916Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"99419ac7-62f0-4a60-8920-67da8d84bd9d","ts":"2026-02-11T15:41:41.916Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"f8ad73d8-dc26-4300-adaa-c65efb2fb5f3","ts":"2026-02-11T15:41:44.626Z","level":"info","scope":"好友","message":"月影西沉: 水1"}
+{"id":"feb20dce-87a4-4a64-bb64-a57f368b0a4a","ts":"2026-02-11T15:41:45.176Z","level":"info","scope":"好友","message":"巡查 1 人 → 浇水1"}
+{"id":"946c003e-80be-401f-b790-eb458bd3fa91","ts":"2026-02-11T15:41:53.355Z","level":"info","scope":"好友","message":"。: 虫1"}
+{"id":"701e74a3-f95a-45d2-a6dc-37c328129c74","ts":"2026-02-11T15:41:53.903Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"9657f308-314b-49e9-956d-942ce9d8f1e3","ts":"2026-02-11T15:42:08.983Z","level":"info","scope":"好友","message":"情非得已c: 草1"}
+{"id":"16dc70c1-6a0d-4960-a364-8c62f4b6f7d4","ts":"2026-02-11T15:42:09.530Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"6414eca8-8a18-4fb4-8d3a-866901d1ee66","ts":"2026-02-11T15:42:12.179Z","level":"info","scope":"铲除","message":"已铲除 4 块 (3,5,10,17)"}
+{"id":"fc3b60ef-c0db-4d40-b9af-4ac320b1f56d","ts":"2026-02-11T15:42:12.216Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"ff9b186e-9f99-4db0-9294-233aa8e0e96c","ts":"2026-02-11T15:42:12.253Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=4"}
+{"id":"b0798105-dfe8-4e23-b611-17cca0622e50","ts":"2026-02-11T15:42:12.254Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x4, 花费 8 金币"}
+{"id":"f9df73d9-58ad-43c5-a216-78817ee00942","ts":"2026-02-11T15:42:12.634Z","level":"info","scope":"种植","message":"已在 4 块地种植 (3,5,10,17)"}
+{"id":"45d0a097-2b2b-4a7b-b953-31616a46e66e","ts":"2026-02-11T15:42:13.008Z","level":"info","scope":"施肥","message":"已为 4/4 块地施肥"}
+{"id":"9d1d6473-7620-4a91-9fe4-9bb11a1c4d85","ts":"2026-02-11T15:42:13.009Z","level":"info","scope":"农场","message":"[收:4 长:13] → 收获4/种植4"}
+{"id":"08e51618-756b-4d3b-aa38-5c7fd537ec55","ts":"2026-02-11T15:42:18.828Z","level":"info","scope":"好友","message":"Ryxkaii: 草1"}
+{"id":"ba0cab71-3ad0-4e33-aac9-28d96a8e7daf","ts":"2026-02-11T15:42:19.375Z","level":"info","scope":"好友","message":"巡查 1 人 → 除草1"}
+{"id":"16ffbb2d-94c5-4249-9f2c-e5a6294c264f","ts":"2026-02-11T15:42:20.705Z","level":"info","scope":"好友","message":"繁星: 虫1"}
+{"id":"e404a2b7-dedc-4ec6-a14b-61c7282659f5","ts":"2026-02-11T15:42:21.249Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"6a6d7ca7-f1e8-421f-9db2-245ee420522b","ts":"2026-02-11T15:42:26.458Z","level":"info","scope":"仓库","message":"出售 白萝卜x35, 白萝卜x5，获得 100 金币"}
+{"id":"dfca808d-b580-4761-beee-25bb3a4005e3","ts":"2026-02-11T15:43:01.075Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"a0e8b6e4-08a5-4e03-8f09-e5fee23de87b","ts":"2026-02-11T15:43:01.112Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"d8bdabfb-a4d9-4a3d-bbe8-c1d836c39529","ts":"2026-02-11T15:43:11.930Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"4bc5a414-dbe8-4bd9-a048-7ccaea6b96f3","ts":"2026-02-11T15:43:11.972Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"83b5a5ef-dee1-4731-98a6-81a600cc1de0","ts":"2026-02-11T15:47:32.769Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"cebdc36d-0280-4156-ac1b-2e662f143262","ts":"2026-02-11T15:54:58.508Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"9828cf03-3096-4be2-b294-882e92b6a76e","ts":"2026-02-11T15:54:58.544Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"a4e701f4-c092-41fd-bbe8-0bee4ee7674b","ts":"2026-02-11T15:55:18.206Z","level":"info","scope":"声明","message":"【声明】本项目开源免费，严禁倒卖。请从公开仓库免费获取。"}
+{"id":"265d6766-a6f0-4b1b-936c-284e7ed53872","ts":"2026-02-11T15:55:18.596Z","level":"warn","scope":"WS","message":"错误: Unexpected server response: 400"}
+{"id":"13c264ff-b479-4ddd-9b1b-c243ab44d333","ts":"2026-02-11T16:04:40.622Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"f8a6e04a-87da-464d-97b6-2dcc3ec6b6ee","ts":"2026-02-11T16:04:40.657Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"cab82a62-17bf-467b-830f-1c80c7121745","ts":"2026-02-11T16:12:38.054Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"4993245e-7908-43a9-aa36-43519e29eed8","ts":"2026-02-11T16:12:38.087Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"8a1612c6-ec45-4229-ac7c-929237f64f24","ts":"2026-02-11T16:15:23.800Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"0890b15d-fc51-4da7-a95a-2498d5a3e58e","ts":"2026-02-11T16:15:23.833Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"da657ad5-fe56-41f3-9116-b96cd561a381","ts":"2026-02-11T16:17:29.257Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"5c2f6bf2-9178-4baa-a221-558d71cd6b40","ts":"2026-02-11T16:17:29.292Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"8cd8995d-36ea-4e60-9c00-47692a8ba174","ts":"2026-02-11T16:17:54.377Z","level":"info","scope":"声明","message":"【声明】本项目开源免费，严禁倒卖。请从公开仓库免费获取。"}
+{"id":"e2988f1f-8e70-4bb0-a912-d0ec36349d5b","ts":"2026-02-11T16:17:54.823Z","level":"warn","scope":"WS","message":"错误: Unexpected server response: 400"}
+{"id":"2c2a17ec-47d6-4aa3-97d0-9150cde584c1","ts":"2026-02-11T16:18:53.093Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"b1df5fc6-7d58-4b1f-ab81-ae91ae96abb1","ts":"2026-02-11T16:18:53.136Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"b579eb8c-f4fd-4423-b0d6-1edbaa0a8cab","ts":"2026-02-11T16:19:15.841Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"8b46fe8c-6e4d-46ed-9693-b8b5eb88e008","ts":"2026-02-11T16:19:15.874Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"29f26d45-a78b-47b1-b278-bd95d51e2bf6","ts":"2026-02-11T16:19:36.442Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"f840b33b-8305-4d34-be81-b9c0f96349c2","ts":"2026-02-11T16:19:36.481Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"a0ab3a4a-67ea-4436-ad39-572e0dac2170","ts":"2026-02-11T16:22:07.709Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"cf0d5157-9579-4c94-a210-d35343c20679","ts":"2026-02-11T16:22:07.744Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"0629339d-f00e-4899-9fb6-0144bbfb0ae6","ts":"2026-02-11T16:23:43.035Z","level":"info","scope":"声明","message":"【声明】本项目开源免费，严禁倒卖。请从公开仓库免费获取。"}
+{"id":"72196f0a-b4be-46af-bfb4-286c44b9c755","ts":"2026-02-11T16:23:43.617Z","level":"info","scope":"BOT","message":"登录成功: Fiime奥奥 (gid=1002494283)"}
+{"id":"cfde7abc-17ae-4daf-8c4d-81b0b9d21fc2","ts":"2026-02-11T16:23:45.783Z","level":"info","scope":"铲除","message":"已铲除 4 块 (2,3,5,10)"}
+{"id":"46c1e445-efab-4380-a478-72a175e6206d","ts":"2026-02-11T16:23:45.840Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"e7a6692d-310c-48b2-9595-f7f26ad124a4","ts":"2026-02-11T16:23:45.879Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"007aecd7-5b75-4ea2-8d06-3bc057671d9a","ts":"2026-02-11T16:23:45.879Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"4a17c200-0e29-4f75-9212-79f54e31cc2e","ts":"2026-02-11T16:23:46.355Z","level":"info","scope":"种植","message":"已在 5 块地种植 (17,2,3,5,10)"}
+{"id":"951bd3e1-b538-4b62-93c6-1277d80f827f","ts":"2026-02-11T16:23:46.640Z","level":"info","scope":"仓库","message":"正在检查背包..."}
+{"id":"fe0ea0ab-2947-4554-beca-2d8797c53c67","ts":"2026-02-11T16:23:46.680Z","level":"info","scope":"仓库","message":"  [果实] 大白菜(40059) x26"}
+{"id":"d22e6b48-b1a2-4663-8a37-f6d025bc28f4","ts":"2026-02-11T16:23:46.676Z","level":"info","scope":"仓库","message":"背包共 19 种物品"}
+{"id":"08098866-ca76-407d-9ec8-ec72e9185437","ts":"2026-02-11T16:23:46.677Z","level":"info","scope":"仓库","message":"  [果实] 白萝卜(40002) x101"}
+{"id":"4d3caa3d-6ad3-411d-89ab-3849f8769031","ts":"2026-02-11T16:23:46.678Z","level":"info","scope":"仓库","message":"  [果实] 红玫瑰(40041) x200"}
+{"id":"70d31418-ccce-4cec-bb37-92c20c6b76bc","ts":"2026-02-11T16:23:46.682Z","level":"info","scope":"仓库","message":"  [果实] 小白菜(40071) x12"}
+{"id":"cf351b8d-4f1f-47ad-a19f-1f652e308a5e","ts":"2026-02-11T16:23:46.685Z","level":"info","scope":"仓库","message":"准备出售 5 种果实..."}
+{"id":"4b5ab0e0-3fb5-44ec-bee4-2f4a71bb958b","ts":"2026-02-11T16:23:46.683Z","level":"info","scope":"仓库","message":"  [果实] 小白菜(40071) x10"}
+{"id":"577501e7-26d6-42d6-a9dc-9f3214675f75","ts":"2026-02-11T16:23:46.734Z","level":"info","scope":"仓库","message":"出售完成，共获得 21694 金币"}
+{"id":"9fd9d5aa-5901-4064-bfc1-618613c29795","ts":"2026-02-11T16:23:46.840Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"1996a5e6-1a1c-4906-b44a-c47213fe5992","ts":"2026-02-11T16:23:46.841Z","level":"info","scope":"农场","message":"[收:4 空:1 长:12] → 收获4(白萝卜4)/种植5"}
+{"id":"c0ed55a0-8100-4c39-85af-c70bb2d6f723","ts":"2026-02-11T16:23:49.142Z","level":"info","scope":"好友","message":"牧人: 草2"}
+{"id":"02fdda12-6006-4cca-9b85-9c14a08cde09","ts":"2026-02-11T16:23:49.891Z","level":"info","scope":"好友","message":"小龙猫仔: 虫1"}
+{"id":"416c61fa-c1b2-42bf-b50e-354d6a3e809a","ts":"2026-02-11T16:23:50.791Z","level":"info","scope":"好友","message":"夏栀☺: 草1/水1"}
+{"id":"21f8d74e-b7f9-41ec-ba96-3b63b994aa22","ts":"2026-02-11T16:23:51.677Z","level":"info","scope":"好友","message":"[度之]: 草2"}
+{"id":"22f947e1-fcdd-4933-9ee6-7838ef71ea14","ts":"2026-02-11T16:23:52.412Z","level":"info","scope":"好友","message":"伸手挽明月: 草1"}
+{"id":"05e36cdf-ec2b-4cbd-b915-57389d2c5afa","ts":"2026-02-11T16:23:53.569Z","level":"info","scope":"好友","message":"Django: 草1/虫2/水1"}
+{"id":"68a262b7-80b6-4b69-8341-7b0dc6b45b20","ts":"2026-02-11T16:23:54.474Z","level":"info","scope":"好友","message":"Λ_Λ: 草1/水1"}
+{"id":"6f3dbca8-4116-4b27-b6e7-f03031989f83","ts":"2026-02-11T16:23:55.208Z","level":"info","scope":"好友","message":"①ོ嗰ོ亽ོ、ོ淋ོ雨ོ: 虫1"}
+{"id":"f3918e7b-e99d-4f1c-b48b-7eea8759b1ce","ts":"2026-02-11T16:23:55.938Z","level":"info","scope":"好友","message":"平常心: 虫1"}
+{"id":"cf0b05d9-e73b-43f8-b2e9-332489edbbb0","ts":"2026-02-11T16:23:56.930Z","level":"info","scope":"农场","message":"[虫:1 长:17] → 除虫1"}
+{"id":"8b28c300-9015-4301-a08c-be6e2593ff95","ts":"2026-02-11T16:23:56.999Z","level":"info","scope":"好友","message":"〆  L.x.x东ミ: 偷3(小麦3)"}
+{"id":"04009377-a647-46bd-a2e9-655bfde986b8","ts":"2026-02-11T16:23:57.727Z","level":"info","scope":"好友","message":"SuperSad: 虫1"}
+{"id":"f2498823-a836-4b8b-9590-38da23b123a5","ts":"2026-02-11T16:23:58.906Z","level":"info","scope":"好友","message":"月影西沉: 草2/虫2"}
+{"id":"e93f1d42-1f59-461d-9379-9d0c44938068","ts":"2026-02-11T16:24:00.812Z","level":"info","scope":"好友","message":"可包: 虫1/水1"}
+{"id":"cec93a5f-412c-408c-b808-7a2b99e56c5f","ts":"2026-02-11T16:24:01.861Z","level":"info","scope":"好友","message":"情非得已c: 水1/偷2(红枣2)"}
+{"id":"343e047a-bfca-4cd3-97fb-92649abb4025","ts":"2026-02-11T16:24:03.214Z","level":"info","scope":"好友","message":"惢⌒碎了无痕: 偷2(大蒜2)"}
+{"id":"c939f00c-ec67-416b-8907-ca702e84a874","ts":"2026-02-11T16:24:03.763Z","level":"info","scope":"好友","message":"巡查 15 人 → 偷7/除草10/除虫9/浇水5"}
+{"id":"e07d3552-172d-4608-8be0-af859d50acec","ts":"2026-02-11T16:24:14.099Z","level":"info","scope":"好友","message":"月影西沉: 虫1"}
+{"id":"542767a8-8dbc-41bc-aa08-a8f931d96b41","ts":"2026-02-11T16:24:14.645Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"e46f2b70-984a-4fb2-8991-1fd1f245bba3","ts":"2026-02-11T16:24:17.092Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"9862de66-e561-48c5-a842-a0ab0b638665","ts":"2026-02-11T16:24:17.132Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"7c9ac1d7-ff16-4366-a2ea-ce4a5eb8d0fa","ts":"2026-02-11T16:24:17.169Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"c36b307c-9149-4778-8750-012273b839bf","ts":"2026-02-11T16:24:17.169Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"4946fcc8-0b2c-4857-b77b-e793cc3eac30","ts":"2026-02-11T16:24:17.652Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"b5cf4041-f121-4846-87c8-0796db5bbd29","ts":"2026-02-11T16:24:18.120Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"36ca913c-4873-430f-9a66-ada44f4e495e","ts":"2026-02-11T16:24:18.122Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"6fe0c66e-bdde-4ffe-b7a7-792525920bd9","ts":"2026-02-11T16:24:45.257Z","level":"info","scope":"好友","message":"Ryxkaii: 草1"}
+{"id":"3d1a8a6f-b89b-4f45-a1b0-fe827f3f836d","ts":"2026-02-11T16:24:45.990Z","level":"info","scope":"好友","message":"繁星: 虫1"}
+{"id":"3e091ae4-0b5d-41dd-b73e-2efc18d26756","ts":"2026-02-11T16:24:46.723Z","level":"info","scope":"好友","message":"①ོ嗰ོ亽ོ、ོ淋ོ雨ོ: 水1"}
+{"id":"dc59130f-8c11-42c3-9f90-996783535014","ts":"2026-02-11T16:24:47.268Z","level":"info","scope":"好友","message":"巡查 3 人 → 除草1/除虫1/浇水1"}
+{"id":"f24aaf7d-9af8-4931-b808-e182b315925a","ts":"2026-02-11T16:24:48.319Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"573e3a17-566a-4c89-90cc-794822e636c2","ts":"2026-02-11T16:24:48.353Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"ad5494ee-e8c1-4376-8d42-81f4d44110ea","ts":"2026-02-11T16:24:48.387Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"6bf72814-3ed8-4eef-bf46-69c0cc574ce1","ts":"2026-02-11T16:24:48.387Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"d740a982-2d68-40e7-9c92-3c0950822e9c","ts":"2026-02-11T16:24:48.859Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"586f250e-70a2-4df6-a5cd-06a50c3e0b2e","ts":"2026-02-11T16:24:49.327Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"d307c08b-3368-4574-b235-29d28ff7d434","ts":"2026-02-11T16:24:49.328Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"72f6c671-f4b6-4628-8aeb-74b0dd7fecf1","ts":"2026-02-11T16:24:53.715Z","level":"info","scope":"仓库","message":"出售 白萝卜x50, 红枣x32, 小麦x13, 大蒜x7，获得 1706 金币"}
+{"id":"0bb6aba5-90cb-4fb1-bec7-24db2b3a7baa","ts":"2026-02-11T16:24:57.585Z","level":"info","scope":"好友","message":"平常心: 水1"}
+{"id":"9ed86581-a6b3-4057-8595-0ce751102d3a","ts":"2026-02-11T16:24:58.320Z","level":"info","scope":"好友","message":"月影西沉: 虫1"}
+{"id":"efbc892c-ef35-450c-83e5-acb6310d4cf4","ts":"2026-02-11T16:24:58.858Z","level":"info","scope":"好友","message":"巡查 2 人 → 除虫1/浇水1"}
+{"id":"211edfa3-f4af-464f-9793-37c2c8766ede","ts":"2026-02-11T16:25:19.351Z","level":"info","scope":"好友","message":"。: 虫1"}
+{"id":"6464b669-2093-4d54-9207-6ca2d1b1a53e","ts":"2026-02-11T16:25:19.531Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"07eda3bb-4533-4484-8f40-ac75e7bf5ca0","ts":"2026-02-11T16:25:19.569Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"9768c452-8a33-4f59-b94e-b52d7470c409","ts":"2026-02-11T16:25:19.606Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"356e398b-93ad-4d2b-833d-40945a4c6db6","ts":"2026-02-11T16:25:19.607Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"2924b776-097d-4871-85d0-c4b1d8c43dec","ts":"2026-02-11T16:25:19.895Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"8b4cf0c3-d623-48de-b7ae-b2e57d971e54","ts":"2026-02-11T16:25:20.078Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"8a4ca414-db13-437f-87e1-77585e3c1750","ts":"2026-02-11T16:25:20.576Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"20d6bb55-42c2-4b6f-9895-5f8a2509efe7","ts":"2026-02-11T16:25:20.578Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"5ab89d53-03e5-40ae-a950-0d1d4dd98a68","ts":"2026-02-11T16:25:50.535Z","level":"info","scope":"好友","message":"亖儿: 偷1(韭菜1)"}
+{"id":"943be96c-94ff-4e13-ab61-c59e1fdecf69","ts":"2026-02-11T16:25:50.780Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"3d346071-6888-45a3-ab0d-e0709dae186e","ts":"2026-02-11T16:25:50.823Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"ecce4b21-0008-4393-924f-99aa54653ea5","ts":"2026-02-11T16:25:50.859Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"14c7dab6-8a00-4e58-9c30-4358d1c43363","ts":"2026-02-11T16:25:50.859Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"2148aee4-f298-47cf-bb8f-9ce1a9eb8b06","ts":"2026-02-11T16:25:51.077Z","level":"info","scope":"好友","message":"巡查 1 人 → 偷1"}
+{"id":"d3f57d55-b96a-4bb9-baf0-59ee64b9fd04","ts":"2026-02-11T16:25:51.344Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"03e31b57-8330-4aa2-9a5f-ccb728240aa3","ts":"2026-02-11T16:25:51.815Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"12ee4c7b-4996-489b-9570-82aff05b09f8","ts":"2026-02-11T16:25:51.816Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"c198e87b-aa2a-4efc-8598-13c844d42398","ts":"2026-02-11T16:25:53.734Z","level":"info","scope":"仓库","message":"出售 白萝卜x50, 韭菜x5，获得 580 金币"}
+{"id":"c16f8b92-a3ea-4245-bf7b-da5c31f023b1","ts":"2026-02-11T16:26:01.432Z","level":"info","scope":"好友","message":"Forever: 水1"}
+{"id":"e2051169-b79d-45d5-81ce-779de4722aa3","ts":"2026-02-11T16:26:03.791Z","level":"info","scope":"好友","message":"ㅤ: 虫12"}
+{"id":"debac2ce-6857-4dc8-b3d2-c1e25190303f","ts":"2026-02-11T16:26:04.336Z","level":"info","scope":"好友","message":"巡查 2 人 → 除虫12/浇水1"}
+{"id":"dbe6ba56-c6bc-40ad-908e-71fc4b7d18d0","ts":"2026-02-11T16:26:15.294Z","level":"info","scope":"好友","message":"ㅤ: 虫5"}
+{"id":"193a0c7f-dc2d-4e33-ad0c-f5a7f323dc7b","ts":"2026-02-11T16:26:15.845Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫5"}
+{"id":"e0d32d17-8cea-454e-8df9-a94216ac6025","ts":"2026-02-11T16:26:22.009Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"7ff4d1be-2b99-46fc-8ac6-9544e4fd0ffc","ts":"2026-02-11T16:26:22.044Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"1ecd5993-4b3c-46e1-a6d8-2e481997b353","ts":"2026-02-11T16:26:22.082Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"9283db2b-2d39-4eb4-8ba8-807efdec8aa0","ts":"2026-02-11T16:26:22.081Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"135c9607-154e-4720-a61f-1289d6fd6116","ts":"2026-02-11T16:26:22.547Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"c1aebe42-9277-4b00-8483-73bc263c2dfc","ts":"2026-02-11T16:26:23.017Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"f598974e-ec4e-4727-8fc0-e6a77a141431","ts":"2026-02-11T16:26:23.015Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"4fba7423-9c8f-41ec-af01-026667a68c2b","ts":"2026-02-11T16:26:26.206Z","level":"info","scope":"好友","message":"芯焕: 虫1"}
+{"id":"f5129be9-a509-4e7b-8ee5-7bd2066404e5","ts":"2026-02-11T16:26:26.756Z","level":"info","scope":"好友","message":"巡查 1 人 → 除虫1"}
+{"id":"e432280d-5adf-4aed-8f91-dd2552ace8c9","ts":"2026-02-11T16:26:37.087Z","level":"info","scope":"好友","message":"转角就路过: 虫1"}
+{"id":"d19a4284-5df5-4738-8219-2a580b15ef6f","ts":"2026-02-11T16:26:37.820Z","level":"info","scope":"好友","message":"①ོ嗰ོ亽ོ、ོ淋ོ雨ོ: 虫1"}
+{"id":"8f6237e4-bef2-4400-b327-9d06f26fba59","ts":"2026-02-11T16:26:38.357Z","level":"info","scope":"好友","message":"巡查 2 人 → 除虫2"}
+{"id":"969b766c-8e30-4388-8aca-b8e8bda672d8","ts":"2026-02-11T16:26:53.222Z","level":"info","scope":"铲除","message":"已铲除 5 块 (2,3,5,10,17)"}
+{"id":"412be02c-f24f-467d-913e-29cf20b46d09","ts":"2026-02-11T16:26:53.265Z","level":"info","scope":"商店","message":"最佳种子: 白萝卜 (20002) 价格=2金币 生长1分钟"}
+{"id":"bed29b4e-0b9c-46ec-9a49-8993a67f8d7d","ts":"2026-02-11T16:26:53.300Z","level":"info","scope":"购买","message":"已购买 白萝卜种子 x5, 花费 10 金币"}
+{"id":"1a653780-112b-4fb1-b7f7-e15d3a600c35","ts":"2026-02-11T16:26:53.299Z","level":"info","scope":"购买","message":"获得物品: id=20002 count=5"}
+{"id":"1fde2862-673f-4420-959b-88487d4e17b6","ts":"2026-02-11T16:26:53.746Z","level":"info","scope":"仓库","message":"出售 白萝卜x50，获得 100 金币"}
+{"id":"958bdefa-fc1e-4807-932a-4831ecad60e5","ts":"2026-02-11T16:26:53.771Z","level":"info","scope":"种植","message":"已在 5 块地种植 (2,3,5,10,17)"}
+{"id":"039b4a42-e219-4a2d-a147-c3d2e4db4358","ts":"2026-02-11T16:26:54.242Z","level":"info","scope":"农场","message":"[收:5 长:12] → 收获5(白萝卜5)/种植5"}
+{"id":"1ab247db-8862-49ac-955a-662dc06127ab","ts":"2026-02-11T16:26:54.241Z","level":"info","scope":"施肥","message":"已为 5/5 块地施肥"}
+{"id":"72934478-cf5a-4972-ad3c-b42fca975fe3","ts":"2026-02-11T16:27:50.521Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"d4f0a6be-5816-4294-b0d4-d442c8cc86ce","ts":"2026-02-11T16:27:50.578Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"fd740d2a-0ed5-4d6f-8f51-c27fa886e514","ts":"2026-02-11T16:27:57.166Z","level":"info","scope":"声明","message":"【声明】本项目开源免费，严禁倒卖。请从公开仓库免费获取。"}
+{"id":"44c25bdd-9398-4ea2-a2e9-1797f8d63554","ts":"2026-02-11T16:27:57.544Z","level":"warn","scope":"WS","message":"错误: Unexpected server response: 400"}
+{"id":"c6c3df1f-454e-4d1a-8121-0df4e25d29f6","ts":"2026-02-11T16:37:23.173Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"735dccf8-192a-4c73-8ba7-a313c7d9ccf1","ts":"2026-02-11T16:37:23.208Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"de5bb979-6b6a-473a-be05-af2f286d3d30","ts":"2026-02-11T16:55:41.565Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"8282a54a-0058-46cf-8864-6d49d8d50a83","ts":"2026-02-11T16:55:41.600Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"79a8a03a-b4e3-4bc4-8605-39aec820e92f","ts":"2026-02-11T17:01:31.987Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"b7aa2d68-72d3-40f2-89cb-d0da72600eb7","ts":"2026-02-11T17:01:32.026Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"bd565378-29b6-47fa-b18e-43caf53da240","ts":"2026-02-11T17:01:54.966Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"234054c1-8402-4410-aba0-ff97a4ee32b4","ts":"2026-02-11T17:01:54.999Z","level":"info","scope":"SERVER","message":"Listening on http://0.0.0.0:8787","details":{"ws":"ws://0.0.0.0:8787/ws"}}
+{"id":"90944076-958f-48cf-b5eb-07fa91cc9e91","ts":"2026-02-11T17:02:24.317Z","level":"info","scope":"SERVER","message":"Admin server booting..."}

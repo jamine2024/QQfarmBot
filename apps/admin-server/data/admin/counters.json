@@ -1,0 +1,25 @@
+{
+  "updatedAt": "2026-02-11T16:26:54.245Z",
+  "actions": {
+    "water": 8,
+    "bug": 34,
+    "weed": 11,
+    "fertilize": 35,
+    "plant": 35,
+    "harvest": 0,
+    "remove": 0,
+    "steal": 8,
+    "putBug": 0,
+    "putWeed": 0
+  },
+  "crops": {
+    "白萝卜": 34,
+    "小麦": 3,
+    "红枣": 2,
+    "大蒜": 2,
+    "韭菜": 1
+  },
+  "items": {
+    "白萝卜": 35
+  }
+}

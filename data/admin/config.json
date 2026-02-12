@@ -1,0 +1,16 @@
+{
+  "platform": "qq",
+  "selfIntervalSecMin": 5,
+  "selfIntervalSecMax": 10,
+  "friendIntervalSecMin": 3,
+  "friendIntervalSecMax": 5,
+  "smtp": {
+    "enabled": false,
+    "host": "",
+    "port": 587,
+    "secure": false,
+    "user": "",
+    "from": "",
+    "to": ""
+  }
+}

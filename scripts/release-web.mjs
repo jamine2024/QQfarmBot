@@ -1,0 +1,115 @@
+import { spawnSync } from "node:child_process";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+const rootDir = process.cwd();
+const outDir = path.join(rootDir, "dist", "release-web");
+const npmCmd = "npm";
+const shell = process.platform === "win32";
+
+function run(args, cwd = rootDir) {
+  const res = spawnSync(npmCmd, args, { stdio: "inherit", cwd, env: process.env, shell });
+  if ((res.status ?? 1) !== 0) process.exit(res.status ?? 1);
+}
+
+async function ensureEmptyDir(dir) {
+  try {
+    await fs.rm(dir, { recursive: true, force: true });
+  } catch (err) {
+    const code = err && typeof err === "object" && "code" in err ? String(err.code) : "";
+    if (code !== "EBUSY" && code !== "EPERM") throw err;
+  }
+  await fs.mkdir(dir, { recursive: true });
+}
+
+async function copyDir(src, dest) {
+  await fs.mkdir(path.dirname(dest), { recursive: true });
+  await fs.cp(src, dest, { recursive: true });
+}
+
+function createRunBat() {
+  const lines = [
+    "@echo off",
+    "setlocal",
+    "cd /d %~dp0",
+    "set HOST=127.0.0.1",
+    "if \"%PORT%\"==\"\" set PORT=8787",
+    "set DATA_DIR=%~dp0data\\admin",
+    "set WEB_DIST_DIR=%~dp0apps\\admin-web\\dist",
+    "if not exist node_modules (",
+    "  npm install --omit=dev --no-audit --no-fund",
+    ")",
+    "node apps\\admin-server\\dist\\index.js",
+  ];
+  return lines.join("\r\n") + "\r\n";
+}
+
+function createRunSh() {
+  const lines = [
+    "#!/usr/bin/env bash",
+    "set -euo pipefail",
+    'cd "$(dirname "$0")"',
+    'export HOST="${HOST:-0.0.0.0}"',
+    'export PORT="${PORT:-8787}"',
+    'export DATA_DIR="${DATA_DIR:-$PWD/data/admin}"',
+    'export WEB_DIST_DIR="${WEB_DIST_DIR:-$PWD/apps/admin-web/dist}"',
+    'if [ ! -d "node_modules" ]; then',
+    "  npm install --omit=dev --no-audit --no-fund",
+    "fi",
+    "node apps/admin-server/dist/index.js",
+  ];
+  return lines.join("\n") + "\n";
+}
+
+async function main() {
+  await ensureEmptyDir(outDir);
+
+  run(["--workspace", "apps/admin-web", "run", "build"]);
+  run(["--workspace", "apps/admin-server", "run", "build"]);
+
+  await copyDir(path.join(rootDir, "apps", "admin-web", "dist"), path.join(outDir, "apps", "admin-web", "dist"));
+  await copyDir(path.join(rootDir, "apps", "admin-server", "dist"), path.join(outDir, "apps", "admin-server", "dist"));
+  await fs.mkdir(path.join(outDir, "apps", "admin-server"), { recursive: true });
+  await fs.copyFile(
+    path.join(rootDir, "apps", "admin-server", "package.json"),
+    path.join(outDir, "apps", "admin-server", "package.json")
+  );
+
+  await copyDir(path.join(rootDir, "src"), path.join(outDir, "src"));
+  await copyDir(path.join(rootDir, "proto"), path.join(outDir, "proto"));
+  await copyDir(path.join(rootDir, "gameConfig"), path.join(outDir, "gameConfig"));
+  try {
+    await copyDir(path.join(rootDir, "tools"), path.join(outDir, "tools"));
+  } catch {}
+
+  const rootPkg = JSON.parse(await fs.readFile(path.join(rootDir, "package.json"), "utf8"));
+  const adminServerPkg = JSON.parse(
+    await fs.readFile(path.join(rootDir, "apps", "admin-server", "package.json"), "utf8")
+  );
+  const mergedDeps = {
+    ...(rootPkg.dependencies ?? {}),
+    ...(adminServerPkg.dependencies ?? {}),
+  };
+
+  const pkg = {
+    name: "farm-release-web",
+    private: true,
+    version: "0.0.0",
+    type: "commonjs",
+    scripts: {
+      start: "node apps/admin-server/dist/index.js",
+    },
+    dependencies: mergedDeps,
+  };
+  await fs.writeFile(path.join(outDir, "package.json"), JSON.stringify(pkg, null, 2) + "\n", "utf8");
+  await fs.writeFile(path.join(outDir, "run.bat"), createRunBat(), "utf8");
+  await fs.writeFile(path.join(outDir, "run.sh"), createRunSh(), "utf8");
+  await fs.chmod(path.join(outDir, "run.sh"), 0o755);
+
+  run(["install", "--omit=dev", "--no-audit", "--no-fund"], outDir);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

@@ -1,0 +1,21 @@
+{
+  "updatedAt": "2026-02-12T03:24:07.034Z",
+  "gains": {
+    "gold": 0,
+    "exp": 0
+  },
+  "actions": {
+    "water": 0,
+    "bug": 0,
+    "weed": 0,
+    "fertilize": 0,
+    "plant": 0,
+    "harvest": 0,
+    "remove": 0,
+    "steal": 0,
+    "putBug": 0,
+    "putWeed": 0
+  },
+  "crops": {},
+  "items": {}
+}
