@@ -254,11 +254,13 @@ export function DashboardPage(): React.JSX.Element {
     actionCounters?.weed,
   ]);
 
-  const expToNextLevel = useMemo(() => {
+  const levelProgress = useMemo(() => {
     if (!user) return null;
-    const nextLevelNeed = (user.level + 1) * 200;
-    const delta = nextLevelNeed - user.exp;
-    return Number.isFinite(delta) ? Math.max(0, delta) : null;
+    const need = (user.level + 1) * 200 + 200;
+    const cur = user.exp;
+    const left = need - cur;
+    if (!Number.isFinite(need) || !Number.isFinite(cur) || !Number.isFinite(left)) return null;
+    return { cur, need, left: Math.max(0, left) };
   }, [user]);
 
   const logSelected = useMemo(() => {
@@ -444,7 +446,11 @@ export function DashboardPage(): React.JSX.Element {
                 </div>
                 <div className="stat">
                   <div className="statK">距离升级</div>
-                  <div className="statV">{expToNextLevel == null ? "—" : `还差 ${expToNextLevel} 点`}</div>
+                  <div className="statV">
+                    {levelProgress == null
+                      ? "—"
+                      : `还差 ${Math.max(0, Math.floor(levelProgress.left))} 点(${Math.floor(levelProgress.cur)}/${Math.floor(levelProgress.need)})`}
+                  </div>
                 </div>
               </div>
             </GlassCard>

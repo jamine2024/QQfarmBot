@@ -45,7 +45,7 @@
 }
 
 .brandName {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-brand);
   letter-spacing: 0.2px;
   font-weight: 800;
   font-size: 15px;
@@ -81,7 +81,7 @@
 }
 
 .navPanelTitle {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   font-size: 12px;
   letter-spacing: 0.2px;
@@ -240,7 +240,7 @@
 }
 
 .topbarH {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   letter-spacing: 0.2px;
   font-weight: 800;
   font-size: 18px;
@@ -294,7 +294,7 @@
 }
 
 .dashTitle {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   font-size: 14px;
   letter-spacing: 0.2px;
@@ -532,7 +532,7 @@
 }
 
 .fatalTitle {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   letter-spacing: 0.2px;
   font-size: 16px;
@@ -579,10 +579,6 @@
   }
 }
 
-.statsCompact {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
 .gridSpan2 {
   grid-column: 1 / -1;
 }
@@ -600,7 +596,7 @@
 }
 
 .cardTitle {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   font-size: 14px;
   letter-spacing: 0.2px;
@@ -651,6 +647,10 @@
   gap: 12px;
 }
 
+.stats.statsCompact {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .stat {
   padding: 12px 12px 10px 12px;
   border-radius: 16px;
@@ -667,6 +667,7 @@
   margin-top: 6px;
   font-weight: 600;
   letter-spacing: 0.2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .divider {
@@ -1037,7 +1038,7 @@
 }
 
 .modalTitle {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   font-size: 14px;
 }
@@ -1088,7 +1089,7 @@
 
 .heroH {
   margin-top: 16px;
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   letter-spacing: 0.4px;
   font-size: clamp(28px, 4.1vw, 46px);
@@ -1117,7 +1118,7 @@
 }
 
 .loginCardH {
-  font-family: "Unbounded", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 800;
   letter-spacing: 0.2px;
 }
