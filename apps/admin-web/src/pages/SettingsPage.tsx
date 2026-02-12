@@ -50,6 +50,62 @@ export function SettingsPage(): React.JSX.Element {
   const [smtpFrom, setSmtpFrom] = useState("");
   const [smtpTo, setSmtpTo] = useState("");
 
+  const [wallpaperMode, setWallpaperMode] = useState<"online" | "local" | "off">(() => {
+    const raw = localStorage.getItem("ui:wallpaperMode");
+    return raw === "local" || raw === "off" ? raw : "online";
+  });
+  const [wallpaperCount, setWallpaperCount] = useState<number | null>(null);
+
+  const refreshWallpaperCount = useCallback(async (): Promise<void> => {
+    try {
+      if (!("caches" in window)) return;
+      const cache = await caches.open("farm-wallpaper-v1");
+      const keys = await cache.keys();
+      setWallpaperCount(keys.length);
+    } catch {
+      return;
+    }
+  }, []);
+
+  const onPickLocalWallpaper = useCallback(async (files: FileList | null): Promise<void> => {
+    try {
+      if (!files?.length) return;
+      if (!("caches" in window)) return;
+      const cache = await caches.open("farm-wallpaper-v1");
+      const now = Date.now();
+      const list = Array.from(files).slice(0, 20);
+      for (let i = 0; i < list.length; i++) {
+        const f = list[i];
+        if (!f.type.startsWith("image/")) continue;
+        const key = new Request(`/__wallpaper/local/${now}-${i}`, { method: "GET" });
+        await cache.put(key, new Response(f, { headers: { "content-type": f.type || "image/jpeg" } }));
+      }
+      await refreshWallpaperCount();
+      localStorage.setItem("ui:wallpaperMode", "local");
+      setWallpaperMode("local");
+      window.dispatchEvent(new Event("ui:wallpaper"));
+    } catch {
+      return;
+    }
+  }, [refreshWallpaperCount]);
+
+  const onChangeWallpaperMode = useCallback((mode: "online" | "local" | "off"): void => {
+    localStorage.setItem("ui:wallpaperMode", mode);
+    setWallpaperMode(mode);
+    window.dispatchEvent(new Event("ui:wallpaper"));
+  }, []);
+
+  const clearWallpaperCache = useCallback(async (): Promise<void> => {
+    try {
+      if (!("caches" in window)) return;
+      await caches.delete("farm-wallpaper-v1");
+      setWallpaperCount(0);
+      window.dispatchEvent(new Event("ui:wallpaper"));
+    } catch {
+      return;
+    }
+  }, []);
+
   const canSave = useMemo(() => {
     if (saving) return false;
     if (selfIntervalSecMin < 1 || selfIntervalSecMax < 1) return false;
@@ -140,6 +196,10 @@ export function SettingsPage(): React.JSX.Element {
     void load();
   }, [load]);
 
+  useEffect(() => {
+    void refreshWallpaperCount();
+  }, [refreshWallpaperCount]);
+
   return (
     <div className="grid">
       <div className="gridSpan2">
@@ -225,6 +285,44 @@ export function SettingsPage(): React.JSX.Element {
 
           {error ? <div className="formError">{error}</div> : null}
           {ok ? <div className="formOk">{ok}</div> : null}
+        </GlassCard>
+      </div>
+
+      <div className="gridSpan2">
+        <GlassCard title="壁纸" subtitle="在线壁纸由服务端代理拉取；本地壁纸存储在浏览器缓存">
+          <div className="formGrid">
+            <label className="field">
+              <div className="fieldLabel">模式</div>
+              <select className="fieldInput select" value={wallpaperMode} onChange={(e) => onChangeWallpaperMode(e.target.value as "online" | "local" | "off")}>
+                <option value="online">在线</option>
+                <option value="local">本地</option>
+                <option value="off">关闭</option>
+              </select>
+              <div className="fieldHint">云端部署建议使用“在线”（避免跨域/混合内容问题）。</div>
+            </label>
+
+            <label className="field">
+              <div className="fieldLabel">缓存数量</div>
+              <div className="fieldInput" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span>{wallpaperCount == null ? "—" : `${wallpaperCount} 张`}</span>
+                <div className="row">
+                  <Button size="sm" variant="ghost" onClick={refreshWallpaperCount}>
+                    刷新
+                  </Button>
+                  <Button size="sm" variant="danger" onClick={clearWallpaperCache}>
+                    清空
+                  </Button>
+                </div>
+              </div>
+              <div className="fieldHint">本地/在线壁纸都会计入缓存数量。</div>
+            </label>
+
+            <label className="field">
+              <div className="fieldLabel">导入本地壁纸</div>
+              <input className="fieldInput" type="file" accept="image/*" multiple onChange={(e) => void onPickLocalWallpaper(e.target.files)} />
+              <div className="fieldHint">选择后自动切换到“本地”模式（最多一次导入 20 张）。</div>
+            </label>
+          </div>
         </GlassCard>
       </div>
 

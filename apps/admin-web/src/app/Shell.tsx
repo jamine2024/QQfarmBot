@@ -28,6 +28,11 @@ export function Shell(props: ShellProps): React.JSX.Element {
   const { snapshot } = data;
   const history = data.snapshotHistory;
   const [wallpaperUrl, setWallpaperUrl] = useState<string | null>(null);
+  const [wallpaperCacheCount, setWallpaperCacheCount] = useState<number | null>(null);
+  const [wallpaperMode, setWallpaperMode] = useState<"online" | "local" | "off">(() => {
+    const raw = localStorage.getItem("ui:wallpaperMode");
+    return raw === "local" || raw === "off" ? raw : "online";
+  });
   const [glassAlpha, setGlassAlpha] = useState(0.5);
   const wallpaperObjectUrlRef = useRef<string | null>(null);
   const [fatalWs400, setFatalWs400] = useState<{ active: boolean; msg: string }>({ active: false, msg: "" });
@@ -77,21 +82,36 @@ export function Shell(props: ShellProps): React.JSX.Element {
         if (!("caches" in window)) return;
         const cache = await caches.open("farm-wallpaper-v1");
         let keys = await cache.keys();
-        if (keys.length < 15) {
-          const res = await fetch(`https://box.fiime.cn/random/srandom.php?t=${Date.now()}`, { cache: "no-store" });
+        setWallpaperCacheCount(keys.length);
+
+        const onlineKeys = keys.filter((k) => k.url.includes("/__wallpaper/online/"));
+        const localKeys = keys.filter((k) => k.url.includes("/__wallpaper/local/"));
+
+        if (wallpaperMode === "off") {
+          if (wallpaperObjectUrlRef.current) URL.revokeObjectURL(wallpaperObjectUrlRef.current);
+          wallpaperObjectUrlRef.current = null;
+          setWallpaperUrl(null);
+          return;
+        }
+
+        if (wallpaperMode === "online" && onlineKeys.length < 15) {
+          const res = await fetch(`/api/ui/wallpaper/random?t=${Date.now()}`, { cache: "no-store" });
           if (res.ok) {
             const blob = await res.blob();
-            const key = new Request(`/__wallpaper/${Date.now()}`, { method: "GET" });
+            const key = new Request(`/__wallpaper/online/${Date.now()}`, { method: "GET" });
             await cache.put(
               key,
               new Response(blob, { headers: { "content-type": res.headers.get("content-type") ?? "image/jpeg" } })
             );
             keys = await cache.keys();
+            setWallpaperCacheCount(keys.length);
           }
         }
 
-        if (!keys.length) return;
-        const pick = keys[Math.floor(Math.random() * keys.length)];
+        const pickFrom = wallpaperMode === "local" ? localKeys : onlineKeys;
+        const fallbackPickFrom = pickFrom.length ? pickFrom : keys;
+        if (!fallbackPickFrom.length) return;
+        const pick = fallbackPickFrom[Math.floor(Math.random() * fallbackPickFrom.length)];
         const cached = await cache.match(pick);
         if (!cached) return;
         const blob = await cached.blob();
@@ -113,6 +133,24 @@ export function Shell(props: ShellProps): React.JSX.Element {
       cancelled = true;
       if (wallpaperObjectUrlRef.current) URL.revokeObjectURL(wallpaperObjectUrlRef.current);
       wallpaperObjectUrlRef.current = null;
+    };
+  }, [wallpaperMode]);
+
+  useEffect(() => {
+    const onStorage = (evt: StorageEvent) => {
+      if (evt.key !== "ui:wallpaperMode") return;
+      const raw = localStorage.getItem("ui:wallpaperMode");
+      setWallpaperMode(raw === "local" || raw === "off" ? raw : "online");
+    };
+    const onCustom = () => {
+      const raw = localStorage.getItem("ui:wallpaperMode");
+      setWallpaperMode(raw === "local" || raw === "off" ? raw : "online");
+    };
+    window.addEventListener("storage", onStorage);
+    window.addEventListener("ui:wallpaper", onCustom as EventListener);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("ui:wallpaper", onCustom as EventListener);
     };
   }, []);
 
@@ -227,6 +265,16 @@ export function Shell(props: ShellProps): React.JSX.Element {
               value={Math.round(glassAlpha * 100)}
               onChange={(e) => setGlassAlpha(Number(e.target.value) / 100)}
             />
+          </div>
+
+          <div className="navPanel">
+            <div className="navPanelHead">
+              <div className="navPanelTitle">壁纸缓存</div>
+              <div className="navPanelSub">{wallpaperCacheCount == null ? "—" : `${wallpaperCacheCount} 张`}</div>
+            </div>
+            <div className="muted" style={{ paddingTop: 6 }}>
+              {wallpaperMode === "off" ? "已关闭" : wallpaperMode === "local" ? "本地壁纸" : "在线壁纸"}
+            </div>
           </div>
 
           <div className="navPanel">

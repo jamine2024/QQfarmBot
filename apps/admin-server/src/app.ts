@@ -226,6 +226,28 @@ export function createApp(services: Services): express.Express {
     })
   );
 
+  app.get(
+    "/api/ui/wallpaper/random",
+    asyncHandler(async (_req, res) => {
+      const controller = new AbortController();
+      const t = setTimeout(() => controller.abort(), 8000);
+      try {
+        const upstream = await fetch(`https://box.fiime.cn/random/srandom.php?t=${Date.now()}`, {
+          signal: controller.signal,
+        });
+        if (!upstream.ok) throw httpError(502, "WALLPAPER_FETCH_FAILED");
+        const buf = Buffer.from(await upstream.arrayBuffer());
+        res.setHeader("content-type", upstream.headers.get("content-type") ?? "image/jpeg");
+        res.setHeader("cache-control", "no-store");
+        res.status(200).send(buf);
+      } catch {
+        throw httpError(502, "WALLPAPER_FETCH_FAILED");
+      } finally {
+        clearTimeout(t);
+      }
+    })
+  );
+
   const webDistDir = process.env.WEB_DIST_DIR?.trim()
     ? path.resolve(process.env.WEB_DIST_DIR.trim())
     : path.join(services.projectRoot, "apps", "admin-web", "dist");
