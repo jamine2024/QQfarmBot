@@ -1,18 +1,20 @@
-# 紧急通知：已经有人反馈封号了 低调使用，被举报必封
+# 紧急通知
 
-## WebUI 可视化管理
+已经有人反馈封号了：低调使用，被举报必封。
+
+另外提醒：请勿拿作者原版的程序去倒卖，WebUI 也不行。
+
+# QQ经典农场 挂机脚本（含 WebUI）
+
+基于 Node.js 的 QQ/微信 经典农场小程序自动化挂机脚本。通过分析小程序 WebSocket 通信协议（Protocol Buffers），实现全自动农场管理。  
+本脚本基于 AI 制作，必然有一定的 bug，遇到了建议自己克服一下，后续不一定会更新。
+
+## WebUI 预览
 
 <img width="1918" height="888" alt="image" src="https://github.com/user-attachments/assets/a3d115aa-5bd4-4f12-b43e-411e781204f4" />
 <img width="1919" height="897" alt="image" src="https://github.com/user-attachments/assets/f0acb66a-0b7f-47b4-9cb9-48ee3015752d" />
 <img width="1889" height="779" alt="QQ20260212-121430" src="https://github.com/user-attachments/assets/2350e643-65e3-4c39-9e14-971a5ef3c01d" />
 <img width="500" height="266" alt="QQ20260212-122439" src="https://github.com/user-attachments/assets/c4072776-d8cc-4340-a49c-c6cd7daea75e" />
-
-## 一些提醒：请勿拿作者原版的程序去倒卖，WebUI也不行
-
-# QQ经典农场 挂机脚本
-
-基于 Node.js 的 QQ/微信 经典农场小程序自动化挂机脚本。通过分析小程序 WebSocket 通信协议（Protocol Buffers），实现全自动农场管理。
-本脚本基于ai制作，必然有一定的bug，遇到了建议自己克服一下，后续不一定会更新了
 
 ## 功能特性
 
@@ -20,7 +22,7 @@
 
 - **自动收获** — 检测成熟作物并自动收获
 - **自动铲除** — 自动铲除枯死/收获后的作物残留
-- **自动种植** — 收获/铲除后自动购买种子并种植（当前设定为种植白萝卜，因为经过数据计算(脚本可以自动种植-收获)，白萝卜的收益是最高的（经验收益）不喜欢的自己修改一下即可
+- **自动种植** — 收获/铲除后自动购买种子并种植（当前设定为种植白萝卜；不喜欢可自行修改）
 - **自动施肥** — 种植后自动施放普通肥料加速生长
 - **自动除草** — 检测并清除杂草
 - **自动除虫** — 检测并消灭害虫
@@ -37,7 +39,7 @@
 
 - **自动领取任务** — 自动领取完成的任务奖励，支持分享翻倍/三倍奖励
 - **自动同意好友** — 微信同玩好友申请自动同意（支持推送实时响应）
-- **邀请码处理** — 启动时自动处理 share.txt 中的邀请链接（微信环境，share.txt有示例，是小程序的path）
+- **邀请码处理** — 启动时自动处理 share.txt 中的邀请链接（微信环境，share.txt 有示例，是小程序的 path）
 - **状态栏显示** — 终端顶部固定显示平台/昵称/等级/经验/金币
 - **经验进度** — 显示当前等级经验进度
 - **心跳保活** — 自动维持 WebSocket 连接
@@ -49,15 +51,15 @@
 
 ---
 
-## 使用
+## 获取登录 Code
 
-### 获取登录 Code
+### 抓包获取（通用）
 
 你需要从小程序中抓取 code。可以通过抓包工具（如 Fiddler、Charles、mitmproxy 等）获取 WebSocket 连接 URL 中的 `code` 参数。
 
-### 扫码获取登录 Code（可选，QQ 农场）
+### 扫码获取（可选，QQ 农场）
 
-本项目已集成「扫码获取 code 并自动填写」能力（WebUI 内点击“扫码获取”即可）。该能力依赖独立的扫码服务 QRLib。
+WebUI 已集成「扫码获取 code 并自动填写」（页面内点击“扫码获取”）。该能力依赖独立扫码服务 QRLib。
 
 #### 运行 QRLib
 
@@ -71,12 +73,12 @@ node src/server.js
 
 #### WebUI 如何访问 QRLib
 
-WebUI 不会直接访问 `http://localhost:5656`（浏览器里的 localhost 永远指向你本机，线上部署会失效），而是通过 Admin Server 进行同源转发：
+WebUI 不会直接访问 `http://localhost:5656`（浏览器里的 localhost 永远指向你本机，线上部署会失效），而是通过 Admin Server 做同源转发：
 
 - `/api/qrlib/qr/create` -> `${QRLIB_BASE_URL}/api/qr/create`
 - `/api/qrlib/qr/check` -> `${QRLIB_BASE_URL}/api/qr/check`
 
-这两个接口需要先登录 WebUI（会校验 `Authorization: Bearer <token>`），否则会返回 `401 UNAUTHORIZED`。
+这两个接口需要先登录 WebUI（校验 `Authorization: Bearer <token>`），否则会返回 `401 UNAUTHORIZED`。
 
 #### 配置 QRLIB_BASE_URL（可选）
 
@@ -86,9 +88,13 @@ WebUI 不会直接访问 `http://localhost:5656`（浏览器里的 localhost 永
 QRLIB_BASE_URL=http://127.0.0.1:5656 bash run.sh
 ```
 
+如果你使用 Docker 部署并且 QRLib 也在 Docker 内：`127.0.0.1` 指向容器自身，不是宿主机。建议把 QRLib 加进同一个 compose，并用 service name 互联，或把 `QRLIB_BASE_URL` 指向宿主机可达地址。
+
+---
+
 ## WebUI 可视化管理（可选）
 
-本项目提供一个 Web 管理控制台（Admin Server + Admin Web），支持：
+WebUI 由 Admin Server + Admin Web 组成，支持：
 
 - Web 页面启动/停止 bot（输入 code）
 - 实时状态面板（WebSocket 推送）
@@ -105,22 +111,25 @@ npm run admin:server
 npm run admin:web
 ```
 
-### 一键打包（生成可部署目录）
+### 打包 release-web（生成可部署目录）
 
 ```bash
 npm run release:web
 ```
 
-打包产物在：
+产物目录：
 
-```
+```text
 dist/release-web/
 ```
 
-### Linux 部署（推荐用 release-web）
+---
 
-1. 把 `dist/release-web/` 整个目录上传到服务器（例如 `/www/wwwroot/qqfarm/`）
+## 部署（基于 release-web）
 
+### 方式 A：Linux 直接运行（run.sh）
+
+1. 上传 `dist/release-web/` 整个目录到服务器（例如 `/www/wwwroot/qqfarm/`）
 2. 进入目录启动：
 
 ```bash
@@ -129,33 +138,81 @@ chmod +x run.sh
 bash run.sh
 ```
 
-默认监听 `0.0.0.0:8787`，你也可以改为仅本机监听（配合反代更安全）：
+默认监听 `0.0.0.0:8787`。更安全的做法是只监听本机（配合 Nginx 反代）：
 
 ```bash
 HOST=127.0.0.1 PORT=8787 bash run.sh
 ```
 
-3. 首次运行初始化管理员账号
+### 方式 B：systemd 守护进程（推荐）
 
-打开浏览器访问：
+生产环境建议以守护进程方式运行，避免 SSH 断开后进程退出，并支持开机自启。
 
+1. 创建 service 文件（示例路径：`/etc/systemd/system/qqfarm-web.service`）：
+
+```ini
+[Unit]
+Description=QQFarm WebUI (release-web)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/www/wwwroot/qqfarm
+Environment=HOST=127.0.0.1
+Environment=PORT=8787
+Environment=DATA_DIR=/www/wwwroot/qqfarm/data/admin
+Environment=WEB_DIST_DIR=/www/wwwroot/qqfarm/apps/admin-web/dist
+Environment=QRLIB_BASE_URL=http://127.0.0.1:5656
+ExecStart=/usr/bin/node /www/wwwroot/qqfarm/apps/admin-server/dist/index.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
 ```
-http://你的服务器IP:8787/
+
+2. 启用并启动：
+
+```bash
+systemctl daemon-reload
+systemctl enable qqfarm-web
+systemctl start qqfarm-web
+systemctl status qqfarm-web
 ```
 
-系统会提示“初始化管理员”，自行设置账号密码后进入控制台。
+3. 查看日志：
+
+```bash
+journalctl -u qqfarm-web -f
+```
+
+### 方式 C：Docker / Compose（推荐）
+
+release-web 产物目录会自动生成：
+
+- `dist/release-web/Dockerfile`
+- `dist/release-web/.dockerignore`
+- `dist/release-web/docker-compose.yml`
+
+一键打包并构建镜像：
+
+```bash
+npm run release:web:docker
+```
+
+使用 docker compose 启动（推荐）：
+
+```bash
+npm run release:web
+cd dist/release-web
+docker compose up -d --build
+```
+
+默认会映射端口 `8787:8787`，并把数据目录持久化到 `./data`（容器内为 `/data/admin`）。
 
 ### 反向代理（Nginx / WebSocket）
 
-建议不要直接暴露 Node 端口，改用 Nginx 反向代理到 `127.0.0.1:8787`，并开启 HTTPS。
-
-下面示例会把：
-
-- Web 静态页面 `/`
-- API `/api/`
-- WebSocket `/ws`
-
-全部代理到后端（后端会自动托管前端静态文件，并提供 API 与 WS）。
+建议不要直接暴露 Node 端口，改用 Nginx 反向代理到 `127.0.0.1:8787` 并开启 HTTPS。
 
 ```nginx
 map $http_upgrade $connection_upgrade {
@@ -173,7 +230,6 @@ server {
   listen 443 ssl http2;
   server_name box.fiime.cn;
 
-  # 证书路径按你的实际情况填写（宝塔/Let’s Encrypt 都行）
   ssl_certificate     /etc/letsencrypt/live/box.fiime.cn/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/box.fiime.cn/privkey.pem;
 
@@ -192,19 +248,25 @@ server {
 }
 ```
 
-如果你使用宝塔面板：
+### 首次初始化管理员账号
 
-- 先把 Node 服务用 `HOST=127.0.0.1` 启动起来
-- 在站点里开启 HTTPS
-- 反向代理到 `http://127.0.0.1:8787`，并打开 WebSocket 支持
+首次运行后打开浏览器访问：
+
+```text
+http://你的服务器IP:8787/
+```
+
+系统会提示“初始化管理员”，自行设置账号密码后进入控制台。
+
+---
 
 ## 注意事项
 
 1. **登录 Code 有效期有限**，过期后需要重新抓取
 2. **请合理设置巡查间隔**，过于频繁可能触发服务器限流
 3. **微信环境**才支持邀请码和好友申请功能
-4. **QQ环境**下code支持多次使用
-5. **WX环境**下code不支持多次使用，请抓包时将code拦截掉
+4. **QQ 环境**下 code 支持多次使用
+5. **WX 环境**下 code 不支持多次使用，请抓包时将 code 拦截掉
 
 ## 免责声明
 
