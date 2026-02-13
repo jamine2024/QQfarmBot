@@ -3,6 +3,7 @@ import cors from "cors";
 import fs from "node:fs";
 import path from "node:path";
 import { z } from "zod";
+import axios from "axios";
 import { asyncHandler } from "./http/asyncHandler.js";
 import { errorMiddleware } from "./http/errorMiddleware.js";
 import { httpError } from "./http/httpErrors.js";
@@ -232,6 +233,47 @@ export function createApp(services) {
         res.json({
             seed: { seedId: hit.seedId, plantId: hit.plantId, name: hit.name, updatedAtMs: cache.updatedAtMs },
         });
+    }));
+    async function qrlibPost(pathName, body) {
+        const base = process.env.QRLIB_BASE_URL?.trim() ? process.env.QRLIB_BASE_URL.trim() : "http://127.0.0.1:5656";
+        const url = new URL(pathName, base).toString();
+        try {
+            const resp = await axios.post(url, body ?? {}, {
+                timeout: 10_000,
+                headers: { "content-type": "application/json" },
+                validateStatus: () => true,
+            });
+            const payload = resp.data;
+            if (resp.status < 200 || resp.status >= 300) {
+                throw httpError(424, "QRLIB_UPSTREAM_ERROR", typeof payload === "string" ? payload : undefined);
+            }
+            return payload;
+        }
+        catch (err) {
+            if (err && typeof err === "object" && "status" in err && typeof err.status === "number")
+                throw err;
+            throw httpError(424, "QRLIB_UNAVAILABLE", `扫码服务不可用，请确认 QRLib 已启动且 QRLIB_BASE_URL 可访问（当前：${base}）`);
+        }
+    }
+    app.post("/api/qrlib/qr/create", requireAuth(services.env.JWT_SECRET), requireRole("admin"), asyncHandler(async (req, res) => {
+        const body = z
+            .object({
+            preset: z.string().min(1).default("farm"),
+        })
+            .passthrough()
+            .parse(req.body);
+        const payload = await qrlibPost("/api/qr/create", body);
+        res.json(payload);
+    }));
+    app.post("/api/qrlib/qr/check", requireAuth(services.env.JWT_SECRET), requireRole("admin"), asyncHandler(async (req, res) => {
+        const body = z
+            .object({
+            qrsig: z.string().min(1),
+        })
+            .passthrough()
+            .parse(req.body);
+        const payload = await qrlibPost("/api/qr/check", body);
+        res.json(payload);
     }));
     app.get("/api/bot/status", requireAuth(services.env.JWT_SECRET), asyncHandler(async (_req, res) => {
         res.json({ status: services.bot.getStatus() });

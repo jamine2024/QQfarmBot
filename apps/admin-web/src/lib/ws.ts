@@ -41,6 +41,7 @@ export function useAdminWs(token: string | null): WsState {
 
     const pingTimer = setInterval(() => {
       try {
+        if (ws.readyState !== WebSocket.OPEN) return;
         ws.send(JSON.stringify({ type: "ping" }));
       } catch {
         return;

@@ -8,6 +8,16 @@ import { apiFetch, type ApiError } from "../lib/api";
 import { useAuth } from "../lib/auth";
 
 type DashboardTab = "logs" | "overview";
+type QrCreateReply = { success: boolean; qrsig?: string; qrcode?: string; url?: string; isMiniProgram?: boolean };
+type QrCheckReply = {
+  success: boolean;
+  ret?: string;
+  msg?: string;
+  code?: string;
+  uin?: string;
+  ticket?: string;
+  avatar?: string;
+};
 
 /**
  * 渲染用于标题前缀的轻量 SVG 图标。
@@ -86,6 +96,13 @@ export function DashboardPage(): React.JSX.Element {
   const logBottomRef = useRef<HTMLDivElement | null>(null);
   const [deltaKeys, setDeltaKeys] = useState<Record<string, number>>({});
   const [deltaCrops, setDeltaCrops] = useState<Record<string, number>>({});
+  const [qrOpen, setQrOpen] = useState(false);
+  const [qrLoading, setQrLoading] = useState(false);
+  const [qrError, setQrError] = useState<string | null>(null);
+  const [qrStatus, setQrStatus] = useState<string>("等待扫码");
+  const [qrImage, setQrImage] = useState<string | null>(null);
+  const [qrQrsig, setQrQrsig] = useState<string | null>(null);
+  const qrPollRef = useRef<number | null>(null);
 
   const botRunning = Boolean(snapshot?.bot?.running);
 
@@ -112,6 +129,151 @@ export function DashboardPage(): React.JSX.Element {
   useEffect(() => {
     return () => {
       if (clearFlashTimerRef.current !== null) window.clearTimeout(clearFlashTimerRef.current);
+    };
+  }, []);
+
+  /**
+   * 停止扫码状态轮询。
+   */
+  function stopQrPolling(): void {
+    if (qrPollRef.current !== null) window.clearInterval(qrPollRef.current);
+    qrPollRef.current = null;
+  }
+
+  /**
+   * 轮询二维码状态并在成功时自动填充登录 code。
+   */
+  async function checkQrStatus(qrsig: string): Promise<void> {
+    try {
+      const data = await apiFetch<QrCheckReply>("/api/qrlib/qr/check", {
+        method: "POST",
+        token: auth.token,
+        body: { qrsig, preset: "farm" },
+      });
+      if (!data?.success) {
+        setQrStatus("扫码状态异常");
+        return;
+      }
+      if (data.ret === "0") {
+        if (!data.code) {
+          setQrStatus("登录成功但 code 为空");
+          stopQrPolling();
+          return;
+        }
+        setCode(data.code);
+        setQrStatus("登录成功，已填入 code");
+        stopQrPolling();
+        setQrOpen(false);
+        return;
+      }
+      if (data.ret === "65") {
+        setQrStatus("二维码已失效，请刷新");
+        stopQrPolling();
+        return;
+      }
+      if (data.ret === "66") {
+        setQrStatus(data.msg || "等待扫码");
+        return;
+      }
+      setQrStatus(data.msg || "扫码中");
+    } catch (err) {
+      const apiErr = err as ApiError;
+      if (apiErr?.status === 401 || apiErr?.code === "UNAUTHORIZED") {
+        setQrStatus("登录已过期，请重新登录");
+        stopQrPolling();
+        auth.logout();
+        setTimeout(() => {
+          location.href = "/login";
+        }, 0);
+        return;
+      }
+      if (apiErr?.code === "QRLIB_UNAVAILABLE") {
+        setQrStatus("扫码服务不可用，请确认 QRLib 已启动");
+        stopQrPolling();
+        return;
+      }
+      if (apiErr?.code === "QRLIB_UPSTREAM_ERROR") {
+        setQrStatus("扫码服务返回异常");
+        return;
+      }
+      setQrStatus("扫码状态异常");
+    }
+  }
+
+  /**
+   * 启动扫码轮询。
+   */
+  function startQrPolling(qrsig: string): void {
+    stopQrPolling();
+    void checkQrStatus(qrsig);
+    qrPollRef.current = window.setInterval(() => {
+      void checkQrStatus(qrsig);
+    }, 2500);
+  }
+
+  /**
+   * 获取二维码并更新弹窗状态。
+   */
+  async function createQrCode(): Promise<void> {
+    setQrLoading(true);
+    setQrError(null);
+    setQrStatus("等待扫码");
+    try {
+      const data = await apiFetch<QrCreateReply>("/api/qrlib/qr/create", {
+        method: "POST",
+        token: auth.token,
+        body: { preset: "farm" },
+      });
+      if (!data?.success || !data.qrsig || !data.qrcode) {
+        setQrError("二维码获取失败");
+        return;
+      }
+      setQrImage(data.qrcode);
+      setQrQrsig(data.qrsig);
+      startQrPolling(data.qrsig);
+    } catch (err) {
+      const apiErr = err as ApiError;
+      if (apiErr?.status === 401 || apiErr?.code === "UNAUTHORIZED") {
+        setQrError("登录已过期，请重新登录");
+        auth.logout();
+        setTimeout(() => {
+          location.href = "/login";
+        }, 0);
+        return;
+      }
+      if (apiErr?.code === "QRLIB_UNAVAILABLE") {
+        setQrError("扫码服务不可用，请确认 QRLib 已启动");
+        return;
+      }
+      setQrError("二维码获取失败");
+    } finally {
+      setQrLoading(false);
+    }
+  }
+
+  /**
+   * 打开扫码弹窗并初始化二维码。
+   */
+  async function openQrModal(): Promise<void> {
+    setQrOpen(true);
+    setQrImage(null);
+    setQrQrsig(null);
+    setQrError(null);
+    setQrStatus("等待扫码");
+    await createQrCode();
+  }
+
+  /**
+   * 关闭扫码弹窗并清理状态。
+   */
+  function closeQrModal(): void {
+    stopQrPolling();
+    setQrOpen(false);
+  }
+
+  useEffect(() => {
+    return () => {
+      stopQrPolling();
     };
   }, []);
 
@@ -330,6 +492,9 @@ export function DashboardPage(): React.JSX.Element {
               placeholder="登录 code"
               disabled={botRunning}
             />
+            <Button size="sm" variant="ghost" onClick={openQrModal} disabled={botRunning || actionLoading}>
+              扫码获取
+            </Button>
             <Button
               size="sm"
               variant={botRunning ? "danger" : "primary"}
@@ -343,6 +508,43 @@ export function DashboardPage(): React.JSX.Element {
       </section>
 
       {actionError ? <div className="formError">{actionError}</div> : null}
+
+      {qrOpen ? (
+        <div className="modalBack" role="dialog" aria-modal="true" onClick={closeQrModal}>
+          <div className="glass modal qrModal" onClick={(e) => e.stopPropagation()}>
+            <div className="modalHead">
+              <div>
+                <div className="modalTitle">扫码获取登录 code</div>
+                <div className="modalSub">
+                  <span className="pill">QQ 农场</span>
+                  <span className="muted">二维码有效期短，请尽快扫码</span>
+                </div>
+              </div>
+              <Button size="sm" variant="ghost" onClick={closeQrModal}>
+                关闭
+              </Button>
+            </div>
+            <div className="qrBody">
+              <div className="qrImageWrap">
+                {qrImage ? <img className="qrImage" src={qrImage} alt="QR Code" /> : <div className="qrPlaceholder" />}
+              </div>
+              <div className="qrMeta">
+                <div className="qrStatus">{qrStatus}</div>
+                {qrError ? <div className="formError">{qrError}</div> : null}
+                <div className="qrActions">
+                  <Button size="sm" variant="primary" onClick={createQrCode} disabled={qrLoading}>
+                    {qrLoading ? "获取中..." : "刷新二维码"}
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={closeQrModal} disabled={qrLoading}>
+                    关闭
+                  </Button>
+                </div>
+                {qrQrsig ? <div className="qrHint">已绑定 qrsig，扫码成功后自动填入</div> : null}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {activeTab === "logs" ? (
         <div className="grid">

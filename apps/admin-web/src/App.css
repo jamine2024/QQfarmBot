@@ -324,7 +324,7 @@
 
 .dashBotInline {
   display: grid;
-  grid-template-columns: minmax(220px, 360px) auto;
+  grid-template-columns: minmax(220px, 360px) auto auto;
   gap: 10px;
   align-items: center;
 }
@@ -1448,6 +1448,62 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
+.qrModal {
+  width: min(820px, 96vw);
+}
+
+.qrBody {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  padding: 14px 16px 16px 16px;
+}
+
+.qrImageWrap {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.qrImage {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.qrPlaceholder {
+  width: 240px;
+  height: 240px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.qrMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qrStatus {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.qrActions {
+  display: flex;
+  gap: 10px;
+}
+
+.qrHint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .loginWrap {
   min-height: 100vh;
   display: grid;
@@ -1566,7 +1622,7 @@
   }
   .dashBotInline {
     width: 100%;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
   .dashLogTools {
     grid-template-columns: 1fr;
@@ -1614,6 +1670,17 @@
   }
   .dashBotInline .btn {
     width: 100%;
+  }
+  .qrBody {
+    grid-template-columns: 1fr;
+  }
+  .qrImage {
+    width: min(240px, 70vw);
+    height: min(240px, 70vw);
+  }
+  .qrPlaceholder {
+    width: min(240px, 70vw);
+    height: min(240px, 70vw);
   }
   .logRow {
     grid-template-columns: 108px 76px 1fr;

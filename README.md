@@ -7,9 +7,7 @@
 <img width="1889" height="779" alt="QQ20260212-121430" src="https://github.com/user-attachments/assets/2350e643-65e3-4c39-9e14-971a5ef3c01d" />
 <img width="500" height="266" alt="QQ20260212-122439" src="https://github.com/user-attachments/assets/c4072776-d8cc-4340-a49c-c6cd7daea75e" />
 
-
-
-## 一些提醒：某些人嘴脸不要那么难看，直接拿我原版的程序去倒卖
+## 一些提醒：请勿拿作者原版的程序去倒卖，WebUI也不行
 
 # QQ经典农场 挂机脚本
 
@@ -49,19 +47,44 @@
 - **[PB 解码工具](#pb-解码工具)** — 内置 Protobuf 数据解码器，方便调试分析
 - **[经验分析工具](#经验分析工具)** — 分析作物经验效率，计算最优种植策略
 
-## 安装
+---
 
-```bash
-git clone https://github.com/linguo2625469/qq-farm-bot.git
-cd qq-farm-bot
-npm install
-```
---------------------------------------------------------------------------------------------------------------
 ## 使用
 
 ### 获取登录 Code
 
 你需要从小程序中抓取 code。可以通过抓包工具（如 Fiddler、Charles、mitmproxy 等）获取 WebSocket 连接 URL 中的 `code` 参数。
+
+### 扫码获取登录 Code（可选，QQ 农场）
+
+本项目已集成「扫码获取 code 并自动填写」能力（WebUI 内点击“扫码获取”即可）。该能力依赖独立的扫码服务 QRLib。
+
+#### 运行 QRLib
+
+在服务器上启动 QRLib（示例）：
+
+```bash
+node src/server.js
+```
+
+默认监听 `http://127.0.0.1:5656`。
+
+#### WebUI 如何访问 QRLib
+
+WebUI 不会直接访问 `http://localhost:5656`（浏览器里的 localhost 永远指向你本机，线上部署会失效），而是通过 Admin Server 进行同源转发：
+
+- `/api/qrlib/qr/create` -> `${QRLIB_BASE_URL}/api/qr/create`
+- `/api/qrlib/qr/check` -> `${QRLIB_BASE_URL}/api/qr/check`
+
+这两个接口需要先登录 WebUI（会校验 `Authorization: Bearer <token>`），否则会返回 `401 UNAUTHORIZED`。
+
+#### 配置 QRLIB_BASE_URL（可选）
+
+默认值为 `http://127.0.0.1:5656`。如果 QRLib 不在同一台机器或端口不同，可在启动 Admin Server 时设置：
+
+```bash
+QRLIB_BASE_URL=http://127.0.0.1:5656 bash run.sh
+```
 
 ## WebUI 可视化管理（可选）
 
@@ -174,174 +197,6 @@ server {
 - 先把 Node 服务用 `HOST=127.0.0.1` 启动起来
 - 在站点里开启 HTTPS
 - 反向代理到 `http://127.0.0.1:8787`，并打开 WebSocket 支持
-
-### 启动挂机
-
-```bash
-# QQ小程序 (默认)
-node client.js --code <你的登录code>
-
-# 微信小程序
-node client.js --code <你的登录code> --wx
-```
-
-### 自定义巡查间隔
-
-```bash
-# 农场巡查间隔 5 秒，好友巡查间隔 2 秒
-node client.js --code <code> --interval 5 --friend-interval 2
-```
-
-### 参数说明
-
-| 参数                | 说明                                                       | 默认值    |
-| ------------------- | ---------------------------------------------------------- | --------- |
-| `--code`            | 小程序登录凭证（**必需**）                                 | —         |
-| `--wx`              | 使用微信登录                                               | QQ 小程序 |
-| `--interval`        | 自己农场巡查间隔（秒）                                     | 2         |
-| `--friend-interval` | 好友巡查间隔（秒）                                         | 1         |
-| `--name`            | 注销实名姓名（配合 `--delete-account`）                    | —         |
-| `--cert-id`         | 注销证件号（配合 `--delete-account`）                      | —         |
-| `--cert-type`       | 证件类型: `0/414/516/553/555` 或 `china/passport/hk/other` | `0`       |
-| `--verify`          | 验证 proto 定义是否正确                                    | —         |
-| `--decode`          | 进入 PB 数据解码模式                                       | —         |
-
-### 邀请码功能（微信环境）
-
-在项目根目录创建 `share.txt` 文件，每行一个邀请链接：
-
-```
-https://xxx?uid=123&openid=xxx&share_source=4&doc_id=2
-https://xxx?uid=456&openid=xxx&share_source=4&doc_id=2
-```
-
-启动时会自动处理这些邀请链接，申请添加好友。处理完成后文件会被清空。
-
-### PB 解码工具
-
-内置 Protobuf 数据解码器，支持自动推断消息类型：
-
-```bash
-# 解码 base64 格式的 gatepb.Message
-node client.js --decode CigKGWdhbWVwYi... --gate
-
-# 解码 hex 格式，指定消息类型
-node client.js --decode 0a1c0a19... --hex --type gatepb.Message
-
-# 查看解码工具详细帮助
-node client.js --decode
-```
-
-### 经验分析工具
-
-- 规则：
-- 1.  每次收获经验 = exp，铲地固定 +1 经验 => 单轮经验 = exp + 1
-- 2.  种植速度：
-- - 不施肥：2 秒种 18 块地 => 9 块/秒
-- - 普通肥：2 秒种 12 块地 => 6 块/秒
-- 3.  普通肥：减少 20% 生长时间；若 20% < 30 秒，则固定减少 30 秒
-      \*/
-
-```bash
-node tools/calc-exp-yield.js
-node tools/calc-exp-yield.js --lands 18 --level 27
-node tools/calc-exp-yield.js --input tools/seed-shop-merged-export.json
-```
-
-## 项目结构
-
-<details>
-<summary>点击展开项目结构</summary>
-
-```
-├── client.js              # 入口文件 - 参数解析与启动调度
-├── src/
-│   ├── config.js          # 配置常量与生长阶段枚举
-│   ├── utils.js           # 工具函数 (类型转换/日志/时间同步/sleep)
-│   ├── proto.js           # Protobuf 加载与消息类型管理
-│   ├── network.js         # WebSocket 连接/消息编解码/登录/心跳
-│   ├── farm.js            # 自己农场: 收获/浇水/除草/除虫/铲除/种植/施肥
-│   ├── friend.js          # 好友农场: 进入/帮忙/偷菜/巡查循环
-│   ├── task.js            # 任务系统: 自动领取任务奖励
-│   ├── status.js          # 状态栏: 终端顶部固定显示用户状态
-│   ├── warehouse.js       # 仓库系统: 自动出售果实
-│   ├── invite.js          # 邀请码处理: 自动申请好友
-│   ├── gameConfig.js      # 游戏配置: 等级经验表/植物数据
-│   └── decode.js          # PB 解码/验证工具模式
-├── proto/                 # Protobuf 消息定义
-│   ├── game.proto         # 网关消息定义 (gatepb)
-│   ├── userpb.proto       # 用户/登录/心跳消息
-│   ├── plantpb.proto      # 农场/土地/植物消息
-│   ├── corepb.proto       # 通用 Item 消息
-│   ├── shoppb.proto       # 商店消息
-│   ├── friendpb.proto     # 好友列表/申请消息
-│   ├── visitpb.proto      # 好友农场拜访消息
-│   ├── notifypb.proto     # 服务器推送通知消息
-│   ├── taskpb.proto       # 任务系统消息
-│   └── itempb.proto       # 背包/仓库/物品消息
-├── gameConfig/            # 游戏配置数据
-│   ├── RoleLevel.json     # 等级经验表
-│   └── Plant.json         # 植物数据（名称/生长时间/经验等）
-├── tools/                 # 辅助工具
-│   └── analyze-exp-*.js   # 经验效率分析脚本
-└── package.json
-```
-
-</details>
-
-## 运行示例
-
-<details>
-<summary>点击展开运行示例</summary>
-
-```
-QQ | 我的农场 | Lv24 125/500 | 金币:88888
-────────────────────────────────────────────
-
-========== 登录成功 ==========
-  GID:    1234567890
-  昵称:   我的农场
-  等级:   24
-  金币:   88888
-  时间:   2026/2/7 16:00:00
-===============================
-
-[16:00:02] [农场] [收:15 长:0] → 收获15/种植15
-[16:00:03] [施肥] 已为 15/15 块地施肥
-[16:00:05] [农场] [草:2 虫:1 水:3 长:15] → 除草2/除虫1/浇水3
-[16:00:08] [好友] 小明: 偷6(白萝卜)
-[16:00:10] [好友] 巡查 5 人 → 偷12/除草3/浇水2
-[16:00:15] [仓库] 出售 2 种果实共 300 个，获得 600 金币
-[16:00:20] [任务] 领取: 收获5次 → 金币500/经验100
-
-# 微信同玩好友申请自动同意：
-[16:05:30] [申请] 收到 1 个好友申请: 小绿
-[16:05:31] [申请] 已同意 1 人: 小绿
-```
-
-</details>
-
-## 配置说明
-
-### src/config.js
-
-```javascript
-const CONFIG = {
-  serverUrl: "wss://gate-obt.nqf.qq.com/prod/ws",
-  clientVersion: "1.6.0.11_20251224",
-  platform: "qq", // 平台: qq 或 wx
-  heartbeatInterval: 25000, // 心跳间隔 25秒
-  farmCheckInterval: 2000, // 农场巡查间隔 2秒
-  friendCheckInterval: 1000, // 好友巡查间隔 1秒
-};
-```
-
-### src/friend.js
-
-```javascript
-const HELP_ONLY_WITH_EXP = true; // 只在有经验时帮助好友
-const ENABLE_PUT_BAD_THINGS = false; // 是否启用放虫放草功能
-```
 
 ## 注意事项
 
