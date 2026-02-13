@@ -6,6 +6,8 @@
 <img width="1919" height="897" alt="image" src="https://github.com/user-attachments/assets/f0acb66a-0b7f-47b4-9cb9-48ee3015752d" />
 <img width="1889" height="779" alt="QQ20260212-121430" src="https://github.com/user-attachments/assets/2350e643-65e3-4c39-9e14-971a5ef3c01d" />
 <img width="500" height="266" alt="QQ20260212-122439" src="https://github.com/user-attachments/assets/c4072776-d8cc-4340-a49c-c6cd7daea75e" />
+<img width="972" height="585" alt="image" src="https://github.com/user-attachments/assets/bec2ec04-0409-4405-9536-a1d6afb97ec9" />
+
 
 ## 一些提醒：请勿拿作者原版的程序去倒卖，WebUI也不行
 
