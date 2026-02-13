@@ -11,11 +11,10 @@
 
 ## WebUI 预览
 
-<img width="1918" height="888" alt="image" src="https://github.com/user-attachments/assets/a3d115aa-5bd4-4f12-b43e-411e781204f4" />
-<img width="1919" height="897" alt="image" src="https://github.com/user-attachments/assets/f0acb66a-0b7f-47b4-9cb9-48ee3015752d" />
-<img width="1889" height="779" alt="QQ20260212-121430" src="https://github.com/user-attachments/assets/2350e643-65e3-4c39-9e14-971a5ef3c01d" />
-<img width="500" height="266" alt="QQ20260212-122439" src="https://github.com/user-attachments/assets/c4072776-d8cc-4340-a49c-c6cd7daea75e" />
-<img width="972" height="585" alt="image" src="https://github.com/user-attachments/assets/bec2ec04-0409-4405-9536-a1d6afb97ec9" />
+<img width="1682" height="876" alt="image" src="https://github.com/user-attachments/assets/4e05a3bf-189a-4e42-a6ef-14c492b80089" />
+<img width="1253" height="841" alt="image" src="https://github.com/user-attachments/assets/a9ebb510-b5cb-403b-a152-34f052b58471" />
+<img width="1272" height="716" alt="image" src="https://github.com/user-attachments/assets/3e3c1627-ff7f-438a-9e79-dcdbedecbb66" />
+<img width="1246" height="682" alt="image" src="https://github.com/user-attachments/assets/144325cf-a5e4-465d-8489-bbd7ff89030c" />
 
 
 ## 功能特性
