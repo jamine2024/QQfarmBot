@@ -227,6 +227,9 @@ export function Shell(props: ShellProps): React.JSX.Element {
             <NavLink to="/notifications" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
               通知
             </NavLink>
+            <NavLink to="/about" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
+              关于
+            </NavLink>
           </nav>
 
           <div className="navPanel">
@@ -344,6 +347,13 @@ export function Shell(props: ShellProps): React.JSX.Element {
                   onClick={() => setNavOpen(false)}
                 >
                   通知
+                </NavLink>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  关于
                 </NavLink>
               </nav>
 

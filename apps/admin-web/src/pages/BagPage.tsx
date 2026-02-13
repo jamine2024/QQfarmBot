@@ -5,7 +5,8 @@ import { formatDateTime } from "../lib/format";
 import { GlassCard } from "../ui/GlassCard";
 
 type BagKind = "all" | "gold" | "seed" | "fruit" | "item";
-type SortKey = "value_desc" | "count_desc" | "name_asc";
+type SortKey = "name" | "id" | "kind" | "count" | "unitPriceGold" | "totalGold";
+type SortDir = "asc" | "desc";
 
 /**
  * 以更紧凑的形式格式化金币显示（tabular 视觉更稳定）。
@@ -54,13 +55,54 @@ function useIsNarrow(maxWidthPx: number): boolean {
   return ok;
 }
 
+function BagSortTh(props: {
+  label: string;
+  k: SortKey;
+  align?: "left" | "right";
+  sortKey: SortKey;
+  sortDir: SortDir;
+  onToggle: (k: SortKey) => void;
+}): React.JSX.Element {
+  const active = props.sortKey === props.k;
+  const arrow = active ? (props.sortDir === "asc" ? "▲" : "▼") : "↕";
+  const cls = ["seedsThBtn", active ? "active" : "", props.align === "right" ? "right" : ""].filter(Boolean).join(" ");
+  return (
+    <th>
+      <button type="button" className={cls} onClick={() => props.onToggle(props.k)}>
+        <span>{props.label}</span>
+        <span className="seedsThArrow">{arrow}</span>
+      </button>
+    </th>
+  );
+}
+
 export function BagPage(): React.JSX.Element {
   const data = useData();
   const bag = data.snapshot?.bot?.bag ?? null;
+  const totalCount = bag?.items?.length ?? 0;
   const [kind, setKind] = useState<BagKind>("all");
-  const [sortKey, setSortKey] = useState<SortKey>("value_desc");
+  const [sortKey, setSortKey] = useState<SortKey>("totalGold");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [search, setSearch] = useState("");
   const isNarrow = useIsNarrow(720);
+
+  function defaultSortDir(key: SortKey): SortDir {
+    if (key === "name") return "asc";
+    if (key === "id") return "asc";
+    if (key === "kind") return "asc";
+    return "desc";
+  }
+
+  function toggleSort(key: SortKey): void {
+    setSortKey((prevKey) => {
+      if (prevKey !== key) {
+        setSortDir(defaultSortDir(key));
+        return key;
+      }
+      setSortDir((prevDir) => (prevDir === "asc" ? "desc" : "asc"));
+      return prevKey;
+    });
+  }
 
   const list = useMemo(() => {
     const raw = bag?.items ?? [];
@@ -79,15 +121,27 @@ export function BagPage(): React.JSX.Element {
     }));
 
     withTotal.sort((a, b) => {
-      if (sortKey === "count_desc") return b.count - a.count || a.id - b.id;
-      if (sortKey === "name_asc") return a.name.localeCompare(b.name) || a.id - b.id;
-      const av = a.totalGold ?? -1;
-      const bv = b.totalGold ?? -1;
-      return bv - av || b.count - a.count || a.id - b.id;
+      const kindRank: Record<(typeof a)["kind"], number> = { gold: 0, seed: 1, fruit: 2, item: 3 };
+      const cmpNullLast = (av: number | null, bv: number | null): number => {
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return sortDir === "asc" ? av - bv : bv - av;
+      };
+
+      if (sortKey === "name") return (sortDir === "asc" ? 1 : -1) * a.name.localeCompare(b.name, "zh-Hans-CN") || a.id - b.id;
+      if (sortKey === "id") return (sortDir === "asc" ? 1 : -1) * (a.id - b.id) || a.name.localeCompare(b.name, "zh-Hans-CN");
+      if (sortKey === "kind") {
+        const d = (sortDir === "asc" ? 1 : -1) * (kindRank[a.kind] - kindRank[b.kind]);
+        return d || a.name.localeCompare(b.name, "zh-Hans-CN") || a.id - b.id;
+      }
+      if (sortKey === "count") return (sortDir === "asc" ? 1 : -1) * (a.count - b.count) || a.id - b.id;
+      if (sortKey === "unitPriceGold") return cmpNullLast(a.unitPriceGold, b.unitPriceGold) || a.id - b.id;
+      return cmpNullLast(a.totalGold, b.totalGold) || (sortDir === "asc" ? a.count - b.count : b.count - a.count) || a.id - b.id;
     });
 
     return withTotal;
-  }, [bag?.items, kind, search, sortKey]);
+  }, [bag?.items, kind, search, sortDir, sortKey]);
 
   const totalGold = useMemo(() => {
     const items = bag?.items ?? [];
@@ -110,7 +164,9 @@ export function BagPage(): React.JSX.Element {
           right={
             <div className="chip">
               <span className="dot dot-blue" />
-              <span className="mono">{list.length} 项</span>
+              <span className="mono">
+                {list.length}/{totalCount} 项
+              </span>
               {totalGold != null ? <span className="mono muted">≈ {formatGold(totalGold)}</span> : null}
             </div>
           }
@@ -119,44 +175,104 @@ export function BagPage(): React.JSX.Element {
             <input className="fieldInput" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="搜索 名称 / ID / 类型" />
             <div className="bagToolsRight">
               <div className="seg" role="tablist" aria-label="背包类型筛选">
-                <button className={kind === "all" ? "segBtn active" : "segBtn"} onClick={() => setKind("all")} role="tab" aria-selected={kind === "all"}>
+                <button
+                  type="button"
+                  className={kind === "all" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("all");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "all"}
+                >
                   全部
                 </button>
-                <button className={kind === "gold" ? "segBtn active" : "segBtn"} onClick={() => setKind("gold")} role="tab" aria-selected={kind === "gold"}>
+                <button
+                  type="button"
+                  className={kind === "gold" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("gold");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "gold"}
+                >
                   货币
                 </button>
-                <button className={kind === "seed" ? "segBtn active" : "segBtn"} onClick={() => setKind("seed")} role="tab" aria-selected={kind === "seed"}>
+                <button
+                  type="button"
+                  className={kind === "seed" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("seed");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "seed"}
+                >
                   种子
                 </button>
-                <button className={kind === "fruit" ? "segBtn active" : "segBtn"} onClick={() => setKind("fruit")} role="tab" aria-selected={kind === "fruit"}>
+                <button
+                  type="button"
+                  className={kind === "fruit" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("fruit");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "fruit"}
+                >
                   果实
                 </button>
-                <button className={kind === "item" ? "segBtn active" : "segBtn"} onClick={() => setKind("item")} role="tab" aria-selected={kind === "item"}>
+                <button
+                  type="button"
+                  className={kind === "item" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("item");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "item"}
+                >
                   道具
                 </button>
               </div>
               <div className="seg" role="tablist" aria-label="背包排序">
                 <button
-                  className={sortKey === "value_desc" ? "segBtn active" : "segBtn"}
-                  onClick={() => setSortKey("value_desc")}
+                  type="button"
+                  className={sortKey === "totalGold" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSortKey("totalGold");
+                    setSortDir("desc");
+                  }}
                   role="tab"
-                  aria-selected={sortKey === "value_desc"}
+                  aria-selected={sortKey === "totalGold"}
                 >
                   按总价
                 </button>
                 <button
-                  className={sortKey === "count_desc" ? "segBtn active" : "segBtn"}
-                  onClick={() => setSortKey("count_desc")}
+                  type="button"
+                  className={sortKey === "count" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSortKey("count");
+                    setSortDir("desc");
+                  }}
                   role="tab"
-                  aria-selected={sortKey === "count_desc"}
+                  aria-selected={sortKey === "count"}
                 >
                   按数量
                 </button>
                 <button
-                  className={sortKey === "name_asc" ? "segBtn active" : "segBtn"}
-                  onClick={() => setSortKey("name_asc")}
+                  type="button"
+                  className={sortKey === "name" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSortKey("name");
+                    setSortDir("asc");
+                  }}
                   role="tab"
-                  aria-selected={sortKey === "name_asc"}
+                  aria-selected={sortKey === "name"}
                 >
                   按名称
                 </button>
@@ -191,12 +307,12 @@ export function BagPage(): React.JSX.Element {
               <table className="seedsTable">
                 <thead>
                   <tr>
-                    <th>名称</th>
-                    <th className="tdNum">ID</th>
-                    <th>类型</th>
-                    <th className="tdNum">数量</th>
-                    <th className="tdNum">单价(金)</th>
-                    <th className="tdNum">总价(金)</th>
+                    <BagSortTh label="名称" k="name" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
+                    <BagSortTh label="ID" k="id" align="right" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
+                    <BagSortTh label="类型" k="kind" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
+                    <BagSortTh label="数量" k="count" align="right" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
+                    <BagSortTh label="单价(金)" k="unitPriceGold" align="right" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
+                    <BagSortTh label="总价(金)" k="totalGold" align="right" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
                     <th>更新时间</th>
                   </tr>
                 </thead>

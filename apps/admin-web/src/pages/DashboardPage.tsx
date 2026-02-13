@@ -94,6 +94,7 @@ export function DashboardPage(): React.JSX.Element {
   const [logScopeFilter, setLogScopeFilter] = useState<"all" | "farm" | "friend">("all");
   const [logSearch, setLogSearch] = useState("");
   const logBottomRef = useRef<HTMLDivElement | null>(null);
+  const [logClearing, setLogClearing] = useState(false);
   const [deltaKeys, setDeltaKeys] = useState<Record<string, number>>({});
   const [deltaCrops, setDeltaCrops] = useState<Record<string, number>>({});
   const [qrOpen, setQrOpen] = useState(false);
@@ -131,6 +132,25 @@ export function DashboardPage(): React.JSX.Element {
       if (clearFlashTimerRef.current !== null) window.clearTimeout(clearFlashTimerRef.current);
     };
   }, []);
+
+  /**
+   * 清空服务端历史日志并同步清空前端显示窗口。
+   */
+  async function clearLogs(): Promise<void> {
+    if (logClearing) return;
+    const ok = window.confirm("确定要清空历史日志吗？此操作不可恢复。");
+    if (!ok) return;
+    setLogClearing(true);
+    try {
+      await apiFetch("/api/logs/clear", { method: "POST", token: auth.token });
+      data.setLogs([]);
+      setLogSelectedId(null);
+    } catch {
+      return;
+    } finally {
+      setLogClearing(false);
+    }
+  }
 
   /**
    * 停止扫码状态轮询。
@@ -584,6 +604,9 @@ export function DashboardPage(): React.JSX.Element {
                     <input type="checkbox" checked={logAutoScroll} onChange={(e) => setLogAutoScroll(e.target.checked)} />
                     <span>自动滚动</span>
                   </label>
+                  <Button size="sm" variant="danger" onClick={clearLogs} disabled={logClearing || !data.logs.length}>
+                    {logClearing ? "清空中..." : "清空"}
+                  </Button>
                 </div>
               }
               className="compactCard"

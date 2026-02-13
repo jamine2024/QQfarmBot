@@ -889,6 +889,38 @@
   flex-wrap: wrap;
 }
 
+.aboutStack {
+  display: grid;
+  gap: 12px;
+}
+
+.aboutBlock {
+  display: grid;
+  gap: 8px;
+}
+
+.aboutH {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.aboutP {
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.55;
+}
+
+.aboutLink {
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  opacity: 0.92;
+}
+
+.aboutLink:hover {
+  opacity: 1;
+}
+
 .seedsTableWrap {
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 16px;
@@ -1332,6 +1364,12 @@
 
 .select {
   appearance: none;
+}
+
+.fieldInput.select option,
+.fieldInput.select optgroup {
+  color: #0b1022;
+  background: #ffffff;
 }
 
 .tableTools {

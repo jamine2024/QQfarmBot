@@ -14,6 +14,7 @@ import { WallpaperPage } from "./pages/WallpaperPage";
 import { SeedsPage } from "./pages/SeedsPage";
 import { BagPage } from "./pages/BagPage";
 import { VisitsPage } from "./pages/VisitsPage";
+import { AboutPage } from "./pages/AboutPage";
 
 export default function App(): React.JSX.Element {
   const auth = useAuth();
@@ -105,6 +106,16 @@ export default function App(): React.JSX.Element {
           <Authed>
             <Shell title="到访记录">
               <VisitsPage />
+            </Shell>
+          </Authed>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <Authed>
+            <Shell title="关于">
+              <AboutPage />
             </Shell>
           </Authed>
         }
