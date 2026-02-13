@@ -5,6 +5,7 @@ export type ApiError = {
 };
 
 const API_BASE = "";
+const UNAUTHORIZED_EVENT = "auth:unauthorized";
 
 function getApiErrorInfo(payload: unknown): { code?: string; message?: string } {
   if (!payload || typeof payload !== "object") return {};
@@ -12,6 +13,15 @@ function getApiErrorInfo(payload: unknown): { code?: string; message?: string } 
   const code = typeof obj.error === "string" ? obj.error : undefined;
   const message = typeof obj.message === "string" ? obj.message : undefined;
   return { code, message };
+}
+
+function emitUnauthorized(input: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT, { detail: { input } }));
+  } catch {
+    return;
+  }
 }
 
 export async function apiFetch<T>(
@@ -38,6 +48,7 @@ export async function apiFetch<T>(
   const payload: unknown = isJson ? await res.json() : null;
 
   if (!res.ok) {
+    if (res.status === 401) emitUnauthorized(input);
     const info = getApiErrorInfo(payload);
     const err: ApiError = {
       status: res.status,

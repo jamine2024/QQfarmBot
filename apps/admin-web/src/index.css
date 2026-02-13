@@ -60,7 +60,7 @@ select {
 .appRoot {
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

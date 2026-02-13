@@ -37,6 +37,19 @@ export function LogsPage(): React.JSX.Element {
     }
   }
 
+  async function clearLogs(): Promise<void> {
+    try {
+      const ok = window.confirm("确定要清空历史日志吗？此操作不可恢复。");
+      if (!ok) return;
+      const res = await fetch("/api/logs/clear", { method: "POST", headers: { authorization: `Bearer ${auth.token}` } });
+      if (!res.ok) throw new Error("CLEAR_FAILED");
+      data.setLogs([]);
+      setSelected(null);
+    } catch {
+      return;
+    }
+  }
+
   return (
     <div className="grid">
       <div className="gridSpan2">
@@ -47,6 +60,9 @@ export function LogsPage(): React.JSX.Element {
             <div className="row">
               <Button size="sm" variant="ghost" onClick={exportLogs}>
                 导出
+              </Button>
+              <Button size="sm" variant="danger" onClick={clearLogs}>
+                清空
               </Button>
             </div>
           }

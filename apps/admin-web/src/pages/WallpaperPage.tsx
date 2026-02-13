@@ -61,7 +61,9 @@ export function WallpaperPage(): React.JSX.Element {
         const res = await apiFetch<ConfigReply>("/api/config", { method: "PUT", token: auth.token, body });
         setLoadedConfig(res.config);
         const ui = res.config.ui?.wallpaper;
-        setWallpaperMode(ui?.mode === "off" ? "off" : "local");
+        const mode: "local" | "off" = ui?.mode === "off" ? "off" : "local";
+        setWallpaperMode(mode);
+        window.dispatchEvent(new CustomEvent("ui:wallpaper", { detail: { mode } }));
         setOk("已保存");
       } catch (e: unknown) {
         const err = e as ApiError;
@@ -96,7 +98,6 @@ export function WallpaperPage(): React.JSX.Element {
           await cache.put(key, new Response(f, { headers: { "content-type": f.type || "image/jpeg" } }));
         }
         await saveWallpaperConfig({ mode: "local" });
-        window.dispatchEvent(new Event("ui:wallpaper"));
       } catch {
         return;
       }

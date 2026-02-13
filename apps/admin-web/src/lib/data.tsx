@@ -26,6 +26,7 @@ export type Snapshot = {
       autoWeed: boolean;
       autoBug: boolean;
       autoPlant: boolean;
+      autoFriendFarm: boolean;
       autoTask: boolean;
       autoSell: boolean;
     };
@@ -100,6 +101,28 @@ export type Snapshot = {
         needWater: boolean;
         needWeed: boolean;
         needBug: boolean;
+      }>;
+    } | null;
+    bag?: {
+      updatedAt: number;
+      items: Array<{
+        id: number;
+        kind: "gold" | "seed" | "fruit" | "item";
+        name: string;
+        count: number;
+        unitPriceGold: number | null;
+      }>;
+    } | null;
+    visits?: {
+      updatedAt: number;
+      items: Array<{
+        id: string;
+        ts: string;
+        direction: "incoming" | "outgoing";
+        gid: number;
+        name: string | null;
+        kind: "visit" | "steal" | "weed" | "bug" | "water";
+        message: string;
       }>;
     } | null;
   };

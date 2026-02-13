@@ -96,5 +96,18 @@ export class LogBuffer {
   getExportPath(): string {
     return this.logFilePath;
   }
+
+  /**
+   * 清空内存日志与持久化文件。
+   */
+  async clear(): Promise<void> {
+    this.entries.splice(0, this.entries.length);
+    await ensureDir(path.dirname(this.logFilePath));
+    try {
+      await fs.writeFile(this.logFilePath, "", "utf-8");
+    } catch {
+      return;
+    }
+  }
 }
 

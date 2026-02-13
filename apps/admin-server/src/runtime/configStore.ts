@@ -16,6 +16,7 @@ type StoredRuntimeConfig = {
     autoWeed: boolean;
     autoBug: boolean;
     autoPlant: boolean;
+    autoFriendFarm?: boolean;
     autoTask: boolean;
     autoSell: boolean;
   };
@@ -61,6 +62,7 @@ const StoredRuntimeConfigSchema = z.object({
       autoWeed: z.boolean(),
       autoBug: z.boolean(),
       autoPlant: z.boolean(),
+      autoFriendFarm: z.boolean().optional(),
       autoTask: z.boolean(),
       autoSell: z.boolean(),
     })
@@ -155,15 +157,20 @@ export class ConfigStore {
         mode: stored.ui?.wallpaper?.mode === "off" ? ("off" as const) : ("local" as const),
       },
     };
-    const automation = stored.automation ?? {
+    const storedAutomation = stored.automation ?? {
       autoHarvest: true,
       autoFertilize: true,
       autoWater: true,
       autoWeed: true,
       autoBug: true,
       autoPlant: true,
+      autoFriendFarm: true,
       autoTask: true,
       autoSell: true,
+    };
+    const automation: NonNullable<RuntimeConfig["automation"]> = {
+      ...storedAutomation,
+      autoFriendFarm: storedAutomation.autoFriendFarm ?? true,
     };
     const farming = stored.farming ?? { forceLowestLevelCrop: false };
     return {
@@ -207,6 +214,7 @@ export class ConfigStore {
         autoWeed: true,
         autoBug: true,
         autoPlant: true,
+        autoFriendFarm: true,
         autoTask: true,
         autoSell: true,
       },
@@ -236,6 +244,7 @@ export class ConfigStore {
         autoWeed: true,
         autoBug: true,
         autoPlant: true,
+        autoFriendFarm: true,
         autoTask: true,
         autoSell: true,
       },

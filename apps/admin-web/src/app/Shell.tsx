@@ -28,6 +28,53 @@ export function Shell(props: ShellProps): React.JSX.Element {
 
   const [shutdownLoading, setShutdownLoading] = useState(false);
   const [shutdownError, setShutdownError] = useState<string | null>(null);
+  const [navOpen, setNavOpen] = useState(false);
+  const [alphaOpen, setAlphaOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia?.("(max-width: 980px)")?.matches ?? false;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mql = window.matchMedia?.("(max-width: 980px)");
+    if (!mql) return;
+    const onChange = () => {
+      setIsMobile(mql.matches);
+      if (!mql.matches) setNavOpen(false);
+    };
+    onChange();
+    mql.addEventListener?.("change", onChange);
+    return () => mql.removeEventListener?.("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!navOpen) return;
+    if (typeof document === "undefined") return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [navOpen]);
+
+  useEffect(() => {
+    if (!navOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setNavOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [navOpen]);
+
+  useEffect(() => {
+    if (!alphaOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAlphaOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [alphaOpen]);
 
   useEffect(() => {
     if (fatalWs400.active) return;
@@ -84,7 +131,11 @@ export function Shell(props: ShellProps): React.JSX.Element {
   }, [wallpaperMode, wallpaperReloadSeq]);
 
   useEffect(() => {
-    const onWallpaperChanged = () => setWallpaperReloadSeq((x) => x + 1);
+    const onWallpaperChanged = (evt: Event) => {
+      const detail = (evt as CustomEvent<{ mode?: "local" | "off" }>)?.detail;
+      if (detail?.mode === "local" || detail?.mode === "off") setWallpaperMode(detail.mode);
+      setWallpaperReloadSeq((x) => x + 1);
+    };
     window.addEventListener("ui:wallpaper", onWallpaperChanged);
     return () => window.removeEventListener("ui:wallpaper", onWallpaperChanged);
   }, []);
@@ -144,7 +195,7 @@ export function Shell(props: ShellProps): React.JSX.Element {
   return (
     <div className="appRoot" style={wallpaperUrl ? { backgroundImage: `url(${wallpaperUrl})` } : undefined}>
       <div className="shell">
-        <aside className="glass nav">
+        <aside className="glass nav navDesktop">
           <div className="navBrand">
             <Link to="/" className="brand">
               <div className="brandText">
@@ -160,6 +211,12 @@ export function Shell(props: ShellProps): React.JSX.Element {
             </NavLink>
             <NavLink to="/lands" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
               土地
+            </NavLink>
+            <NavLink to="/bag" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
+              我的背包
+            </NavLink>
+            <NavLink to="/visits" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
+              到访记录
             </NavLink>
             <NavLink to="/seeds" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>
               种子清单
@@ -199,11 +256,128 @@ export function Shell(props: ShellProps): React.JSX.Element {
           </div>
         </aside>
 
+        {navOpen ? (
+          <div
+            className="navDrawerOverlay"
+            role="presentation"
+            onClick={() => setNavOpen(false)}
+          >
+            <aside className="glass nav navDrawer" onClick={(e) => e.stopPropagation()}>
+              <div className="navBrand">
+                <Link
+                  to="/"
+                  className="brand"
+                  onClick={() => {
+                    setNavOpen(false);
+                  }}
+                >
+                  <div className="brandText">
+                    <div className="brandName">Farm Console</div>
+                    <div className="brandSub">WebUI 管理台</div>
+                  </div>
+                </Link>
+              </div>
+
+              <div className="navPanel navPanelPrimary">
+                <div className="navPanelHead">
+                  <div className="navPanelTitle">UI 透明度</div>
+                  <div className="navPanelSub">{Math.round(glassAlpha * 100)}%</div>
+                </div>
+                <input
+                  className="range"
+                  type="range"
+                  min={30}
+                  max={90}
+                  step={1}
+                  value={Math.round(glassAlpha * 100)}
+                  onChange={(e) => setGlassAlpha(Number(e.target.value) / 100)}
+                />
+              </div>
+
+              <nav className="navLinks">
+                <NavLink
+                  to="/"
+                  end
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  数据 & 日志
+                </NavLink>
+                <NavLink
+                  to="/lands"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  土地
+                </NavLink>
+                <NavLink
+                  to="/bag"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  我的背包
+                </NavLink>
+                <NavLink
+                  to="/visits"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  到访记录
+                </NavLink>
+                <NavLink
+                  to="/seeds"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  种子清单
+                </NavLink>
+                <NavLink
+                  to="/wallpaper"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  壁纸
+                </NavLink>
+                <NavLink
+                  to="/notifications"
+                  className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+                  onClick={() => setNavOpen(false)}
+                >
+                  通知
+                </NavLink>
+              </nav>
+
+              <div className="navFooter">
+                <div className="chip">
+                  <span className="dot dot-accent" />
+                  <span>已登录</span>
+                </div>
+                <button className="navLogout" onClick={auth.logout}>
+                  退出登录
+                </button>
+              </div>
+            </aside>
+          </div>
+        ) : null}
+
         <main className="main">
           <header className="glass topbar">
             <div className="topbarTitle">
-              <div className="topbarH">{props.title ?? "控制台"}</div>
+              <div className="topbarLeft">
+                {isMobile ? (
+                  <button className="navHamburger" onClick={() => setNavOpen(true)} aria-label="打开菜单">
+                    <span className="navHamburgerIcon" />
+                  </button>
+                ) : null}
+                <div className="topbarH">{props.title ?? "控制台"}</div>
+              </div>
               <div className="topbarHint">
+                {isMobile ? (
+                  <button className="chip chipBtn" onClick={() => setAlphaOpen(true)}>
+                    <span className="dot dot-accent" />
+                    <span className="mono">透明度 {Math.round(glassAlpha * 100)}%</span>
+                  </button>
+                ) : null}
                 <span className="chip">
                   <span className={snapshot?.bot?.connected ? "dot dot-accent" : "dot dot-danger"} />
                   <span>{snapshot?.bot?.connected ? "已连接" : "未连接"}</span>
@@ -253,6 +427,36 @@ export function Shell(props: ShellProps): React.JSX.Element {
               </Button>
             </div>
             {recoveryError ? <div className="formError">{recoveryError}</div> : null}
+          </div>
+        </div>
+      ) : null}
+
+      {alphaOpen ? (
+        <div className="modalBack" role="dialog" aria-modal="true" onClick={() => setAlphaOpen(false)}>
+          <div className="glass alphaModal" onClick={(e) => e.stopPropagation()}>
+            <div className="alphaModalHead">
+              <div>
+                <div className="modalTitle">UI 透明度</div>
+                <div className="modalSub">
+                  <span className="chip mono">{Math.round(glassAlpha * 100)}%</span>
+                  <span className="muted">影响侧栏、卡片与弹层</span>
+                </div>
+              </div>
+              <Button size="sm" variant="ghost" onClick={() => setAlphaOpen(false)}>
+                关闭
+              </Button>
+            </div>
+            <div className="alphaModalBody">
+              <input
+                className="range"
+                type="range"
+                min={30}
+                max={90}
+                step={1}
+                value={Math.round(glassAlpha * 100)}
+                onChange={(e) => setGlassAlpha(Number(e.target.value) / 100)}
+              />
+            </div>
           </div>
         </div>
       ) : null}

@@ -36,6 +36,28 @@ type BotStatus = {
       needBug: boolean;
     }>;
   } | null;
+  bag?: {
+    updatedAt: number;
+    items: Array<{
+      id: number;
+      kind: "gold" | "seed" | "fruit" | "item";
+      name: string;
+      count: number;
+      unitPriceGold: number | null;
+    }>;
+  } | null;
+  visits?: {
+    updatedAt: number;
+    items: Array<{
+      id: string;
+      ts: string;
+      direction: "incoming" | "outgoing";
+      gid: number;
+      name: string | null;
+      kind: "visit" | "steal" | "weed" | "bug" | "water";
+      message: string;
+    }>;
+  } | null;
 };
 
 type StartBotInput = {
@@ -48,8 +70,30 @@ type StartBotInput = {
 };
 
 type BotEvents = {
-  on: (evt: "log", fn: (payload: { level: string; tag: string; message: string }) => void) => void;
-  off: (evt: "log", fn: (payload: { level: string; tag: string; message: string }) => void) => void;
+  on(evt: "log", fn: (payload: { level: string; tag: string; message: string }) => void): void;
+  on(
+    evt: "visit",
+    fn: (payload: {
+      direction: "incoming" | "outgoing";
+      gid: number;
+      name: string | null;
+      ts: string;
+      kind: "visit" | "steal" | "weed" | "bug" | "water";
+      message: string;
+    }) => void
+  ): void;
+  off(evt: "log", fn: (payload: { level: string; tag: string; message: string }) => void): void;
+  off(
+    evt: "visit",
+    fn: (payload: {
+      direction: "incoming" | "outgoing";
+      gid: number;
+      name: string | null;
+      ts: string;
+      kind: "visit" | "steal" | "weed" | "bug" | "water";
+      message: string;
+    }) => void
+  ): void;
 };
 
 type NetworkUserState = { gid: number; name: string; level: number; gold: number; exp: number };
@@ -66,6 +110,8 @@ export class BotController {
     platform: "qq",
     farmSummary: null,
     lands: null,
+    bag: null,
+    visits: null,
   };
 
   private unsubscribeBotLog: (() => void) | null = null;
@@ -74,6 +120,18 @@ export class BotController {
   private fatalWs400Triggered = false;
   private levelExpStarts: number[] | null = null;
   private lifecycle = Promise.resolve();
+  private friendControl: { start: () => void; stop: () => void } | null = null;
+  private friendFarmEnabled = true;
+  private bagPollInFlight = false;
+  private bagLastPollAtMs = 0;
+  private bagIndex:
+    | {
+        seedPriceBySeedId: Map<number, number>;
+        seedNameBySeedId: Map<number, string>;
+        fruitByFruitId: Map<number, { name: string; fruitCount: number | null; seedId: number | null }>;
+      }
+    | null = null;
+  private unsubscribeBotVisit: (() => void) | null = null;
 
   constructor(opts: { projectRoot: string; logBuffer: LogBuffer; configStore: ConfigStore }) {
     this.require = createRequire(import.meta.url);
@@ -89,6 +147,136 @@ export class BotController {
   }
 
   /**
+   * 追加一条到访记录（对外暴露给 WebUI 展示）。
+   */
+  private appendVisitRecord(input: {
+    ts: string;
+    direction: "incoming" | "outgoing";
+    gid: number;
+    name: string | null;
+    kind: "visit" | "steal" | "weed" | "bug" | "water";
+    message: string;
+  }): void {
+    const list = (this.status.visits?.items ?? []).slice();
+    list.push({ id: `${input.ts}-${input.direction}-${input.gid}-${input.kind}`, ...input });
+    const keep = list.length > 400 ? list.slice(list.length - 400) : list;
+    this.status.visits = { updatedAt: Date.now(), items: keep };
+  }
+
+  /**
+   * 构建背包定价/作物映射索引（Plant.json + 种子商店导出数据）。
+   */
+  private getBagIndex(): NonNullable<BotController["bagIndex"]> {
+    if (this.bagIndex) return this.bagIndex;
+    const seedPriceBySeedId = new Map<number, number>();
+    const seedNameBySeedId = new Map<number, string>();
+    const fruitByFruitId = new Map<number, { name: string; fruitCount: number | null; seedId: number | null }>();
+
+    try {
+      const plantList = this.require(path.join(this.projectRoot, "gameConfig", "Plant.json")) as Array<{
+        id: number;
+        name: string;
+        seed_id?: number;
+        fruit?: { id?: number; count?: number };
+      }>;
+      for (const p of plantList) {
+        const seedId = typeof p?.seed_id === "number" ? p.seed_id : null;
+        if (seedId != null && typeof p?.name === "string" && p.name) seedNameBySeedId.set(seedId, p.name);
+        const fruitId = typeof p?.fruit?.id === "number" ? p.fruit.id : null;
+        if (fruitId != null) {
+          fruitByFruitId.set(fruitId, {
+            name: typeof p?.name === "string" && p.name ? p.name : `果实${fruitId}`,
+            fruitCount: typeof p?.fruit?.count === "number" ? p.fruit.count : null,
+            seedId,
+          });
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    try {
+      const exported = this.require(path.join(this.projectRoot, "tools", "seed-shop-merged-export.json")) as {
+        rows?: Array<{ seedId: number; name?: string; price?: number; fruitId?: number; fruitCount?: number }>;
+      };
+      for (const r of exported?.rows ?? []) {
+        const seedId = typeof r?.seedId === "number" ? r.seedId : null;
+        const price = typeof r?.price === "number" ? r.price : null;
+        if (seedId != null && price != null) seedPriceBySeedId.set(seedId, price);
+        if (seedId != null && typeof r?.name === "string" && r.name && !seedNameBySeedId.has(seedId)) {
+          seedNameBySeedId.set(seedId, r.name);
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    this.bagIndex = { seedPriceBySeedId, seedNameBySeedId, fruitByFruitId };
+    return this.bagIndex;
+  }
+
+  /**
+   * 刷新背包展示数据（用于 WebUI 实时显示）。
+   */
+  private async refreshBagView(deps: {
+    warehouseMod: { getBag: () => Promise<unknown>; getBagItems: (bagReply: unknown) => unknown[] };
+    utilsMod: { toNum: (v: unknown) => number };
+  }): Promise<void> {
+    if (!this.status.running || !this.status.connected) return;
+    if (this.bagPollInFlight) return;
+    this.bagPollInFlight = true;
+    try {
+      const index = this.getBagIndex();
+      const bagReply = await deps.warehouseMod.getBag();
+      const rawItems = deps.warehouseMod.getBagItems(bagReply);
+      const items = rawItems
+        .map((it) => {
+          const id = deps.utilsMod.toNum((it as { id?: unknown }).id);
+          const count = deps.utilsMod.toNum((it as { count?: unknown }).count);
+          if (!Number.isFinite(id) || id <= 0) return null;
+          if (!Number.isFinite(count) || count <= 0) return null;
+
+          if (id === 1001) {
+            return { id, kind: "gold" as const, name: "金币", count, unitPriceGold: null };
+          }
+
+          const seedPrice = index.seedPriceBySeedId.get(id);
+          if (seedPrice != null) {
+            const name = index.seedNameBySeedId.get(id) ?? `种子${id}`;
+            return { id, kind: "seed" as const, name, count, unitPriceGold: seedPrice };
+          }
+
+          const fruitMeta = index.fruitByFruitId.get(id);
+          if (fruitMeta) {
+            const seedId = fruitMeta.seedId;
+            const seedUnit = seedId != null ? index.seedPriceBySeedId.get(seedId) : null;
+            const unit =
+              seedUnit != null && fruitMeta.fruitCount != null && fruitMeta.fruitCount > 0
+                ? Math.round((seedUnit / fruitMeta.fruitCount) * 10000) / 10000
+                : null;
+            return { id, kind: "fruit" as const, name: fruitMeta.name, count, unitPriceGold: unit };
+          }
+
+          return { id, kind: "item" as const, name: `物品${id}`, count, unitPriceGold: null };
+        })
+        .filter(Boolean) as NonNullable<BotStatus["bag"]>["items"];
+
+      const kindRank: Record<NonNullable<BotStatus["bag"]>["items"][number]["kind"], number> = {
+        gold: 0,
+        seed: 1,
+        fruit: 2,
+        item: 3,
+      };
+      items.sort((a, b) => kindRank[a.kind] - kindRank[b.kind] || a.id - b.id);
+      this.status.bag = { updatedAt: Date.now(), items };
+    } catch {
+      return;
+    } finally {
+      this.bagPollInFlight = false;
+    }
+  }
+
+  /**
    * 运行中动态更新 bot 的执行配置（不要求重启）。
    */
   applyRuntimeConfig(config: RuntimeConfig): void {
@@ -99,6 +287,7 @@ export class BotController {
       autoWeed: true,
       autoBug: true,
       autoPlant: true,
+      autoFriendFarm: true,
       autoTask: true,
       autoSell: true,
     };
@@ -118,6 +307,19 @@ export class BotController {
       botConfig.autoSell = automation.autoSell;
       botConfig.forceLowestLevelCrop = farming.forceLowestLevelCrop;
       botConfig.fixedSeedId = typeof farming.fixedSeedId === "number" ? farming.fixedSeedId : undefined;
+      const wantFriendFarm = Boolean(automation.autoFriendFarm);
+      if (this.status.running && this.friendControl && wantFriendFarm !== this.friendFarmEnabled) {
+        if (wantFriendFarm) this.friendControl.start();
+        else this.friendControl.stop();
+        this.friendFarmEnabled = wantFriendFarm;
+        void this.logBuffer
+          .append({
+            level: "info",
+            scope: "CONFIG",
+            message: wantFriendFarm ? "已开启好友农场巡查" : "已关闭好友农场巡查",
+          })
+          .catch(() => {});
+      }
       void this.logBuffer
         .append({
           level: "info",
@@ -374,6 +576,8 @@ export class BotController {
       cleanupTaskSystem: () => void;
     };
     const warehouseMod = this.require(path.join(this.projectRoot, "src", "warehouse.js")) as {
+      getBag: () => Promise<unknown>;
+      getBagItems: (bagReply: unknown) => unknown[];
       startSellLoop: (ms: number) => void;
       stopSellLoop: () => void;
       debugSellFruits: () => void;
@@ -388,6 +592,7 @@ export class BotController {
       emitRuntimeHint: (force?: boolean) => void;
       getServerTimeSec?: () => number;
       toTimeSec?: (v: unknown) => number;
+      toNum: (v: unknown) => number;
     };
 
     const CONFIG = configMod.CONFIG as Record<string, unknown>;
@@ -403,8 +608,10 @@ export class BotController {
     CONFIG.friendCheckIntervalMin = Math.min(friendMinMs, friendMaxMs);
     CONFIG.friendCheckIntervalMax = Math.max(friendMinMs, friendMaxMs);
 
+    this.friendControl = { start: friendMod.startFriendCheckLoop, stop: friendMod.stopFriendCheckLoop };
     try {
       const runtime = await this.configStore.get();
+      this.friendFarmEnabled = Boolean(runtime.automation?.autoFriendFarm ?? true);
       this.applyRuntimeConfig(runtime);
     } catch {
       // ignore
@@ -418,9 +625,12 @@ export class BotController {
       platform: input.platform,
       startedAt: new Date().toISOString(),
       farmSummary: null,
+      bag: null,
+      visits: { updatedAt: Date.now(), items: [] },
     };
 
     (utilsMod.botEvents as unknown as { removeAllListeners?: (evt: string) => void }).removeAllListeners?.("log");
+    (utilsMod.botEvents as unknown as { removeAllListeners?: (evt: string) => void }).removeAllListeners?.("visit");
 
     const onBotLog = async (payload: { level: string; tag: string; message: string }) => {
       const level = payload.level === "warn" ? "warn" : payload.level === "error" ? "error" : "info";
@@ -432,6 +642,20 @@ export class BotController {
     };
     utilsMod.botEvents.on("log", onBotLog);
     this.unsubscribeBotLog = () => utilsMod.botEvents.off("log", onBotLog);
+
+    const onBotVisit = (payload: {
+      direction: "incoming" | "outgoing";
+      gid: number;
+      name: string | null;
+      ts: string;
+      kind: "visit" | "steal" | "weed" | "bug" | "water";
+      message: string;
+    }) => {
+      if (!this.status.running) return;
+      this.appendVisitRecord(payload);
+    };
+    utilsMod.botEvents.on("visit", onBotVisit);
+    this.unsubscribeBotVisit = () => utilsMod.botEvents.off("visit", onBotVisit);
 
     statusMod.initStatusBar();
     statusMod.setStatusPlatform(input.platform);
@@ -452,7 +676,7 @@ export class BotController {
       });
 
       farmMod.startFarmCheckLoop();
-      friendMod.startFriendCheckLoop();
+      if (this.friendFarmEnabled) friendMod.startFriendCheckLoop();
       taskMod.initTaskSystem();
       setTimeout(() => warehouseMod.debugSellFruits(), 3000);
       warehouseMod.startSellLoop(60_000);
@@ -482,6 +706,11 @@ export class BotController {
       if (this.userPollTimer) clearInterval(this.userPollTimer);
       this.userPollTimer = setInterval(() => {
         void poll();
+        const now = Date.now();
+        if (now - this.bagLastPollAtMs >= 8000) {
+          this.bagLastPollAtMs = now;
+          void this.refreshBagView({ warehouseMod, utilsMod });
+        }
       }, 1200);
 
       this.onWsClosed = () => {
@@ -559,10 +788,14 @@ export class BotController {
     this.status.connected = false;
     this.unsubscribeBotLog?.();
     this.unsubscribeBotLog = null;
+    this.unsubscribeBotVisit?.();
+    this.unsubscribeBotVisit = null;
     if (this.userPollTimer) clearInterval(this.userPollTimer);
     this.userPollTimer = null;
     await this.stopFn?.();
     this.stopFn = null;
+    this.friendControl = null;
+    this.status.bag = null;
   }
 
   static toStartInput(config: RuntimeConfig, code: string, platformOverride?: "qq" | "wx"): StartBotInput {

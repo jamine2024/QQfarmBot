@@ -16,8 +16,53 @@
   top: 18px;
   align-self: start;
   height: calc(100vh - 36px);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+.navDrawerOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: radial-gradient(circle at 20% 18%, rgba(111, 255, 184, 0.10), rgba(0, 0, 0, 0.52) 55%, rgba(0, 0, 0, 0.72));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: navOverlayIn 200ms ease both;
+}
+
+@keyframes navOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.navDrawer {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  bottom: 10px;
+  width: min(86vw, 360px);
+  height: calc(100dvh - 20px);
+  max-height: calc(100dvh - 20px);
+  border-radius: 18px;
+  transform: translateX(-10px);
+  animation: navDrawerIn 220ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+@keyframes navDrawerIn {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .navBrand {
@@ -70,6 +115,23 @@
   background: rgb(var(--glass-rgb) / var(--glass-alpha));
   box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
   overflow: hidden;
+}
+
+.navPanelPrimary {
+  margin-top: 6px;
+}
+
+.chipBtn {
+  cursor: pointer;
+  border: 1px solid var(--stroke-2);
+}
+
+.chipBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chipBtn:active {
+  transform: translateY(1px);
 }
 
 .navPanelHead {
@@ -239,6 +301,61 @@
   gap: 12px;
 }
 
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.navHamburger {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.85);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  flex: 0 0 auto;
+}
+
+.navHamburger:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.navHamburgerIcon {
+  width: 18px;
+  height: 12px;
+  display: block;
+  position: relative;
+}
+
+.navHamburgerIcon::before,
+.navHamburgerIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+}
+
+.navHamburgerIcon::before {
+  top: 1px;
+  box-shadow: 0 5px 0 rgba(255, 255, 255, 0.85), 0 1px 0 rgba(0, 0, 0, 0.22);
+}
+
+.navHamburgerIcon::after {
+  bottom: 1px;
+}
+
 .topbarH {
   font-family: var(--font-ui);
   letter-spacing: 0.2px;
@@ -256,6 +373,7 @@
 .content {
   min-width: 0;
   animation: rise 380ms ease both;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 @keyframes rise {
@@ -710,6 +828,37 @@
   letter-spacing: 0.2px;
 }
 
+.switchLabelRow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.miniPill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+}
+
+.miniPill.ok {
+  border-color: rgba(111, 255, 184, 0.22);
+  background: rgba(111, 255, 184, 0.10);
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.miniPill.off {
+  border-color: rgba(255, 77, 109, 0.22);
+  background: rgba(255, 77, 109, 0.10);
+  color: rgba(255, 255, 255, 0.90);
+}
+
 .divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.10);
@@ -730,6 +879,14 @@
 
 .seedsPager {
   justify-content: flex-end;
+}
+
+.bagToolsRight {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .seedsTableWrap {
@@ -823,6 +980,65 @@
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0.82;
+}
+
+.mobileCards {
+  display: grid;
+  gap: 10px;
+}
+
+.mobileCard {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  background: rgb(var(--glass-rgb) / var(--glass-alpha2));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: 12px 12px;
+  overflow: hidden;
+}
+
+.mobileCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.mobileCardTitle {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobileCardRight {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.92;
+  white-space: nowrap;
+}
+
+.mobileCardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mobileCardMeta .chip {
+  padding: 4px 8px;
+}
+
+.mobileCardSub {
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+.mobileEmpty {
+  padding: 14px 12px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .boardGrid {
@@ -1408,6 +1624,23 @@
   z-index: 50;
 }
 
+.alphaModal {
+  width: min(520px, 96vw);
+  overflow: hidden;
+}
+
+.alphaModalHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 0 16px;
+}
+
+.alphaModalBody {
+  padding: 14px 16px 16px 16px;
+}
+
 .modal {
   width: min(980px, 96vw);
   max-height: 90vh;
@@ -1595,11 +1828,11 @@
     padding: 12px;
     gap: 12px;
   }
-  .nav {
-    position: relative;
-    top: auto;
-    align-self: stretch;
-    height: auto;
+  .navDesktop {
+    display: none;
+  }
+  .navDrawer .navPanelPrimary {
+    display: none;
   }
   .grid {
     grid-template-columns: 1fr;
@@ -1619,6 +1852,9 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     justify-self: auto;
+  }
+  .bagToolsRight {
+    justify-content: flex-start;
   }
   .dashBotInline {
     width: 100%;
@@ -1658,6 +1894,42 @@
 @media (max-width: 600px) {
   .shell {
     padding: 10px;
+  }
+  .navDrawer {
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: min(90vw, 360px);
+  }
+  .topbar {
+    padding: 12px 12px;
+  }
+  .topbarTitle {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .topbarLeft {
+    justify-content: flex-start;
+  }
+  .topbarH {
+    font-size: 16px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .topbarHint {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .topbarHint .chip {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .topbarHint .btn {
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .navPanel {
     margin: 0;

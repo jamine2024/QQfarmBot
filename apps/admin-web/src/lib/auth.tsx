@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type React from "react";
 
 export type AuthState = {
@@ -13,6 +13,7 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
+const UNAUTHORIZED_EVENT = "auth:unauthorized";
 
 export function AuthProvider(props: { children: React.ReactNode }): React.JSX.Element {
   const [token, setTokenState] = useState<string | null>(() => localStorage.getItem("farm_token"));
@@ -24,6 +25,12 @@ export function AuthProvider(props: { children: React.ReactNode }): React.JSX.El
   }, []);
 
   const logout = useCallback(() => setToken(null), [setToken]);
+
+  useEffect(() => {
+    const onUnauthorized = () => logout();
+    window.addEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
+  }, [logout]);
 
   const value = useMemo<AuthContextValue>(
     () => ({

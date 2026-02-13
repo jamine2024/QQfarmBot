@@ -458,6 +458,16 @@ export function createApp(services: Services): express.Express {
     })
   );
 
+  app.post(
+    "/api/logs/clear",
+    requireAuth(services.env.JWT_SECRET),
+    requireRole("admin"),
+    asyncHandler(async (_req, res) => {
+      await services.logBuffer.clear();
+      res.json({ ok: true });
+    })
+  );
+
   app.get(
     "/api/logs/:id",
     requireAuth(services.env.JWT_SECRET),
@@ -510,6 +520,8 @@ export function buildSnapshot(services: Services): CoreSnapshot {
       user: bot.user,
       farmSummary: bot.farmSummary ?? null,
       lands: bot.lands ?? null,
+      bag: bot.bag ?? null,
+      visits: bot.visits ?? null,
     },
   };
   return snapshot;

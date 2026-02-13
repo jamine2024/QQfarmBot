@@ -22,6 +22,7 @@ type Config = {
     autoWeed: boolean;
     autoBug: boolean;
     autoPlant: boolean;
+    autoFriendFarm: boolean;
     autoTask: boolean;
     autoSell: boolean;
   };
@@ -92,6 +93,7 @@ export function LandsPage(): React.JSX.Element {
     autoWeed: true,
     autoBug: true,
     autoPlant: true,
+    autoFriendFarm: true,
     autoTask: true,
     autoSell: true,
   };
@@ -103,6 +105,7 @@ export function LandsPage(): React.JSX.Element {
   const [autoWeed, setAutoWeed] = useState(Boolean(effectiveAutomation.autoWeed));
   const [autoBug, setAutoBug] = useState(Boolean(effectiveAutomation.autoBug));
   const [autoPlant, setAutoPlant] = useState(Boolean(effectiveAutomation.autoPlant));
+  const [autoFriendFarm, setAutoFriendFarm] = useState(Boolean(effectiveAutomation.autoFriendFarm));
   const [autoTask, setAutoTask] = useState(Boolean(effectiveAutomation.autoTask));
   const [autoSell, setAutoSell] = useState(Boolean(effectiveAutomation.autoSell));
 
@@ -126,6 +129,7 @@ export function LandsPage(): React.JSX.Element {
         autoWeed,
         autoBug,
         autoPlant,
+        autoFriendFarm,
         autoTask,
         autoSell,
         ...(overrides?.automation ?? {}),
@@ -151,6 +155,7 @@ export function LandsPage(): React.JSX.Element {
       autoFertilize,
       autoHarvest,
       autoPlant,
+      autoFriendFarm,
       autoSell,
       autoTask,
       autoWater,
@@ -189,8 +194,34 @@ export function LandsPage(): React.JSX.Element {
         const res = await apiFetch<ConfigReply>("/api/config", { method: "PUT", token: auth.token, body });
         if (seq !== saveSeqRef.current) return;
         setLoadedConfig(res.config);
-        const f = res.config.farming;
-        setFixedSeedId(typeof f?.fixedSeedId === "number" ? f.fixedSeedId : "");
+        setPlatform(res.config.platform);
+        setSelfIntervalSecMin(res.config.selfIntervalSecMin);
+        setSelfIntervalSecMax(res.config.selfIntervalSecMax);
+        setFriendIntervalSecMin(res.config.friendIntervalSecMin);
+        setFriendIntervalSecMax(res.config.friendIntervalSecMax);
+        const a = res.config.automation ?? {
+          autoHarvest: true,
+          autoFertilize: true,
+          autoWater: true,
+          autoWeed: true,
+          autoBug: true,
+          autoPlant: true,
+          autoFriendFarm: true,
+          autoTask: true,
+          autoSell: true,
+        };
+        const f = res.config.farming ?? { forceLowestLevelCrop: false };
+        setAutoHarvest(Boolean(a.autoHarvest));
+        setAutoFertilize(Boolean(a.autoFertilize));
+        setAutoWater(Boolean(a.autoWater));
+        setAutoWeed(Boolean(a.autoWeed));
+        setAutoBug(Boolean(a.autoBug));
+        setAutoPlant(Boolean(a.autoPlant));
+        setAutoFriendFarm(Boolean(a.autoFriendFarm));
+        setAutoTask(Boolean(a.autoTask));
+        setAutoSell(Boolean(a.autoSell));
+        setForceLowestLevelCrop(Boolean(f.forceLowestLevelCrop));
+        setFixedSeedId(typeof f.fixedSeedId === "number" ? f.fixedSeedId : "");
         setDirty(false);
         setOk("已保存");
       } catch (e: unknown) {
@@ -234,6 +265,7 @@ export function LandsPage(): React.JSX.Element {
         autoWeed: true,
         autoBug: true,
         autoPlant: true,
+        autoFriendFarm: true,
         autoTask: true,
         autoSell: true,
       };
@@ -244,6 +276,7 @@ export function LandsPage(): React.JSX.Element {
       setAutoWeed(Boolean(a.autoWeed));
       setAutoBug(Boolean(a.autoBug));
       setAutoPlant(Boolean(a.autoPlant));
+      setAutoFriendFarm(Boolean(a.autoFriendFarm));
       setAutoTask(Boolean(a.autoTask));
       setAutoSell(Boolean(a.autoSell));
       setForceLowestLevelCrop(Boolean(f.forceLowestLevelCrop));
@@ -273,6 +306,7 @@ export function LandsPage(): React.JSX.Element {
   useEffect(() => {
     const a = snapshot?.config?.automation;
     if (!a) return;
+    if (loadedConfig) return;
     if (dirty || saving) return;
     setAutoHarvest(Boolean(a.autoHarvest));
     setAutoFertilize(Boolean(a.autoFertilize));
@@ -280,17 +314,19 @@ export function LandsPage(): React.JSX.Element {
     setAutoWeed(Boolean(a.autoWeed));
     setAutoBug(Boolean(a.autoBug));
     setAutoPlant(Boolean(a.autoPlant));
+    setAutoFriendFarm(Boolean(a.autoFriendFarm));
     setAutoTask(Boolean(a.autoTask));
     setAutoSell(Boolean(a.autoSell));
-  }, [dirty, saving, snapshot?.config?.automation]);
+  }, [dirty, loadedConfig, saving, snapshot?.config?.automation]);
 
   useEffect(() => {
     const f = snapshot?.config?.farming;
     if (!f) return;
+    if (loadedConfig) return;
     if (dirty || saving) return;
     setForceLowestLevelCrop(Boolean(f.forceLowestLevelCrop));
     setFixedSeedId(typeof f.fixedSeedId === "number" ? f.fixedSeedId : "");
-  }, [dirty, saving, snapshot?.config?.farming]);
+  }, [dirty, loadedConfig, saving, snapshot?.config?.farming]);
 
   useEffect(() => {
     const p = snapshot?.config?.platform;
@@ -299,6 +335,7 @@ export function LandsPage(): React.JSX.Element {
     const friendMin = snapshot?.config?.friendIntervalSecMin;
     const friendMax = snapshot?.config?.friendIntervalSecMax;
     if (!p || selfMin == null || selfMax == null || friendMin == null || friendMax == null) return;
+    if (loadedConfig) return;
     if (dirty || saving) return;
     setPlatform(p);
     setSelfIntervalSecMin(selfMin);
@@ -308,6 +345,7 @@ export function LandsPage(): React.JSX.Element {
   }, [
     dirty,
     saving,
+    loadedConfig,
     snapshot?.config?.friendIntervalSecMax,
     snapshot?.config?.friendIntervalSecMin,
     snapshot?.config?.platform,
@@ -596,6 +634,26 @@ export function LandsPage(): React.JSX.Element {
                   setAutoPlant(next);
                   setDirty(true);
                   void saveWithOverrides({ automation: { autoPlant: next } });
+                }}
+              />
+            </label>
+            <label className="switchRow">
+              <span className="switchLabelRow">
+                <span className="switchLabel">巡视好友农场</span>
+                {typeof snapshot?.config?.automation?.autoFriendFarm === "boolean" ? (
+                  <span className={snapshot.config.automation.autoFriendFarm ? "miniPill ok" : "miniPill off"}>
+                    {snapshot.config.automation.autoFriendFarm ? "运行中：开" : "运行中：关"}
+                  </span>
+                ) : null}
+              </span>
+              <input
+                type="checkbox"
+                checked={autoFriendFarm}
+                onChange={(e) => {
+                  const next = e.target.checked;
+                  setAutoFriendFarm(next);
+                  setDirty(true);
+                  void saveWithOverrides({ automation: { autoFriendFarm: next } });
                 }}
               />
             </label>
