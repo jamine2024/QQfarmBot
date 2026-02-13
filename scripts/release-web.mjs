@@ -44,6 +44,62 @@ function createRunBat() {
   return lines.join("\r\n") + "\r\n";
 }
 
+/**
+ * 生成用于 release-web 目录的 Dockerfile。
+ */
+function createDockerfile() {
+  const lines = [
+    "FROM node:20-alpine",
+    "WORKDIR /app",
+    "",
+    "ENV NODE_ENV=production",
+    "ENV HOST=0.0.0.0",
+    "ENV PORT=8787",
+    "ENV DATA_DIR=/data/admin",
+    "ENV WEB_DIST_DIR=/app/apps/admin-web/dist",
+    "",
+    "COPY package.json package-lock.json ./",
+    "RUN npm ci --omit=dev --no-audit --no-fund",
+    "",
+    "COPY . .",
+    "EXPOSE 8787",
+    'CMD ["node", "apps/admin-server/dist/index.js"]',
+  ];
+  return lines.join("\n") + "\n";
+}
+
+/**
+ * 生成用于 release-web 目录的 .dockerignore，避免把 node_modules/data 打进镜像构建上下文。
+ */
+function createDockerIgnore() {
+  const lines = ["node_modules", "data", "logs*", ".git", ".DS_Store"];
+  return lines.join("\n") + "\n";
+}
+
+/**
+ * 生成用于 release-web 目录的 docker-compose.yml。
+ */
+function createDockerComposeYml() {
+  const lines = [
+    "services:",
+    "  farm-release-web:",
+    "    build: .",
+    "    image: farm-release-web:latest",
+    "    restart: unless-stopped",
+    "    ports:",
+    '      - "8787:8787"',
+    "    environment:",
+    '      HOST: "0.0.0.0"',
+    '      PORT: "8787"',
+    '      DATA_DIR: "/data/admin"',
+    '      WEB_DIST_DIR: "/app/apps/admin-web/dist"',
+    '      QRLIB_BASE_URL: "http://127.0.0.1:5656"',
+    "    volumes:",
+    "      - ./data:/data/admin",
+  ];
+  return lines.join("\n") + "\n";
+}
+
 function createRunSh() {
   const lines = [
     "#!/usr/bin/env bash",
@@ -140,6 +196,9 @@ async function main() {
   await fs.writeFile(path.join(outDir, "package.json"), JSON.stringify(pkg, null, 2) + "\n", "utf8");
   await fs.writeFile(path.join(outDir, "run.bat"), createRunBat(), "utf8");
   await fs.writeFile(path.join(outDir, "run.sh"), createRunSh(), "utf8");
+  await fs.writeFile(path.join(outDir, "Dockerfile"), createDockerfile(), "utf8");
+  await fs.writeFile(path.join(outDir, ".dockerignore"), createDockerIgnore(), "utf8");
+  await fs.writeFile(path.join(outDir, "docker-compose.yml"), createDockerComposeYml(), "utf8");
   await fs.chmod(path.join(outDir, "run.sh"), 0o755);
 
   run(["install", "--omit=dev", "--no-audit", "--no-fund"], outDir);

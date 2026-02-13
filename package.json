@@ -13,6 +13,7 @@
     "admin:server": "npm --workspace apps/admin-server run dev",
     "admin:web": "npm --workspace apps/admin-web run dev",
     "release:web": "node scripts/release-web.mjs",
+    "release:web:docker": "npm run release:web && docker build -t farm-release-web:latest -f dist/release-web/Dockerfile dist/release-web",
     "lint": "npm --workspaces run lint",
     "typecheck": "npm --workspaces run typecheck",
     "test": "npm --workspaces run test"
