@@ -16,6 +16,10 @@ let plantMap = new Map();  // id -> plant
 let seedToPlant = new Map();  // seed_id -> plant
 let fruitToPlant = new Map();  // fruit_id -> plant (果实ID -> 植物)
 
+// ============ 物品配置 ============
+let itemInfoConfig = null;
+let itemInfoMap = new Map(); // item_id -> item config
+
 /**
  * 加载配置文件
  */
@@ -59,6 +63,23 @@ function loadConfigs() {
         }
     } catch (e) {
         console.warn('[配置] 加载 Plant.json 失败:', e.message);
+    }
+
+    // 加载物品配置
+    try {
+        const itemInfoPath = path.join(configDir, 'ItemInfo.json');
+        itemInfoConfig = null;
+        itemInfoMap.clear();
+        if (fs.existsSync(itemInfoPath)) {
+            itemInfoConfig = JSON.parse(fs.readFileSync(itemInfoPath, 'utf8'));
+            for (const item of itemInfoConfig) {
+                const id = Number(item.id) || 0;
+                if (id > 0) itemInfoMap.set(id, item);
+            }
+            console.log(`[配置] 已加载物品配置 (${itemInfoMap.size} 条)`);
+        }
+    } catch (e) {
+        console.warn('[配置] 加载 ItemInfo.json 失败:', e.message);
     }
 }
 
@@ -239,6 +260,36 @@ function getPlantByFruitId(fruitId) {
     return fruitToPlant.get(fruitId);
 }
 
+// ============ 物品配置相关 ============
+
+/**
+ * 根据物品ID获取物品配置
+ * @param {number} itemId - 物品ID
+ */
+function getItemInfoById(itemId) {
+    const id = Number(itemId) || 0;
+    return itemInfoMap.get(id) || null;
+}
+
+/**
+ * 根据物品ID获取名称（优先覆盖配置，再查 ItemInfo）
+ * @param {number} itemId - 物品ID
+ */
+function getItemName(itemId) {
+    const id = Number(itemId) || 0;
+    const itemInfo = getItemInfoById(id);
+    if (itemInfo && itemInfo.name) {
+        return String(itemInfo.name);
+    }
+    const seedPlant = seedToPlant.get(id);
+    if (seedPlant) return `${seedPlant.name}种子`;
+
+    const fruitPlant = fruitToPlant.get(id);
+    if (fruitPlant) return `${fruitPlant.name}果实`;
+
+    return `未知物品`;
+}
+
 // 启动时加载配置
 loadConfigs();
 
@@ -260,4 +311,6 @@ module.exports = {
     // 果实配置
     getFruitName,
     getPlantByFruitId,
+    // 物品配置
+    getItemName,
 };

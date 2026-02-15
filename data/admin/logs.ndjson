@@ -72,3 +72,5 @@
 {"id":"e799282c-e541-46d6-aa04-e044da70168a","ts":"2026-02-14T13:22:17.520Z","level":"info","scope":"CONFIG","message":"已下发运行时配置","details":{"automation":{"autoHarvest":true,"autoFertilize":true,"autoWater":true,"autoWeed":true,"autoBug":true,"autoPlant":true,"autoFriendFarm":true,"autoTask":true,"autoSell":true},"farming":{"forceLowestLevelCrop":false,"forceLatestLevelCrop":true,"disableAutoRecommend":true,"fixedSeedId":null}}}
 {"id":"4702ed9a-6c1c-4cdc-9a95-4829734611d8","ts":"2026-02-14T13:40:48.582Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
 {"id":"76e56b62-bfc0-4cad-84f7-5470d3498bf7","ts":"2026-02-14T13:40:48.613Z","level":"info","scope":"SERVER","message":"Listening on http://127.0.0.1:8787","details":{"ws":"ws://127.0.0.1:8787/ws"}}
+{"id":"79f01925-1cb2-4088-84eb-5f66e64889f8","ts":"2026-02-15T02:18:45.058Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"92005f39-a1e9-4f41-ae95-ecf0c8c24b1b","ts":"2026-02-15T02:18:45.073Z","level":"info","scope":"SERVER","message":"Listening on http://127.0.0.1:8787","details":{"ws":"ws://127.0.0.1:8787/ws"}}

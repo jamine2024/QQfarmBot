@@ -2105,6 +2105,33 @@
   .floatingStatusBtn {
     display: inline-flex;
   }
+  .landsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .landTile {
+    padding: 8px 8px 8px 8px;
+  }
+  .landName {
+    font-size: 12px;
+  }
+  .landId {
+    font-size: 11px;
+  }
+  .landSub {
+    font-size: 11px;
+  }
+  .phasePill {
+    height: 20px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+  .landsPage .switchList {
+    grid-template-columns: 1fr;
+  }
+  .landsPage .formGrid.four-cols {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 600px) {
@@ -2361,6 +2388,75 @@
   }
   .stats.statsCompact {
     grid-template-columns: 1fr;
+  }
+  .landsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .landTile {
+    padding: 7px 7px 7px 7px;
+    border-radius: 12px;
+  }
+  .landTop {
+    gap: 6px;
+  }
+  .landName {
+    font-size: 11px;
+  }
+  .landId {
+    font-size: 10px;
+  }
+  .landSub {
+    font-size: 10px;
+    margin-top: 4px;
+    gap: 4px;
+  }
+  .phasePill {
+    height: 18px;
+    padding: 0 7px;
+    font-size: 10px;
+  }
+  .landIcons {
+    margin-top: 6px;
+    gap: 6px;
+  }
+  .landIcon {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    padding: 1px;
+  }
+  .landsPage .switchList {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .landsPage .switchRow {
+    padding: 7px 7px;
+    border-radius: 10px;
+  }
+  .landsPage .switchLabel {
+    font-size: 11px;
+  }
+  .landsPage .fieldInput {
+    padding: 9px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .landsPage .fieldHint {
+    font-size: 10px;
+  }
+  .landsPage .divider {
+    margin: 10px 0;
+  }
+  .landsPage .miniPill {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  .landsPage .compactCard .cardHeader {
+    padding: 8px 10px 0 10px;
+  }
+  .landsPage .compactCard .cardBody {
+    padding: 8px 10px 10px 10px;
   }
 }
 

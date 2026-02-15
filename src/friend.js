@@ -16,6 +16,10 @@ let friendCheckTimer = null;
 let friendLoopRunning = false;
 let lastResetDate = '';  // 上次重置日期 (YYYY-MM-DD)
 
+// 经验追踪：记录帮助前的 dayExpTimes，操作后对比是否增长
+const expTracker = new Map();       // opId -> 帮助前的 dayExpTimes
+const expExhausted = new Set();     // 经验已耗尽的操作类型
+
 // 操作限制状态 (从服务器响应中更新)
 // 操作类型ID (根据游戏代码):
 // 10001 = 收获, 10002 = 铲除, 10003 = 放草, 10004 = 放虫
@@ -35,10 +39,10 @@ const OP_NAMES = {
 };
 
 // 配置: 是否只在有经验时才帮助好友  
-const HELP_ONLY_WITH_EXP = true; // !!!无效，暂时无法判断。有修复方法但是暂时没打算更新出来
+const HELP_ONLY_WITH_EXP = true; // 只在有经验时帮助好友（已更新可用）
 
 // 配置: 是否启用放虫放草功能
-const ENABLE_PUT_BAD_THINGS = false;  // 无效！！！开启后会多次访问朋友导致被拉黑 请勿更改暂时关闭放虫放草功能
+const ENABLE_PUT_BAD_THINGS = false;  // 是否启用放虫放草功能（暂不可用 必须关闭，否则有严重的后果）
 
 // ============ 好友 API ============
 
@@ -82,16 +86,26 @@ async function leaveFriendFarm(friendGid) {
     } catch (e) { /* 离开失败不影响主流程 */ }
 }
 
+function getLocalDateKey() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
 /**
  * 检查是否需要重置每日限制 (0点刷新)
  */
 function checkDailyReset() {
-    const today = new Date().toISOString().slice(0, 10);  // YYYY-MM-DD
+    const today = getLocalDateKey();  // YYYY-MM-DD
     if (lastResetDate !== today) {
         if (lastResetDate !== '') {
             log('系统', '跨日重置，清空操作限制缓存');
         }
         operationLimits.clear();
+        expExhausted.clear();
+        expTracker.clear();
         lastResetDate = today;
     }
 }
@@ -105,25 +119,53 @@ function updateOperationLimits(limits) {
     for (const limit of limits) {
         const id = toNum(limit.id);
         if (id > 0) {
+            const newExpTimes = toNum(limit.day_exp_times);
             const data = {
                 dayTimes: toNum(limit.day_times),
                 dayTimesLimit: toNum(limit.day_times_lt),
-                dayExpTimes: toNum(limit.day_exp_times),
+                dayExpTimes: newExpTimes,
                 dayExpTimesLimit: toNum(limit.day_ex_times_lt),  // 注意: 字段名是 day_ex_times_lt (少个p)
             };
             operationLimits.set(id, data);
+
+            // 经验追踪：如果之前标记了某操作，检查 dayExpTimes 是否增长
+            if (expTracker.has(id)) {
+                const prevExpTimes = expTracker.get(id);
+                expTracker.delete(id);
+                if (newExpTimes <= prevExpTimes && !expExhausted.has(id)) {
+                    // 帮了好友但经验没涨 → 经验耗尽
+                    expExhausted.add(id);
+                    const name = OP_NAMES[id] || `#${id}`;
+                    log('限制', `${name} 经验已耗尽 (已获${newExpTimes}次)`);
+                }
+            }
         }
     }
 }
 
 /**
  * 检查某操作是否还能获得经验
+ * dayExpTimesLimit 始终为0（服务器不提供），通过追踪 dayExpTimes 变化来判断
  */
 function canGetExp(opId) {
+    if (expExhausted.has(opId)) return false;  // 已确认耗尽
     const limit = operationLimits.get(opId);
-    if (!limit) return false;  // 没有限制信息，保守起见不帮助（等待农场检查获取限制）
-    if (limit.dayExpTimesLimit <= 0) return true;  // 没有经验上限
-    return limit.dayExpTimes < limit.dayExpTimesLimit;
+    if (!limit) return true;  // 没数据，允许尝试
+    // dayExpTimesLimit > 0 时按它来（虽然目前始终为0，留作兼容）
+    if (limit.dayExpTimesLimit > 0) {
+        return limit.dayExpTimes < limit.dayExpTimesLimit;
+    }
+    return true;  // 等追踪机制检测耗尽
+}
+
+/**
+ * 帮助操作前调用：记录当前 dayExpTimes，操作后对比
+ */
+function markExpCheck(opId) {
+    const limit = operationLimits.get(opId);
+    if (limit) {
+        expTracker.set(opId, limit.dayExpTimes);
+    }
 }
 
 /**
@@ -372,6 +414,7 @@ async function visitFriend(friend, totalActions, myGid) {
     if (status.needWeed.length > 0) {
         const shouldHelp = !HELP_ONLY_WITH_EXP || canGetExp(10005);  // 10005=除草
         if (shouldHelp) {
+            markExpCheck(10005);
             let ok = 0;
             for (const landId of status.needWeed) {
                 try { await helpWeed(gid, [landId]); ok++; } catch (e) { /* ignore */ }
@@ -384,6 +427,7 @@ async function visitFriend(friend, totalActions, myGid) {
     if (status.needBug.length > 0) {
         const shouldHelp = !HELP_ONLY_WITH_EXP || canGetExp(10006);  // 10006=除虫
         if (shouldHelp) {
+            markExpCheck(10006);
             let ok = 0;
             for (const landId of status.needBug) {
                 try { await helpInsecticide(gid, [landId]); ok++; } catch (e) { /* ignore */ }
@@ -396,6 +440,7 @@ async function visitFriend(friend, totalActions, myGid) {
     if (status.needWater.length > 0) {
         const shouldHelp = !HELP_ONLY_WITH_EXP || canGetExp(10007);  // 10007=浇水
         if (shouldHelp) {
+            markExpCheck(10007);
             let ok = 0;
             for (const landId of status.needWater) {
                 try { await helpWater(gid, [landId]); ok++; } catch (e) { /* ignore */ }

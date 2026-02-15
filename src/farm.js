@@ -14,6 +14,7 @@ const {
     formatGrowTime,
     getPlantGrowTime,
     getPlantBySeedId,
+    getItemName,
 } = require('./gameConfig');
 const { getPlantingRecommendation } = require('../tools/calc-exp-yield');
 
@@ -440,7 +441,8 @@ async function autoPlantEmptyLands(deadLandIds, emptyLandIds, unlockedLandCount)
             const gotItem = buyReply.get_items[0];
             const gotId = toNum(gotItem.id);
             const gotCount = toNum(gotItem.count);
-            log('购买', `获得物品: id=${gotId} count=${gotCount}`);
+            const itemName = getItemName(gotId);
+            log('购买', `获得物品: ${itemName}(id=${gotId}) count=${gotCount}`);
             if (gotId > 0) actualSeedId = gotId;
         }
         if (buyReply.cost_items) {
