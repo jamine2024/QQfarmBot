@@ -8,6 +8,11 @@ export function AboutPage(): React.JSX.Element {
         <GlassCard title="关于" subtitle="开源信息与免责声明" className="compactCard">
           <div className="aboutStack">
             <div className="aboutBlock">
+              <div className="aboutH">版本</div>
+              <div className="aboutP mono">V1.9.0</div>
+            </div>
+
+            <div className="aboutBlock">
               <div className="aboutH">声明</div>
               <div className="aboutP">程序完全免费，请勿用于商业。</div>
             </div>

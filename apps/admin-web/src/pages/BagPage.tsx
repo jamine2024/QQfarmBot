@@ -4,7 +4,7 @@ import { useData } from "../lib/data";
 import { formatDateTime } from "../lib/format";
 import { GlassCard } from "../ui/GlassCard";
 
-type BagKind = "all" | "gold" | "seed" | "fruit" | "item";
+type BagKind = "gold" | "seed" | "fruit" | "item";
 type SortKey = "name" | "id" | "kind" | "count" | "unitPriceGold" | "totalGold";
 type SortDir = "asc" | "desc";
 
@@ -119,7 +119,7 @@ export function BagPage(): React.JSX.Element {
   const data = useData();
   const bag = data.snapshot?.bot?.bag ?? null;
   const totalCount = bag?.items?.length ?? 0;
-  const [kind, setKind] = useState<BagKind>("all");
+  const [kind, setKind] = useState<BagKind>("fruit");
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("totalGold");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -147,7 +147,7 @@ export function BagPage(): React.JSX.Element {
     const raw = bag?.items ?? [];
     const q = search.trim().toLowerCase();
     const filtered = raw.filter((x) => {
-      if (kind !== "all" && x.kind !== kind) return false;
+      if (x.kind !== kind) return false;
       if (!q) return true;
       const hay = `${x.name} ${x.id} ${x.kind} ${formatKind(x.kind)}`.toLowerCase();
       return hay.includes(q);
@@ -161,7 +161,7 @@ export function BagPage(): React.JSX.Element {
     const compacted = compactBagItems(withTotal);
 
     compacted.sort((a, b) => {
-      const kindRank: Record<(typeof a)["kind"], number> = { gold: 0, seed: 1, fruit: 2, item: 3 };
+      const kindRank: Record<(typeof a)["kind"], number> = { fruit: 0, seed: 1, item: 2, gold: 3 };
       const dir = sortDir === "asc" ? 1 : -1;
       const cmpNullLast = (av: number | null, bv: number | null): number => {
         if (av == null && bv == null) return 0;
@@ -215,27 +215,15 @@ export function BagPage(): React.JSX.Element {
               <div className="seg" role="tablist" aria-label="背包类型筛选">
                 <button
                   type="button"
-                  className={kind === "all" ? "segBtn active" : "segBtn"}
+                  className={kind === "fruit" ? "segBtn active" : "segBtn"}
                   onClick={(e) => {
                     e.preventDefault();
-                    setKind("all");
+                    setKind("fruit");
                   }}
                   role="tab"
-                  aria-selected={kind === "all"}
+                  aria-selected={kind === "fruit"}
                 >
-                  全部
-                </button>
-                <button
-                  type="button"
-                  className={kind === "gold" ? "segBtn active" : "segBtn"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setKind("gold");
-                  }}
-                  role="tab"
-                  aria-selected={kind === "gold"}
-                >
-                  货币
+                  果实
                 </button>
                 <button
                   type="button"
@@ -251,18 +239,6 @@ export function BagPage(): React.JSX.Element {
                 </button>
                 <button
                   type="button"
-                  className={kind === "fruit" ? "segBtn active" : "segBtn"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setKind("fruit");
-                  }}
-                  role="tab"
-                  aria-selected={kind === "fruit"}
-                >
-                  果实
-                </button>
-                <button
-                  type="button"
                   className={kind === "item" ? "segBtn active" : "segBtn"}
                   onClick={(e) => {
                     e.preventDefault();
@@ -272,6 +248,18 @@ export function BagPage(): React.JSX.Element {
                   aria-selected={kind === "item"}
                 >
                   道具
+                </button>
+                <button
+                  type="button"
+                  className={kind === "gold" ? "segBtn active" : "segBtn"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKind("gold");
+                  }}
+                  role="tab"
+                  aria-selected={kind === "gold"}
+                >
+                  货币
                 </button>
               </div>
             </div>

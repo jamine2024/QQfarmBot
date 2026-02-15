@@ -230,7 +230,7 @@ export function Shell(props: ShellProps): React.JSX.Element {
             <Link to="/" className="brand">
               <div className="brandText">
                 <div className="brandName">Farm Console</div>
-                <div className="brandSub">WebUI 管理台</div>
+                <div className="brandSub">WebUI 管理台 <span className="mono">V1.9.0</span></div>
               </div>
             </Link>
           </div>
@@ -303,7 +303,7 @@ export function Shell(props: ShellProps): React.JSX.Element {
                 >
                   <div className="brandText">
                     <div className="brandName">Farm Console</div>
-                    <div className="brandSub">WebUI 管理台</div>
+                    <div className="brandSub">WebUI 管理台 <span className="mono">V1.9.0</span></div>
                   </div>
                 </Link>
               </div>

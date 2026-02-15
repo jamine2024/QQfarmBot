@@ -8,6 +8,7 @@ import { apiFetch, type ApiError } from "../lib/api";
 import { useAuth } from "../lib/auth";
 
 type DashboardTab = "logs" | "overview";
+type LogFilter = "all" | "farm" | "warehouse" | "gain" | "limit" | "friend" | "bot";
 type QrCreateReply = { success: boolean; qrsig?: string; qrcode?: string; url?: string; isMiniProgram?: boolean };
 type QrCheckReply = {
   success: boolean;
@@ -101,7 +102,7 @@ export function DashboardPage(): React.JSX.Element {
 
   const [logSelectedId, setLogSelectedId] = useState<string | null>(null);
   const [logAutoScroll, setLogAutoScroll] = useState(true);
-  const [logScopeFilter, setLogScopeFilter] = useState<"all" | "farm" | "friend">("all");
+  const [logScopeFilter, setLogScopeFilter] = useState<LogFilter>("all");
   const [logSearch, setLogSearch] = useState("");
   const logBottomRef = useRef<HTMLDivElement | null>(null);
   const [logClearing, setLogClearing] = useState(false);
@@ -570,8 +571,29 @@ export function DashboardPage(): React.JSX.Element {
   const logDisplay = useMemo(() => {
     const q = logSearch.trim().toLowerCase();
     const filtered = data.logs.filter((x) => {
-      if (logScopeFilter === "farm" && !x.scope.includes("农场")) return false;
-      if (logScopeFilter === "friend" && !x.scope.includes("好友")) return false;
+      if (logScopeFilter !== "all") {
+        const scopeMap: Record<string, LogFilter> = {
+          "农场": "farm",
+          "仓库": "warehouse",
+          "收益": "gain",
+          "限制": "limit",
+          "好友": "friend",
+          "系统": "bot",
+          "种植": "farm",
+          "商店": "farm",
+          "施肥": "farm",
+          "除草": "farm",
+          "除虫": "farm",
+          "浇水": "farm",
+          "收获": "farm",
+          "铲除": "farm",
+          "购买": "farm",
+          "任务": "bot",
+          "巡田": "friend",
+        };
+        const mapped = scopeMap[x.scope];
+        if (mapped !== logScopeFilter) return false;
+      }
       if (!q) return true;
       return (
         x.scope.toLowerCase().includes(q) ||
@@ -778,24 +800,48 @@ export function DashboardPage(): React.JSX.Element {
               className="compactCard"
             >
               <div className="dashLogTools">
-                <div className="seg">
+                <div className="logFilters">
                   <button
-                    className={logScopeFilter === "all" ? "segBtn active" : "segBtn"}
+                    className={logScopeFilter === "all" ? "logFilterBtn active" : "logFilterBtn"}
                     onClick={() => setLogScopeFilter("all")}
                   >
                     所有
                   </button>
                   <button
-                    className={logScopeFilter === "farm" ? "segBtn active" : "segBtn"}
+                    className={logScopeFilter === "farm" ? "logFilterBtn active" : "logFilterBtn"}
                     onClick={() => setLogScopeFilter("farm")}
                   >
                     农场
                   </button>
                   <button
-                    className={logScopeFilter === "friend" ? "segBtn active" : "segBtn"}
+                    className={logScopeFilter === "warehouse" ? "logFilterBtn active" : "logFilterBtn"}
+                    onClick={() => setLogScopeFilter("warehouse")}
+                  >
+                    仓库
+                  </button>
+                  <button
+                    className={logScopeFilter === "gain" ? "logFilterBtn active" : "logFilterBtn"}
+                    onClick={() => setLogScopeFilter("gain")}
+                  >
+                    收益
+                  </button>
+                  <button
+                    className={logScopeFilter === "limit" ? "logFilterBtn active" : "logFilterBtn"}
+                    onClick={() => setLogScopeFilter("limit")}
+                  >
+                    限制
+                  </button>
+                  <button
+                    className={logScopeFilter === "friend" ? "logFilterBtn active" : "logFilterBtn"}
                     onClick={() => setLogScopeFilter("friend")}
                   >
                     好友
+                  </button>
+                  <button
+                    className={logScopeFilter === "bot" ? "logFilterBtn active" : "logFilterBtn"}
+                    onClick={() => setLogScopeFilter("bot")}
+                  >
+                    BOT
                   </button>
                 </div>
                 <input className="fieldInput" value={logSearch} onChange={(e) => setLogSearch(e.target.value)} placeholder="搜索 scope / message / 时间" />

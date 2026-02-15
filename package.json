@@ -1,6 +1,6 @@
 {
   "name": "farm",
-  "version": "1.0.0",
+  "version": "1.9.0",
   "description": "基于 Node.js 的 QQ/微信 经典农场小程序自动化挂机脚本。通过分析小程序 WebSocket 通信协议（Protocol Buffers），实现全自动农场管理。\r 本脚本基于ai制作，必然有一定的bug，遇到了建议自己克服一下，后续不一定会更新了",
   "license": "ISC",
   "author": "",

@@ -6,15 +6,44 @@ import { formatDateTime } from "../lib/format";
 import { GlassCard } from "../ui/GlassCard";
 import { Button } from "../ui/Button";
 
+type LogFilter = "all" | "farm" | "warehouse" | "gain" | "limit" | "friend" | "bot";
+
 export function LogsPage(): React.JSX.Element {
   const auth = useAuth();
   const data = useData();
 
   const [selected, setSelected] = useState<LogEntry | null>(null);
   const [autoScroll, setAutoScroll] = useState(true);
+  const [filter, setFilter] = useState<LogFilter>("all");
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const display = useMemo(() => data.logs.slice(-600), [data.logs]);
+  const display = useMemo(() => {
+    const all = data.logs.slice(-600);
+    if (filter === "all") return all;
+    const scopeMap: Record<string, LogFilter> = {
+      "农场": "farm",
+      "仓库": "warehouse",
+      "收益": "gain",
+      "限制": "limit",
+      "好友": "friend",
+      "系统": "bot",
+      "种植": "farm",
+      "商店": "farm",
+      "施肥": "farm",
+      "除草": "farm",
+      "除虫": "farm",
+      "浇水": "farm",
+      "收获": "farm",
+      "铲除": "farm",
+      "购买": "farm",
+      "任务": "bot",
+      "巡田": "friend",
+    };
+    return all.filter((x) => {
+      const mapped = scopeMap[x.scope];
+      return mapped === filter;
+    });
+  }, [data.logs, filter]);
 
   useEffect(() => {
     if (!autoScroll) return;
@@ -68,6 +97,25 @@ export function LogsPage(): React.JSX.Element {
           }
         >
           <div className="tableTools">
+            <div className="logFilters">
+              {[
+                { value: "all" as LogFilter, label: "所有" },
+                { value: "farm" as LogFilter, label: "农场" },
+                { value: "warehouse" as LogFilter, label: "仓库" },
+                { value: "gain" as LogFilter, label: "收益" },
+                { value: "limit" as LogFilter, label: "限制" },
+                { value: "friend" as LogFilter, label: "好友" },
+                { value: "bot" as LogFilter, label: "BOT" },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  className={["logFilterBtn", filter === opt.value ? "active" : ""].filter(Boolean).join(" ")}
+                  onClick={() => setFilter(opt.value)}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
             <label className="toggle">
               <input type="checkbox" checked={autoScroll} onChange={(e) => setAutoScroll(e.target.checked)} />
               <span>自动滚动</span>
