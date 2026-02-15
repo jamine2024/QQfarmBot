@@ -99,6 +99,7 @@ export type Snapshot = {
         phase: number | null;
         phaseName: string | null;
         timeLeftSec: number | null;
+        progress: number | null;
         needWater: boolean;
         needWeed: boolean;
         needBug: boolean;

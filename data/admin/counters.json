@@ -1,21 +1,23 @@
 {
-  "updatedAt": "2026-02-12T03:24:07.034Z",
+  "updatedAt": "2026-02-15T04:24:05.407Z",
   "gains": {
-    "gold": 0,
+    "gold": 4674,
     "exp": 0
   },
   "actions": {
-    "water": 0,
-    "bug": 0,
-    "weed": 0,
+    "water": 2,
+    "bug": 2,
+    "weed": 1,
     "fertilize": 0,
     "plant": 0,
     "harvest": 0,
     "remove": 0,
-    "steal": 0,
+    "steal": 14,
     "putBug": 0,
     "putWeed": 0
   },
-  "crops": {},
+  "crops": {
+    "白萝卜": 14
+  },
   "items": {}
 }

@@ -490,25 +490,42 @@ export function LandsPage(): React.JSX.Element {
           ) : (
             <div className="landsGrid">
               {(lands?.items ?? []).map((x) => (
-                <div key={x.id} className={["landTile", x.unlocked ? "unlocked" : "locked"].join(" ")}>
+                <div 
+                  key={x.id} 
+                  className={["landTile", x.unlocked ? "unlocked" : "locked"].join(" ")}
+                >
                   <div className="landTop">
                     <div className="landName">{x.cropName ?? "空闲"}</div>
                     <div className="landId">#{x.id}</div>
                   </div>
                   <div className="landSub">
-                    <span
-                      className={[
-                        "phasePill",
-                        `phase-${x.unlocked ? getPhaseVariant(x.phase) : "locked"}`,
-                        x.phase === 6 ? "phase-breathe" : "",
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      {x.phaseName ?? (x.unlocked ? "空闲" : "未解锁")}
-                    </span>
-                    <span className="muted">·</span>
-                    <span className="muted">{x.timeLeftSec == null ? "—" : `${formatSec(x.timeLeftSec)}`}</span>
+                    <div className="landSubRow">
+                      <span
+                        className={[
+                          "phasePill",
+                          `phase-${x.unlocked ? getPhaseVariant(x.phase) : "locked"}`,
+                          x.phase === 6 ? "phase-breathe" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+                        {x.phaseName ?? (x.unlocked ? "空闲" : "未解锁")}
+                      </span>
+                      <div className="landRightCol">
+                        {x.progress != null ? (
+                          <div className="landProgressBar">
+                            <div 
+                              className="landProgressFill"
+                              style={{ width: `${x.progress}%` }}
+                            />
+                          </div>
+                        ) : null}
+                        <span className="landTimeText">
+                          {x.timeLeftSec == null ? "—" : `${formatSec(x.timeLeftSec)}`}
+                          {x.progress != null ? ` (${x.progress.toFixed(0)}%)` : ""}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   {x.needWater || x.needWeed || x.needBug ? (
                     <div className="landIcons" aria-label="异常提示">

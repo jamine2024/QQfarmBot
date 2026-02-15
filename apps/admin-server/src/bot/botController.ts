@@ -32,6 +32,7 @@ type BotStatus = {
       phase: number | null;
       phaseName: string | null;
       timeLeftSec: number | null;
+      progress: number | null;
       needWater: boolean;
       needWeed: boolean;
       needBug: boolean;
@@ -555,6 +556,7 @@ export class BotController {
             phase: null,
             phaseName: null,
             timeLeftSec: null,
+            progress: null,
             needWater: false,
             needWeed: false,
             needBug: false,
@@ -569,6 +571,7 @@ export class BotController {
             phase: null,
             phaseName: null,
             timeLeftSec: null,
+            progress: null,
             needWater: false,
             needWeed: false,
             needBug: false,
@@ -580,9 +583,40 @@ export class BotController {
         const phaseVal = typeof currentPhase?.phase === "number" ? currentPhase.phase : null;
         const phaseName = phaseVal != null ? PHASE_NAMES[phaseVal] ?? `阶段${phaseVal}` : null;
 
-        const mature = (plant.phases as Array<{ phase?: unknown; begin_time?: unknown }>).find((p) => Number(p?.phase) === 6);
+        const phases = plant.phases as Array<{ phase?: unknown; begin_time?: unknown }>;
+        const firstPhase = phases[0];
+        const mature = phases.find((p) => Number(p?.phase) === 6);
+        const firstAt = firstPhase ? toTimeSec(firstPhase.begin_time) : 0;
         const matureAt = mature ? toTimeSec(mature.begin_time) : 0;
         const timeLeftSec = matureAt > 0 ? Math.max(0, matureAt - nowSec) : null;
+        
+        let progress: number | null = null;
+        
+        if (phaseVal != null && phaseVal >= 1 && phaseVal <= 7) {
+          const phaseProgressMap: Record<number, number> = {
+            1: 10,
+            2: 25,
+            3: 40,
+            4: 60,
+            5: 80,
+            6: 100,
+            7: 0,
+          };
+          
+          progress = phaseProgressMap[phaseVal] ?? 0;
+          
+          if (timeLeftSec != null && matureAt > 0 && firstAt > 0) {
+            const totalGrow = matureAt - firstAt;
+            if (totalGrow > 0) {
+              const elapsed = totalGrow - timeLeftSec;
+              if (elapsed >= 0) {
+                progress = Math.min(100, Math.max(0, (elapsed / totalGrow) * 100));
+              }
+            }
+          }
+        } else {
+          progress = 0;
+        }
 
         const dryNum = Number(plant.dry_num ?? 0);
         const dryTime = currentPhase ? toTimeSec(currentPhase.dry_time) : 0;
@@ -601,6 +635,7 @@ export class BotController {
           phase: phaseVal,
           phaseName,
           timeLeftSec,
+          progress,
           needWater,
           needWeed,
           needBug,

@@ -228,11 +228,16 @@ export function DashboardPage(): React.JSX.Element {
         stopQrPolling();
         setQrOpen(false);
 
-        if (!botRunning) {
-          await startBotWithCode(nextCode, startPlatform, "qr");
-        } else {
-          setActionError("已填入 code，bot 已在运行");
+        if (botRunning) {
+          setQrStatus("正在停止旧 bot...");
+          try {
+            await apiFetch("/api/bot/stop", { method: "POST", token: auth.token });
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } catch {
+          }
         }
+        
+        await startBotWithCode(nextCode, startPlatform, "qr");
         return;
       }
       if (data.ret === "65") {
