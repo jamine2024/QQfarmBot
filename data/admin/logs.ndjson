@@ -434,3 +434,5 @@
 {"id":"c5dc21f1-572d-4a9f-bb94-d260f36fd3f4","ts":"2026-02-15T08:40:15.692Z","level":"info","scope":"农场","message":"收到推送: 1块土地变化，检查中..."}
 {"id":"ff8ff16b-abed-436a-b8be-648bf8f0a30d","ts":"2026-02-15T08:40:39.998Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
 {"id":"9ba56b5a-e909-4b1e-8dc1-89b2a4919442","ts":"2026-02-15T08:40:40.014Z","level":"info","scope":"SERVER","message":"Listening on http://127.0.0.1:8787","details":{"ws":"ws://127.0.0.1:8787/ws"}}
+{"id":"9911390d-653d-4438-979b-a1ec33cf7430","ts":"2026-02-15T09:27:47.790Z","level":"info","scope":"SERVER","message":"Admin server booting..."}
+{"id":"0c01448e-8228-47c1-b576-0ec78063bf53","ts":"2026-02-15T09:27:47.849Z","level":"info","scope":"SERVER","message":"Listening on http://127.0.0.1:8787","details":{"ws":"ws://127.0.0.1:8787/ws"}}
